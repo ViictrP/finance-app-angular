@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="h-full flex flex-col justify-start mt-20">
+    <p class="text-xl">Entrar</p>
+    <p class="text-sm">
+      ao continuar, você concorda com nosso <b>Contrato de Usuário</b> e nossa <b>Política de Privacidade</b></p>
+    <div class="mt-4">
+      <form [formGroup]="formGroup" (ngSubmit)="login()">
+        <div class="mb-5">
+          <input
+            name="username"
+            formControlName="username"
+            class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
+            type="text"
+            placeholder="Usuário"/>
+          <p *ngIf="username?.invalid && username?.touched" id="username-error-message" class="text-red-600">Este campo
+            é obrigatório</p>
+        </div>
+        <div class="mb-5">
+          <input
+            name="password"
+            formControlName="password"
+            class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
+            type="password"
+            placeholder="Senha"/>
+          <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">Este campo
+            é obrigatório</p>
+        </div>
+        <button
+          [disabled]="formGroup.invalid"
+          class="w-full mt-8 px-4 py-3 text-xl bg-blue-500 disabled:bg-blue-900 disabled:text-gray-600 rounded-lg active:outline-pink-800 focus:outline-pink-800 focus:outline-8"
+          type="submit">
+          entrar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
