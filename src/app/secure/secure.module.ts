@@ -5,11 +5,15 @@ import {FormModule} from '../form.module';
 import {ApiModule} from '../api.module';
 import {RoutingModule} from '../routing.module';
 import {CommonModule} from '@angular/common';
+import { HeaderComponent } from './components/header/header.component';
+import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 
 @NgModule({
   declarations: [
     SecureComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    BottomNavComponent
   ],
   imports: [
     CommonModule,
