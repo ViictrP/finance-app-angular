@@ -13,16 +13,16 @@ export class LoginComponent {
 
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
-              private service: LoginService) {
+  constructor(private readonly formBuilder: FormBuilder,
+              private readonly service: LoginService) {
     this.formGroup = formBuilder.group({
-      username: [null, Validators.required],
+      email: [null, Validators.required],
       password: [null, Validators.required]
     });
   }
 
-  get username() {
-    return this.formGroup.get('username');
+  get email() {
+    return this.formGroup.get('email');
   }
 
   get password() {

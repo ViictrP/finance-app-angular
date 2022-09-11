@@ -1,4 +1,4 @@
-<div class="container">
+<div class="wrapper">
   <div class="h-full flex flex-col justify-start mt-20">
     <p class="text-xl">Entrar</p>
     <p class="text-sm">
@@ -7,13 +7,13 @@
       <form [formGroup]="formGroup" (ngSubmit)="login()">
         <div class="mb-5">
           <input
-            name="username"
-            formControlName="username"
+            name="email"
+            formControlName="email"
             class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
             type="text"
             placeholder="Usuário"/>
-          <p *ngIf="username?.invalid && username?.touched" id="username-error-message" class="text-red-600">Este campo
-            é obrigatório</p>
+          <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
         </div>
         <div class="mb-5">
           <input
@@ -22,8 +22,8 @@
             class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
             type="password"
             placeholder="Senha"/>
-          <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">Este campo
-            é obrigatório</p>
+          <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
         </div>
         <button
           [disabled]="formGroup.invalid"

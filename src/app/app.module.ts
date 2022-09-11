@@ -6,6 +6,7 @@ import {routing} from './app.routing.module';
 import {PublicModule} from './public/public.module';
 import {SecureModule} from './secure/secure.module';
 import {SharedModule} from './shared/shared.module';
+import {GuardsModule} from './guards/guards.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {SharedModule} from './shared/shared.module';
   ],
 	imports: [
 		BrowserModule,
+    GuardsModule,
     routing,
     SharedModule,
     PublicModule,

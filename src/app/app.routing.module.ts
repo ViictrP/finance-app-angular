@@ -1,6 +1,7 @@
 import {AppComponent} from './app.component';
 import {LoginComponent} from './public/components/login/login.component';
 import {RouterModule, Routes} from '@angular/router';
+import {GuestGuard} from './guards/guest.guard';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -13,7 +14,8 @@ export const APP_ROUTES: Routes = [{
     },
     {
       path: 'login',
-      component: LoginComponent
+      component: LoginComponent,
+      canActivate: [GuestGuard]
     }
   ]
 }];

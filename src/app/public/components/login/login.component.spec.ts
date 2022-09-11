@@ -31,13 +31,13 @@ describe('LoginComponent', () => {
 
   it('should initialize the login form', () => {
     component.formGroup.setValue({
-      username: 'admin@admin.com',
+      email: 'admin@admin.com',
       password: 'password'
     });
 
-    const usernameValue = component.username?.value;
+    const emailValue = component.email?.value;
     const passwordValue = component.password?.value;
-    expect(usernameValue).toStrictEqual('admin@admin.com');
+    expect(emailValue).toStrictEqual('admin@admin.com');
     expect(passwordValue).toStrictEqual('password');
   });
 
@@ -45,13 +45,13 @@ describe('LoginComponent', () => {
     const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => of({accessToken: ''}));
     const handleSuccessSpy = jest.spyOn(component, 'handleSuccess');
     component.formGroup.setValue({
-      username: 'admin@admin.com',
+      email: 'admin@admin.com',
       password: 'password'
     });
 
     component.login();
     expect(loginSpy).toHaveBeenCalledWith({
-      username: 'admin@admin.com',
+      email: 'admin@admin.com',
       password: 'password'
     });
     expect(handleSuccessSpy).toHaveBeenCalledWith({accessToken: ''});
@@ -61,13 +61,13 @@ describe('LoginComponent', () => {
     const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => throwError(() => {}));
     const handleErrorSpy = jest.spyOn(component, 'handleError');
     component.formGroup.setValue({
-      username: 'admin@admin.com',
+      email: 'admin@admin.com',
       password: 'password'
     });
 
     component.login();
     expect(loginSpy).toHaveBeenCalledWith({
-      username: 'admin@admin.com',
+      email: 'admin@admin.com',
       password: 'password'
     });
     expect(handleErrorSpy).toHaveBeenCalled();
