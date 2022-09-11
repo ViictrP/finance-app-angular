@@ -2,22 +2,23 @@ import {NgModule} from '@angular/core';
 import {LoginComponent} from './components/login/login.component';
 import {LoginService} from './services/login.service';
 import {CookieService} from 'ngx-cookie-service';
-import {SharedModule} from '../shared/shared.module';
+import {FormModule} from '../form.module';
+import {ApiModule} from '../api.module';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
     LoginComponent
   ],
   imports: [
-    SharedModule
+    CommonModule,
+    FormModule,
+    ApiModule
   ],
   providers: [
     LoginService,
     CookieService
-  ],
-  exports: [
-    SharedModule,
-    LoginComponent
   ]
 })
-export class PublicModule { }
+export class PublicModule {
+}

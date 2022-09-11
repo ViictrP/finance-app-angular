@@ -4,10 +4,10 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-secured',
-  templateUrl: './secured.component.html',
-  styleUrls: ['./secured.component.css']
+  templateUrl: './secure.component.html',
+  styleUrls: ['./secure.component.css']
 })
-export class SecuredComponent {
+export class SecureComponent {
 
   constructor(private readonly loginService: LoginService,
               private readonly router: Router) {
