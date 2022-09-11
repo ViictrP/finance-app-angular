@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server_host: 'https://finance-app-backend-production.up.railway.app'
+  server_host: process.env["SERVER_HOST"]
 };
