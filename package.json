@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run test && ng build --aot",
+    "build:prod": "npm run test && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "jest --silent --noStackTrace",
     "prepare": "husky install"
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "ngx-cookie-service": "^14.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

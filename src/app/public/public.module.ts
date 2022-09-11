@@ -1,23 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 import {LoginComponent} from './components/login/login.component';
-import {ReactiveFormsModule} from '@angular/forms';
 import {LoginService} from './services/login.service';
-import {HttpClientModule} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     LoginComponent
   ],
   imports: [
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule
+    SharedModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    CookieService
   ],
   exports: [
+    SharedModule,
     LoginComponent
   ]
 })
