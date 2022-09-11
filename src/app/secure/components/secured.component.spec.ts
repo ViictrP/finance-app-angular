@@ -2,7 +2,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SecuredComponent} from './secured.component';
 import {LoginService} from '../../public/services/login.service';
-import {SharedModule} from '../../shared/shared.module';
 import {PublicModule} from '../../public/public.module';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -17,7 +16,6 @@ describe('SecuredComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SecuredComponent],
       imports: [
-        SharedModule,
         PublicModule,
         RouterTestingModule
       ],
