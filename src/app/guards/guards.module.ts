@@ -11,8 +11,7 @@ import {LoggedInGuard} from './logged-in.guard';
   providers: [
     GuestGuard,
     LoggedInGuard
-  ],
-  exports: []
+  ]
 })
 export class GuardsModule {
 }

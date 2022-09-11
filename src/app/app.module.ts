@@ -1,8 +1,8 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {AppComponent} from './app.component';
-import {routing} from './app.routing.module';
+import {AppComponent} from './components/app.component';
+import {RoutingModule} from './routing.module';
 import {PublicModule} from './public/public.module';
 import {SecureModule} from './secure/secure.module';
 import {GuardsModule} from './guards/guards.module';
@@ -12,8 +12,8 @@ import {GuardsModule} from './guards/guards.module';
     AppComponent
   ],
 	imports: [
-    routing,
 		BrowserModule,
+    RoutingModule,
     GuardsModule,
     PublicModule,
     SecureModule
