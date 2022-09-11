@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SecuredComponent} from './secured.component';
+import {SecureComponent} from './secure.component';
 import {LoginService} from '../../public/services/login.service';
 import {PublicModule} from '../../public/public.module';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SecuredComponent', () => {
-  let component: SecuredComponent;
-  let fixture: ComponentFixture<SecuredComponent>;
+  let component: SecureComponent;
+  let fixture: ComponentFixture<SecureComponent>;
   let loginService: LoginService;
   let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SecuredComponent],
+      declarations: [SecureComponent],
       imports: [
         PublicModule,
         RouterTestingModule
@@ -22,7 +22,7 @@ describe('SecuredComponent', () => {
       providers: [LoginService]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SecuredComponent);
+    fixture = TestBed.createComponent(SecureComponent);
     component = fixture.componentInstance;
     loginService = TestBed.inject(LoginService);
     router = TestBed.inject(Router);

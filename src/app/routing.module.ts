@@ -2,7 +2,7 @@ import {AppComponent} from './components/app.component';
 import {LoginComponent} from './public/components/login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {GuestGuard} from './guards/guest.guard';
-import {SecuredComponent} from './secure/components/secured.component';
+import {SecureComponent} from './secure/components/secure.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
 import {HomeComponent} from './secure/components/home/home.component';
 import {NgModule} from '@angular/core';
@@ -23,7 +23,7 @@ export const APP_ROUTES: Routes = [{
     },
     {
       path: 'secure',
-      component: SecuredComponent,
+      component: SecureComponent,
       canActivate: [LoggedInGuard],
       children: [
         {

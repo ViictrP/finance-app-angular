@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
 
   formGroup: FormGroup;
+  loading = false;
 
   constructor(private readonly formBuilder: FormBuilder,
               private readonly service: LoginService,
@@ -31,14 +32,17 @@ export class LoginComponent {
   }
 
   handleError(error: any) {
+    this.loading = false;
     console.log(error);
   }
 
   handleSuccess() {
+    this.loading = false;
     this.router.navigate(['/secure/home']);
   }
 
   login() {
+    this.loading = true;
     const request = this.formGroup.value as LoginRequest;
     this.service.login(request)
       .subscribe({
