@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
-import LoginRequest from '../../../entities/login.request';
+import LoginRequest from '../../../dto/login.request';
 import {Router} from '@angular/router';
 
 @Component({

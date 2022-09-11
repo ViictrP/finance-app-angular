@@ -2,7 +2,7 @@ import {LoginService} from './login.service';
 import {HttpClient} from '@angular/common/http';
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import LoginRequest from '../../entities/login.request';
+import LoginRequest from '../../dto/login.request';
 import {environment} from '../../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 import {of} from 'rxjs';
@@ -26,12 +26,6 @@ describe('LoginService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Should keep the access token', () => {
-    const accessToken = 'token';
-    service.accessToken$ = accessToken;
-    service.currentAccessToken$.subscribe(token => expect(token).toStrictEqual(accessToken));
-  });
-
   it('Should return boolean when isLoggedIn is called', () => {
     const isLoggedIn = service.isLoggedIn;
     expect(isLoggedIn).toBeFalsy();
@@ -45,7 +39,6 @@ describe('LoginService', () => {
     service.login(request).subscribe(() => {
       expect(setCookieSpy).toHaveBeenCalledWith('access_token', 'TOKEN');
     });
-    service.currentAccessToken$.subscribe(token => expect(token).toStrictEqual('TOKEN'));
     tick(5000);
     expect(postSpy).toHaveBeenCalledWith(
       `${environment.server_host}/login`,
