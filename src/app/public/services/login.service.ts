@@ -31,4 +31,8 @@ export class LoginService {
         tap(data => this.accessToken$ = data.accessToken)
       );
   }
+
+  logOut() {
+    this.cookieService.delete('access_token');
+  }
 }

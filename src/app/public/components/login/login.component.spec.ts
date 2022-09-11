@@ -5,23 +5,31 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {of, throwError} from 'rxjs';
+import {Router} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let service: LoginService;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       providers: [LoginService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(LoginService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -44,6 +52,7 @@ describe('LoginComponent', () => {
   it('given a valid login request object then should handle login with success', () => {
     const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => of({accessToken: ''}));
     const handleSuccessSpy = jest.spyOn(component, 'handleSuccess');
+    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation(jest.fn());
     component.formGroup.setValue({
       email: 'admin@admin.com',
       password: 'password'
@@ -54,12 +63,15 @@ describe('LoginComponent', () => {
       email: 'admin@admin.com',
       password: 'password'
     });
-    expect(handleSuccessSpy).toHaveBeenCalledWith({accessToken: ''});
+    expect(handleSuccessSpy).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['/secure/home']);
   });
 
   it('given a valid login request object then should handle login with error', () => {
-    const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => throwError(() => {}));
+    const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => throwError(() => {
+    }));
     const handleErrorSpy = jest.spyOn(component, 'handleError');
+    const navigateSpy = jest.spyOn(router, 'navigate');
     component.formGroup.setValue({
       email: 'admin@admin.com',
       password: 'password'
@@ -71,5 +83,6 @@ describe('LoginComponent', () => {
       password: 'password'
     });
     expect(handleErrorSpy).toHaveBeenCalled();
+    expect(navigateSpy).not.toHaveBeenCalled();
   });
 });

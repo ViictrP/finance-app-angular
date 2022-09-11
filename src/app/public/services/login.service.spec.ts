@@ -52,4 +52,13 @@ describe('LoginService', () => {
       {...request}
     );
   }));
+
+  it('Should log out with success', () => {
+    const deleteCookieSpy = jest.spyOn(cookieService, 'delete');
+    service.logOut();
+    const isLoggedIn = service.isLoggedIn;
+
+    expect(deleteCookieSpy).toHaveBeenCalledWith('access_token');
+    expect(isLoggedIn).toBeFalsy();
+  });
 });

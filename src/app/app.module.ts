@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {routing} from './app.routing.module';
 import {PublicModule} from './public/public.module';
 import {SecureModule} from './secure/secure.module';
-import {SharedModule} from './shared/shared.module';
 import {GuardsModule} from './guards/guards.module';
 
 @NgModule({
@@ -13,10 +12,9 @@ import {GuardsModule} from './guards/guards.module';
     AppComponent
   ],
 	imports: [
+    routing,
 		BrowserModule,
     GuardsModule,
-    routing,
-    SharedModule,
     PublicModule,
     SecureModule
 	],

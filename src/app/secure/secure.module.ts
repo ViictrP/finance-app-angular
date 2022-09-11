@@ -1,12 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import {NgModule} from '@angular/core';
+import {SharedModule} from '../shared/shared.module';
+import {SecuredComponent} from './components/secured.component';
+import {HomeComponent} from './components/home/home.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SecuredComponent,
+    HomeComponent
+  ],
   imports: [
-    CommonModule
+    SharedModule
+  ],
+  exports: [
+    SharedModule,
+    SecuredComponent,
+    HomeComponent
   ]
 })
 export class SecureModule { }

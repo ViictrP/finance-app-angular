@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
 import LoginRequest from '../../../entities/login.request';
-import LoginResponse from '../../../entities/login.response';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,8 @@ export class LoginComponent {
   formGroup: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder,
-              private readonly service: LoginService) {
+              private readonly service: LoginService,
+              private readonly router: Router) {
     this.formGroup = formBuilder.group({
       email: [null, Validators.required],
       password: [null, Validators.required]
@@ -29,20 +30,20 @@ export class LoginComponent {
     return this.formGroup.get('password');
   }
 
-  handleError(data: LoginResponse) {
-    console.log(data);
+  handleError(error: any) {
+    console.log(error);
   }
 
-  handleSuccess(error: any) {
-    console.log(error);
+  handleSuccess() {
+    this.router.navigate(['/secure/home']);
   }
 
   login() {
     const request = this.formGroup.value as LoginRequest;
     this.service.login(request)
       .subscribe({
-        next: this.handleSuccess,
-        error: this.handleError
+        next: () => this.handleSuccess(),
+        error: error => this.handleError(error)
       });
   }
 }
