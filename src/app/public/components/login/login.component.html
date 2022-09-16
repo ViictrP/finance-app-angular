@@ -6,22 +6,26 @@
     <div class="mt-4">
       <form [formGroup]="formGroup" (ngSubmit)="login()">
         <div class="mb-5">
-          <input
+          <app-input
+            id="username"
+            icon="ph-user"
+            placeholder="Usuário"
             name="email"
-            formControlName="email"
-            class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
-            type="text"
-            placeholder="Usuário"/>
+            [invalid]="email?.invalid ?? false"
+            formControlName="email"></app-input>
           <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
         <div class="mb-5">
-          <input
+          <app-input
+            id="password"
             name="password"
             formControlName="password"
-            class="px-4 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 focus:outline-0"
+            icon="ph-lock-fill"
             type="password"
-            placeholder="Senha"/>
+            [invalid]="password?.invalid ?? false"
+            placeholder="Senha">
+          </app-input>
           <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
