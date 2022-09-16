@@ -5,6 +5,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {FormModule} from '../form.module';
 import {ApiModule} from '../api.module';
 import {CommonModule} from '@angular/common';
+import {LibModule} from '../lib/lib.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {CommonModule} from '@angular/common';
   imports: [
     CommonModule,
     FormModule,
-    ApiModule
+    ApiModule,
+    LibModule
   ],
   providers: [
     LoginService,
