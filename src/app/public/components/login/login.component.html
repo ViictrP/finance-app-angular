@@ -29,13 +29,14 @@
           <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
-        <button
-          [disabled]="formGroup.invalid"
-          class="w-full mt-8 px-4 py-3 text-xl bg-blue-500 disabled:bg-blue-900 disabled:text-gray-600 rounded-lg active:outline-pink-800 focus:outline-pink-800 focus:outline-8"
+        <app-loading-button
+          class="w-full"
+          [loading]="loading"
+          [disabled]="formGroup.invalid || loading"
+          loadingLabel="acessando..."
           type="submit">
-          entrar
-        </button>
-        <span *ngIf="loading">loading...</span>
+          Entrar
+        </app-loading-button>
       </form>
     </div>
   </div>
