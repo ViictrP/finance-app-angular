@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../../public/services/login.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -10,7 +10,7 @@ import {UserService} from '../../services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   user$?: Observable<User>;
 

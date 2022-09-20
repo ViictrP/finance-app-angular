@@ -6,6 +6,7 @@ import {SecureComponent} from './secure/components/secure.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
 import {HomeComponent} from './secure/components/home/home.component';
 import {NgModule} from '@angular/core';
+import {CreditCardsComponent} from './secure/components/credit-cards/credit-cards.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -29,6 +30,10 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'home',
           component: HomeComponent
+        },
+        {
+          path: 'credit-cards',
+          component: CreditCardsComponent
         }
       ]
     }
