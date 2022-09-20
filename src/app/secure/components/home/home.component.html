@@ -1,6 +1,5 @@
-<div>
-  <p *ngIf="user$ | async as user;"
-     class="text-xl">
+<div class="h-full" *ngIf="user$ | async as user">
+  <p class="text-xl">
     salário&nbsp;
     <span class="text-sky-500 font-bold">{{user.salary | currency: 'BRL'}}</span>
   </p>
@@ -20,3 +19,4 @@
     <app-card></app-card>
   </div>
 </div>
+
