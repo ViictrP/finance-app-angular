@@ -8,19 +8,23 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './components/header/header.component';
 import {BottomNavComponent} from './components/bottom-nav/bottom-nav.component';
 import {UserService} from './services/user.service';
+import {LibModule} from '../lib/lib.module';
+import { CreditCardsComponent } from './components/credit-cards/credit-cards.component';
 
 @NgModule({
   declarations: [
     SecureComponent,
     HomeComponent,
     HeaderComponent,
-    BottomNavComponent
+    BottomNavComponent,
+    CreditCardsComponent
   ],
   imports: [
     CommonModule,
     RoutingModule,
     FormModule,
-    ApiModule
+    ApiModule,
+    LibModule
   ],
   providers: [UserService]
 })
