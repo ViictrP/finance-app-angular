@@ -10,10 +10,10 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
         [name]="name"
         [(ngModel)]="value"
         [disabled]="disabled"
-        [type]="type"
+        [type]="inputType"
         [placeholder]="placeholder"
         (input)="valueChanged()"
-        class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 border-1 border-zinc-900 bg-zinc-900 border-2 border-transparent focus:outline-0 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500'}} transition ease-in-out duration-150"
+        class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 border-{{invalid && touched ? 'red-500' : 'transparent'}} focus:ring focus:ring-sky-500 transition ease-in-out duration-150"
       />
       <i class="absolute top-[15px] left-2 text-2xl {{icon}}"></i>
       <button
@@ -37,7 +37,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() id = '';
   @Input() value = '';
   @Input() name = '';
-  @Input() type = 'text';
+  @Input() inputType = 'text';
   @Input() icon = '';
   @Input() invalid = false;
   @Input() placeholder = 'Example';
