@@ -16,13 +16,13 @@
           <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
-        <div class="mb-5">
+        <div class="mb-5 bg-transparent">
           <app-input
             id="password"
             name="password"
             formControlName="password"
             icon="ph-lock-fill"
-            type="password"
+            inputType="password"
             [invalid]="password?.invalid ?? false"
             placeholder="Senha">
           </app-input>
