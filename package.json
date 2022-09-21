@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "npm run test && ng build --aot",
     "build:prod": "npm run test && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
@@ -35,6 +35,7 @@
     "@angular-eslint/template-parser": "14.0.4",
     "@angular/cli": "~14.2.2",
     "@angular/compiler-cli": "^14.2.0",
+    "@tailwindcss/forms": "^0.5.3",
     "@types/jest": "^28.1.3",
     "@types/node": "^18.7.16",
     "@typescript-eslint/eslint-plugin": "5.36.2",
@@ -45,6 +46,7 @@
     "jest": "^28.1.3",
     "jest-preset-angular": "^12.2.2",
     "postcss": "^8.4.16",
+    "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.1.8",
     "typescript": "~4.7.2"
   },

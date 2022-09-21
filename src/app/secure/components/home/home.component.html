@@ -1,22 +1,102 @@
-<div class="h-full" *ngIf="user$ | async as user">
+<div class="h-full text-zinc-200" *ngIf="user$ | async as user">
   <p class="text-xl">
     salário&nbsp;
     <span class="text-sky-500 font-bold">{{user.salary | currency: 'BRL'}}</span>
   </p>
-  <div class="mt-10">
-    <app-card class="h-44"></app-card>
+  <div class="mt-4">
+    <app-card>
+      <div class="h-44 flex">
+        <p class="m-auto text-5xl text-zinc-500">Line Chart</p>
+      </div>
+    </app-card>
   </div>
   <div class="mt-10">
     <p class="text-2xl mb-4">Impacto nos gastos</p>
-    <div class="flex flex-row gap-4">
-      <div class="h-10 w-24 bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full"></div>
-      <div class="h-10 w-24 bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full"></div>
-      <div class="h-10 w-24 bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full"></div>
+    <div class="flex overflow-x-auto gap-4 scrollbar-none">
+      <div class="flex px-4 py-1 w-min-[50px] text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
+        <p class="m-auto">Nubank <span class="text-xl">25%</span></p>
+      </div>
+      <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
+        <p class="m-auto">Porto <span class="text-xl">50%</span></p>
+      </div>
+      <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
+        <p class="m-auto">Sams <span class="text-xl">25%</span></p>
+      </div>
+      <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
+        <p class="m-auto">Sams <span class="text-xl">25%</span></p>
+      </div>
     </div>
   </div>
   <div class="mt-10">
     <p class="text-2xl mb-4">Transações</p>
-    <app-card></app-card>
+    <div class="mb-2">
+      <app-card>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+              <i class="ph-fork-knife-fill"></i>
+              Restaurante
+            </p>
+            <p class="text-zinc-500">30/jul</p>
+          </div>
+          <div class="flex flex-row justify-between">
+            <p class="my-auto text-lg">McDonalds Radial</p>
+            <p class="my-auto text-yellow-500 text-xl">R$ 38,90</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="mb-2">
+      <app-card>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+              <i class="ph-fork-knife-fill"></i>
+              Restaurante
+            </p>
+            <p class="text-zinc-500">18/ago</p>
+          </div>
+          <div class="flex flex-row justify-between">
+            <p class="my-auto text-lg">Burger King Shop. Itaquera</p>
+            <p class="my-auto text-yellow-500 text-xl">R$ 72,87</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="mb-2">
+      <app-card>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+              <i class="ph-shopping-bag-fill"></i>
+              Internet
+            </p>
+            <p class="text-zinc-500">18/ago</p>
+          </div>
+          <div class="flex flex-row justify-between">
+            <p class="my-auto text-lg">Mercado Livre Osasco</p>
+            <p class="my-auto text-yellow-500 text-xl">R$ 49,99</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="mb-2">
+      <app-card>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+              <i class="ph-shopping-cart-fill"></i>
+              Mercado
+            </p>
+            <p class="text-zinc-500">18/ago</p>
+          </div>
+          <div class="flex flex-row justify-between">
+            <p class="my-auto text-lg">Assai Jacu-pêssego</p>
+            <p class="my-auto text-yellow-500 text-xl">R$ 649,99</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
   </div>
 </div>
 
