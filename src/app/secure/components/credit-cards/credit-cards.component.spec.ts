@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreditCardsComponent } from './credit-cards.component';
+import {CreditCardsComponent} from './credit-cards.component';
+import {UserService} from '../../services/user.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -8,9 +10,10 @@ describe('CreditCardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreditCardsComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [CreditCardsComponent],
+      providers: [UserService]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CreditCardsComponent);
     component = fixture.componentInstance;

@@ -1,3 +1,11 @@
-<div class="px-4">
-  <p>credit-cards works!</p>
+<p class="text-2xl mb-4 px-4">Cartões</p>
+<div class="px-6 flex overflow-auto gap-4 scrollbar-none"
+     style="scroll-snap-type: x mandatory; scroll-snap-stop: normal; scroll-behavior: smooth; scroll-padding: 2rem;">
+  <ng-container *ngFor="let creditCard of user?.creditCards">
+    <app-card>
+      <div style="scroll-snap-align: start; flex: 0 0 100%" class="w-[80vw] h-[130px] block text-xl p-4">
+        {{creditCard.title}}
+      </div>
+    </app-card>
+  </ng-container>
 </div>
