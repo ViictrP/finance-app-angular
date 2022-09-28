@@ -1,11 +1,21 @@
 <p class="text-2xl mb-4 px-4">Cartões</p>
 <div class="px-6 flex overflow-auto gap-4 scrollbar-none"
      style="scroll-snap-type: x mandatory; scroll-snap-stop: normal; scroll-behavior: smooth; scroll-padding: 2rem;">
-  <ng-container *ngFor="let creditCard of user?.creditCards">
+  <ng-container *ngFor="let creditCard of user?.creditCards;">
     <app-card>
-      <div style="scroll-snap-align: start; flex: 0 0 100%" class="w-[80vw] h-[130px] block text-xl p-4">
+      <div [id]="creditCard.id"
+           appObserveElement
+           [isContinuous]="true"
+           [debounceTime]="5000"
+           style="scroll-snap-align: start; flex: 0 0 100%"
+           (isIntersecting)="selectCreditCard($event)"
+           class="credit-card-carousel-item w-[80vw] h-[130px] block text-xl p-4">
         {{creditCard.title}}
       </div>
     </app-card>
   </ng-container>
+</div>
+<div *ngIf="selectedCreditCard" class="px-4 mt-10">
+  <p>{{selectedCreditCard.title}}</p>
+  <p>{{selectedCreditCard.number}}</p>
 </div>

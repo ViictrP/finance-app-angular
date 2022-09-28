@@ -59,6 +59,10 @@
       "./node_modules/",
       "./dist/"
     ],
+    "coveragePathIgnorePatterns": [
+      ".module.ts",
+      ".directive.ts"
+    ],
     "collectCoverage": true,
     "coverageDirectory": "coverage",
     "coverageThreshold": {
