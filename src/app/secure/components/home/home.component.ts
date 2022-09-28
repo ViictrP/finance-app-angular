@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 import User from '../../../entities/User';
 import {UserService} from '../../services/user.service';
 
@@ -10,14 +10,16 @@ import {UserService} from '../../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  user$?: Observable<User>;
+  user?: User;
+  private subs = new Subscription();
 
   constructor(private readonly userService: UserService) {
-
   }
 
   ngOnInit(): void {
-    this.user$ = this.userService.currentUser;
+    this.subs.add(this.userService.currentUser.subscribe(user => {
+      this.user = user;
+    }));
   }
 
 }

@@ -5,13 +5,15 @@ import {ButtonComponent} from './components/buttons/button.component';
 import {CommonModule} from '@angular/common';
 import {LoadingButtonComponent} from './components/buttons/loading-button.component';
 import {CardComponent} from './components/card/card.component';
+import {ChipComponent} from './components/chip/chip.component';
 
 @NgModule({
   declarations: [
     InputComponent,
     ButtonComponent,
     LoadingButtonComponent,
-    CardComponent
+    CardComponent,
+    ChipComponent
   ],
   imports: [FormModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -19,7 +21,8 @@ import {CardComponent} from './components/card/card.component';
     InputComponent,
     ButtonComponent,
     LoadingButtonComponent,
-    CardComponent
+    CardComponent,
+    ChipComponent
   ]
 })
 export class LibModule {

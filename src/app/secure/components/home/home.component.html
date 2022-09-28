@@ -1,7 +1,7 @@
-<div class="text-zinc-200 px-4" *ngIf="user$ | async as user">
+<div class="text-zinc-200 px-4">
   <p class="text-xl">
     salário&nbsp;
-    <span class="text-sky-500 font-bold">{{user.salary | currency: 'BRL'}}</span>
+    <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
   </p>
   <div class="mt-4">
     <app-card>
@@ -13,89 +13,31 @@
 </div>
 <div class="mt-10">
   <p class="text-2xl mb-4 px-4">Impacto nos gastos</p>
-  <div class="flex overflow-x-auto gap-4 scrollbar-none">
-    <div class="flex ml-4 px-4 py-1 w-min-[50px] text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
-      <p class="m-auto">Nubank <span class="text-xl">25%</span></p>
-    </div>
-    <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
-      <p class="m-auto">Porto <span class="text-xl">50%</span></p>
-    </div>
-    <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
-      <p class="m-auto">Sams <span class="text-xl">25%</span></p>
-    </div>
-    <div class="flex px-4 py-1 text-center bg-zinc-900 border-[0.5px] border-zinc-800 rounded-full">
-      <p class="m-auto">Sams <span class="text-xl">25%</span></p>
-    </div>
+  <div class="flex overflow-x-auto scrollbar-none">
+    <ng-container *ngFor="let creditCard of user?.creditCards">
+      <app-chip [title]="creditCard.title" [color]="creditCard.backgroundColor" description="25%"></app-chip>
+    </ng-container>
   </div>
 </div>
 <div class="mt-10 mb-32 px-4">
   <p class="text-2xl mb-4">Transações</p>
-  <div class="mb-2">
-    <app-card>
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row justify-between">
-          <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-            <i class="ph-fork-knife-fill"></i>
-            Restaurante
-          </p>
-          <p class="text-zinc-500">30/jul</p>
+  <ng-container *ngFor="let transaction of user?.transactions">
+    <div class="mb-2">
+      <app-card>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-row justify-between">
+            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+              <i class="ph-fork-knife-fill"></i>
+              {{transaction.category}}
+            </p>
+            <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>
+          </div>
+          <div class="flex flex-row justify-between">
+            <p class="my-auto text-lg">{{transaction.description}}</p>
+            <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+          </div>
         </div>
-        <div class="flex flex-row justify-between">
-          <p class="my-auto text-lg">McDonalds Radial</p>
-          <p class="my-auto text-yellow-500 text-xl">R$ 38,90</p>
-        </div>
-      </div>
-    </app-card>
-  </div>
-  <div class="mb-2">
-    <app-card>
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row justify-between">
-          <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-            <i class="ph-fork-knife-fill"></i>
-            Restaurante
-          </p>
-          <p class="text-zinc-500">18/ago</p>
-        </div>
-        <div class="flex flex-row justify-between">
-          <p class="my-auto text-lg">Burger King Shop. Itaquera</p>
-          <p class="my-auto text-yellow-500 text-xl">R$ 72,87</p>
-        </div>
-      </div>
-    </app-card>
-  </div>
-  <div class="mb-2">
-    <app-card>
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row justify-between">
-          <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-            <i class="ph-shopping-bag-fill"></i>
-            Internet
-          </p>
-          <p class="text-zinc-500">18/ago</p>
-        </div>
-        <div class="flex flex-row justify-between">
-          <p class="my-auto text-lg">Mercado Livre Osasco</p>
-          <p class="my-auto text-yellow-500 text-xl">R$ 49,99</p>
-        </div>
-      </div>
-    </app-card>
-  </div>
-  <div class="mb-2">
-    <app-card>
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row justify-between">
-          <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-            <i class="ph-shopping-cart-fill"></i>
-            Mercado
-          </p>
-          <p class="text-zinc-500">18/ago</p>
-        </div>
-        <div class="flex flex-row justify-between">
-          <p class="my-auto text-lg">Assai Jacu-pêssego</p>
-          <p class="my-auto text-yellow-500 text-xl">R$ 649,99</p>
-        </div>
-      </div>
-    </app-card>
-  </div>
+      </app-card>
+    </div>
+  </ng-container>
 </div>
