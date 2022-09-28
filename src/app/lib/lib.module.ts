@@ -6,6 +6,7 @@ import {CommonModule} from '@angular/common';
 import {LoadingButtonComponent} from './components/buttons/loading-button.component';
 import {CardComponent} from './components/card/card.component';
 import {ChipComponent} from './components/chip/chip.component';
+import {ObservableDirective} from './directives/observable.directive';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {ChipComponent} from './components/chip/chip.component';
     ButtonComponent,
     LoadingButtonComponent,
     CardComponent,
-    ChipComponent
+    ChipComponent,
+    ObservableDirective
   ],
   imports: [FormModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -22,7 +24,8 @@ import {ChipComponent} from './components/chip/chip.component';
     ButtonComponent,
     LoadingButtonComponent,
     CardComponent,
-    ChipComponent
+    ChipComponent,
+    ObservableDirective
   ]
 })
 export class LibModule {
