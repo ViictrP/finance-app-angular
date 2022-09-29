@@ -1,25 +1,52 @@
-<p class="text-2xl mb-4 px-4">Cartões</p>
+<p class="text-2xl mb-4 px-4">Filtrar cartões</p>
+<div class="px-4">
+  <app-input
+    placeholder="filtrar cartões..."
+    (changed)="filterCreditCards($event)">
+  </app-input>
+</div>
+<p class="text-2xl mb-4 mt-10 px-4">Cartões</p>
 <div class="px-6 flex overflow-auto gap-4 scrollbar-none"
      style="scroll-snap-type: x mandatory; scroll-snap-stop: normal; scroll-behavior: smooth; scroll-padding: 2rem;">
-  <ng-container *ngFor="let creditCard of user?.creditCards;">
-    <app-card>
+  <ng-container *ngFor="let creditCard of creditCards;">
+    <app-card [color]="creditCard.backgroundColor">
       <div [id]="creditCard.id"
            appObserveElement
            [isContinuous]="true"
            [debounceTime]="5000"
            style="scroll-snap-align: start; flex: 0 0 100%"
            (isIntersecting)="selectCreditCard($event)"
-           class="credit-card-carousel-item w-[80vw] h-[170px] block text-xl p-4">
+           class="credit-card-carousel-item w-[80vw] h-[130px] block text-xl p-4">
         {{creditCard.title}}
       </div>
     </app-card>
   </ng-container>
+  <ng-container *ngIf="creditCards?.length === 0">
+    <div class="w-full flex flex-col items-center justify-center h-36">
+      <img class="w-[64px] h-[64px]" src="../../../../assets/img/credit-card.png" alt="Credit Card Icon" />
+      <p class="text-neutral-300">Nenhum cartão encontrado</p>
+    </div>
+  </ng-container>
 </div>
 <div *ngIf="selectedCreditCard" class="px-4 mt-10">
-  <p class="text-3xl">{{selectedCreditCard.title}}</p>
-  <p>{{selectedCreditCard.number}}</p>
+  <div class="flex flex-row justify-between items-center">
+    <div class="text-left">
+      <p class="text-3xl">{{selectedCreditCard.title}}</p>
+      <p>{{selectedCreditCard.number}}</p>
+    </div>
+    <div class="text-right">
+      <button class="mb-2">menu</button>
+      <p class="text-xl font-bold text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
+    </div>
+  </div>
   <div class="mt-4 mb-32">
-    <ng-container *ngFor="let transaction of selectedCreditCard!.invoices[0].transactions">
+    <div class="mb-4">
+      <app-input
+        placeholder="filtrar transações do {{selectedCreditCard.title}}..."
+        (changed)="filterTransactions($event)">
+      </app-input>
+    </div>
+    <ng-container *ngFor="let transaction of transactions">
       <div class="mb-4">
         <app-card>
           <div class="flex flex-col gap-2">
@@ -36,6 +63,12 @@
             </div>
           </div>
         </app-card>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="transactions.length === 0">
+      <div class="w-full flex flex-col items-center justify-center h-36">
+        <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon" />
+        <p class="text-neutral-300">Nenhum lançamento encontrado</p>
       </div>
     </ng-container>
   </div>
