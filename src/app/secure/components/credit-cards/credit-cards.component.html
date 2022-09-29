@@ -1,6 +1,7 @@
 <p class="text-2xl mb-4 px-4">Filtrar cartões</p>
 <div class="px-4">
   <app-input
+    icon="ph-magnifying-glass"
     placeholder="filtrar cartões..."
     (changed)="filterCreditCards($event)">
   </app-input>
@@ -42,6 +43,7 @@
   <div class="mt-4 mb-32">
     <div class="mb-4">
       <app-input
+        icon="ph-magnifying-glass"
         placeholder="filtrar transações do {{selectedCreditCard.title}}..."
         (changed)="filterTransactions($event)">
       </app-input>
