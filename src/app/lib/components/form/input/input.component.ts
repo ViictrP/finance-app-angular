@@ -15,7 +15,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
         (input)="valueChanged()"
         class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500 border-zinc-900'}} transition ease-in-out duration-150"
       />
-      <i class="absolute top-[15px] left-2 text-2xl {{icon}}"></i>
+      <i class="absolute top-[15px] left-2 text-2xl text-zinc-300 {{icon}}"></i>
       <button
         *ngIf="value"
         (click)="clear()"
