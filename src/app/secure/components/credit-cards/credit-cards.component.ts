@@ -23,7 +23,10 @@ export class CreditCardsComponent implements OnInit {
   }
 
   private get userTransactions(): Transaction[] {
-    return this.selectedCreditCard!.invoices[0].transactions;
+    if (this.selectedCreditCard?.invoices.length) {
+      return this.selectedCreditCard?.invoices[0].transactions;
+    }
+    return [];
   }
 
   private get userCreditCards(): CreditCard[] {
