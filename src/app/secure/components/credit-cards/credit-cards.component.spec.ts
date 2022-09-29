@@ -4,6 +4,8 @@ import {CreditCardsComponent} from './credit-cards.component';
 import {UserService} from '../../services/user.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import User from '../../../entities/User';
+import {InputComponent} from '../../../lib/components/form/input/input.component';
+import {FormModule} from '../../../form.module';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -12,8 +14,8 @@ describe('CreditCardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [CreditCardsComponent],
+      imports: [HttpClientTestingModule, FormModule],
+      declarations: [CreditCardsComponent, InputComponent],
       providers: [UserService]
     }).compileComponents();
 
@@ -21,6 +23,21 @@ describe('CreditCardsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     service = TestBed.inject(UserService);
+  });
+
+  beforeEach(() => {
+    component.user = {
+      creditCards: [{
+        id: 'test',
+        invoices: [{
+          id: 'test',
+          transactions: [{
+            id: 'test',
+            description: 'test'
+          }]
+        }]
+      }]
+    } as User;
   });
 
   it('should create', () => {
@@ -35,19 +52,8 @@ describe('CreditCardsComponent', () => {
   });
 
   it('Should select credit card by id', () => {
-    component.user = {creditCards: [{id: 'test'}]} as User;
     component.selectCreditCard('test');
 
     expect(component.selectedCreditCard!.id).toStrictEqual('test');
-  });
-
-  it('Should not select credit card if user doesnt have the credit card', () => {
-    component.user = {creditCards: [{id: 'test'}]} as User;
-    component.selectCreditCard('other');
-    component.selectCreditCard(null as any);
-    component.user = null as any;
-    component.selectCreditCard('other');
-
-    expect(component.selectedCreditCard).toBeUndefined();
   });
 });
