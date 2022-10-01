@@ -4,7 +4,7 @@ import {CreditCardsComponent} from '../../secure/components/credit-cards/credit-
 import {UserService} from '../../secure/services/user.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {InputComponent} from '../components/form/input/input.component';
-import {BottomSheetComponent} from '../components/bottom-sheet.component';
+import {BottomSheetComponent} from '../components/bottom-sheet/bottom-sheet.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonComponent} from '../components/buttons/button.component';
 import {IconButtonComponent} from '../components/buttons/icon-button.component';

@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
 import Transaction from '../../../entities/Transaction';
-import {BottomSheetComponent} from '../../../lib/components/bottom-sheet.component';
+import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {Router} from '@angular/router';
 
 @Component({
