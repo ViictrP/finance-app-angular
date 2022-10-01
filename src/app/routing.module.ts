@@ -7,6 +7,7 @@ import {LoggedInGuard} from './guards/logged-in.guard';
 import {HomeComponent} from './secure/components/home/home.component';
 import {NgModule} from '@angular/core';
 import {CreditCardsComponent} from './secure/components/credit-cards/credit-cards.component';
+import {InvoicesComponent} from './secure/components/invoices/invoices.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -34,6 +35,10 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'credit-cards',
           component: CreditCardsComponent
+        },
+        {
+          path: 'credit-cards/:id',
+          component: InvoicesComponent
         }
       ]
     }

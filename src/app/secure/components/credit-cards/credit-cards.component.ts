@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import User from '../../../entities/User';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
 import Transaction from '../../../entities/Transaction';
+import {BottomSheetComponent} from '../../../lib/components/bottom-sheet.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-credit-cards',
@@ -12,6 +14,8 @@ import Transaction from '../../../entities/Transaction';
 })
 export class CreditCardsComponent implements OnInit {
 
+  @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
+
   user?: User;
   selectedCreditCard?: CreditCard;
   creditCards: CreditCard[] = [];
@@ -19,7 +23,8 @@ export class CreditCardsComponent implements OnInit {
   invoiceTotalAmount: number | undefined;
   private subs = new Subscription();
 
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService,
+              private readonly router: Router) {
   }
 
   private get userTransactions(): Transaction[] {
@@ -76,5 +81,21 @@ export class CreditCardsComponent implements OnInit {
     } else {
       this.transactions = this.userTransactions;
     }
+  }
+
+  toggleBottomSheet() {
+    this.bottomSheet?.show();
+  }
+
+  goToInvoices(creditCardId: string) {
+    this.router.navigate(['/secure/credit-cards', creditCardId]);
+  }
+
+  editCreditCard(creditCardId: string) {
+    this.router.navigate(['/secure/credit-cards-form', creditCardId]);
+  }
+
+  excludeCreditCard(creditCardId: string) {
+    console.log('nothing to do here ', creditCardId);
   }
 }
