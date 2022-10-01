@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {BottomSheetComponent} from './bottom-sheet.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {IconButtonComponent} from './buttons/icon-button.component';
+import {IconButtonComponent} from '../buttons/icon-button.component';
 
 describe('BottomSheetComponent', () => {
   let component: BottomSheetComponent;
