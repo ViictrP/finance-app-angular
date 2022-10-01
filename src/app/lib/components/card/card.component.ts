@@ -4,7 +4,7 @@ import {Component, Input} from '@angular/core';
   selector: 'app-card',
   template: `
     <div
-      [ngClass]="colorMap[color] ?? color"
+      [ngClass]="colorMap[color] || color"
       class="py-2 px-4 w-full border-[0.5px] border-zinc-800 {{borderMap[color]}} rounded-lg shadow-md">
       <ng-content></ng-content>
     </div>
