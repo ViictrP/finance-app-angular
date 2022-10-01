@@ -1,5 +1,5 @@
 import {Directive, ElementRef, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
-import {debounceTime, Observable, Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Directive({
   selector: '[appObserveElement]',
@@ -8,8 +8,7 @@ import {debounceTime, Observable, Subscription} from 'rxjs';
 export class ObservableDirective implements OnDestroy {
   @Input() root: HTMLElement | null = null
   @Input() rootMargin = '0px 0px 0px 0px'
-  @Input() threshold = 0
-  @Input() debounceTime = 750
+  @Input() threshold = 1
   @Input() isContinuous = false
 
   @Output() isIntersecting = new EventEmitter<string>()
@@ -50,10 +49,9 @@ export class ObservableDirective implements OnDestroy {
         },
       }
     })
-      .pipe(debounceTime(this.debounceTime))
       .subscribe(elementId => {
         this.isIntersecting.emit(elementId)
         this._isIntersecting = !!elementId;
-      })
+      });
   }
 }

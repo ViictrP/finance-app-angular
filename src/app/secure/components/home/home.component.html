@@ -1,7 +1,7 @@
 <div class="text-zinc-200 px-4">
   <p class="text-xl">
     salário&nbsp;
-    <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
+    <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}} - {{expensesAmount | currency: 'BRL'}}</span>
   </p>
   <div class="mt-4">
     <app-card>
@@ -13,9 +13,14 @@
 </div>
 <div class="mt-10">
   <p class="text-2xl mb-4 px-4">Impacto nos gastos</p>
-  <div class="flex overflow-x-auto scrollbar-none">
-    <ng-container *ngFor="let creditCard of user?.creditCards">
-      <app-chip [title]="creditCard.title" [color]="creditCard.backgroundColor" description="25%"></app-chip>
+  <div class="flex gap-3 overflow-x-auto scrollbar-none px-4">
+    <ng-container *ngFor="let creditCard of creditCards">
+      <app-chip
+        (clicked)="goToInvoices(creditCard.id)"
+        [title]="creditCard.title"
+        [color]="creditCard.backgroundColor"
+        description="{{calculatePercentage(creditCard.id)}}%">
+      </app-chip>
     </ng-container>
   </div>
 </div>

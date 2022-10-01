@@ -1,0 +1,48 @@
+<div *ngIf="selectedCreditCard" class="px-4 mt-10">
+  <div>
+    Cartão <span class="font-bold text-xl">{{selectedCreditCard.title}}</span>
+  </div>
+  <div class="flex flex-row justify-between items-center">
+    <div class="text-left">
+      <p class="text-lg text-neutral-300">Fatura de {{invoice?.month}} de {{invoice?.year}}</p>
+    </div>
+    <div class="text-right">
+      <div></div>
+      <p class="text-xl font-bold text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
+    </div>
+  </div>
+  <div class="mt-4 mb-32">
+    <div class="mb-4">
+      <app-input
+        icon="ph-magnifying-glass"
+        placeholder="filtrar transações do {{selectedCreditCard.title}}..."
+        (changed)="filterTransactions($event)">
+      </app-input>
+    </div>
+    <ng-container *ngFor="let transaction of transactions">
+      <div class="mb-4">
+        <app-card>
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-row justify-between">
+              <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
+                <i class="ph-fork-knife-fill"></i>
+                {{transaction.category}}
+              </p>
+              <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>
+            </div>
+            <div class="flex flex-row justify-between">
+              <p class="my-auto text-lg">{{transaction.description}}</p>
+              <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!transactions || transactions?.length === 0">
+      <div class="w-full flex flex-col items-center justify-center h-36">
+        <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon"/>
+        <p class="text-neutral-300">Nenhum lançamento encontrado</p>
+      </div>
+    </ng-container>
+  </div>
+</div>

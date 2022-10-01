@@ -7,6 +7,9 @@ import {LoadingButtonComponent} from './components/buttons/loading-button.compon
 import {CardComponent} from './components/card/card.component';
 import {ChipComponent} from './components/chip/chip.component';
 import {ObservableDirective} from './directives/observable.directive';
+import {IconButtonComponent} from './components/buttons/icon-button.component';
+import {BottomSheetComponent} from './components/bottom-sheet.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,9 +18,11 @@ import {ObservableDirective} from './directives/observable.directive';
     LoadingButtonComponent,
     CardComponent,
     ChipComponent,
-    ObservableDirective
+    ObservableDirective,
+    IconButtonComponent,
+    BottomSheetComponent,
   ],
-  imports: [FormModule, CommonModule],
+  imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
     InputComponent,
@@ -25,7 +30,9 @@ import {ObservableDirective} from './directives/observable.directive';
     LoadingButtonComponent,
     CardComponent,
     ChipComponent,
-    ObservableDirective
+    ObservableDirective,
+    IconButtonComponent,
+    BottomSheetComponent
   ]
 })
 export class LibModule {
