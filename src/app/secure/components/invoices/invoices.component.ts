@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Route} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
 import {Subscription} from 'rxjs';
@@ -19,6 +19,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   transactions: Transaction[] = [];
   subscription = new Subscription();
   invoiceTotalAmount = 0;
+  today = new Date();
 
   constructor(private readonly route: ActivatedRoute,
               private readonly userService: UserService) {
@@ -57,5 +58,9 @@ export class InvoicesComponent implements OnInit, OnDestroy {
     } else {
       this.transactions = this.userTransactions ?? [];
     }
+  }
+
+  getMonthInvoice(event: any) {
+    console.log(event.currentTarget.value);
   }
 }
