@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
   creditCardsTotal: { [key: string]: number } = {};
 
   private calculateExpensesAmout() {
-    const debitAmount = this.user?.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
+    const debitAmount = this.user?.transactions?.reduce((sum, current) => sum + Number(current.amount), 0);
     const creditCardsAmount = this.creditCards.reduce((sum, current) => {
       const invoice = current.invoices[0];
       const amount = invoice ? invoice.transactions.reduce((sum, current) => {

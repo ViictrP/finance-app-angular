@@ -1,6 +1,12 @@
-<div *ngIf="selectedCreditCard" class="px-4 mt-10">
-  <div>
-    Cartão <span class="font-bold text-xl">{{selectedCreditCard.title}}</span>
+<div *ngIf="selectedCreditCard;" class="px-4 mt-10">
+  <div class="mb-10">
+    <p>Cartão <span class="font-bold text-xl">{{selectedCreditCard.title}}</span></p>
+    <input
+      class="mt-4 pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 border-zinc-900 focus:ring transition ease-in-out duration-150"
+      placeholder="02/10/2022"
+      [value]="today | date: 'yyyy-MM'"
+      (change)="getMonthInvoice($event)"
+      type="month"/>
   </div>
   <div class="flex flex-row justify-between items-center">
     <div class="text-left">
