@@ -5,6 +5,7 @@
     size="ultra-big"
     icon="ph-house-simple-fill"
     class="flex m-auto"
+    routerLinkActive="link-active"
     routerLink="/secure/home">
   </app-icon-button>
   <button
@@ -15,6 +16,7 @@
   <app-icon-button
     size="ultra-big"
     icon="ph-credit-card-fill"
+    routerLinkActive="link-active"
     class="flex m-auto"
     routerLink="/secure/credit-cards">
   </app-icon-button>
@@ -23,13 +25,13 @@
   <div class="flex flex-col gap-2 justify-evenly">
     <app-button
       (click)="addCreditCard()"
-      icon="ph-list-dashes-fill"
+      icon="ph-cards"
       type="plain">
       Novo Cartão
     </app-button>
     <app-button
       (clickEvent)="addTransaction()"
-      icon="ph-pencil-fill"
+      icon="ph-list-plus-fill"
       type="plain">
       Nova Transação
     </app-button>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-bottom-sheet',
@@ -9,13 +9,18 @@ export class BottomSheetComponent {
   @Output() closed = new EventEmitter();
   @Input() title = '';
   isShowing = false;
-  animate = false;
+
+  @ViewChild('bottomSheet') div?: ElementRef;
+
+  get bottomSheet() {
+    return this.div!.nativeElement;
+  }
 
   show(): void {
     const body = document.body;
     body.classList.add('overflow-hidden', 'scrollbar-none');
     this.isShowing = true;
-    this.animate = true;
+    this.bottomSheet.style.transform = 'translateY(0%)';
   }
 
   close(event?: any) {
@@ -23,7 +28,7 @@ export class BottomSheetComponent {
     const body = document.body;
     body.classList.remove('overflow-hidden', 'scrollbar-none');
     this.isShowing = false;
-    this.animate = false;
+    this.bottomSheet.style.transform = 'translateY(100%)';
     this.closed.emit();
   }
 }
