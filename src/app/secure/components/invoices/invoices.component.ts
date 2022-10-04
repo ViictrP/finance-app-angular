@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
@@ -8,6 +8,7 @@ import Transaction from '../../../entities/Transaction';
 import {format} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import {InvoiceService} from '../../services/invoice.service';
+import Invoice from '../../../entities/Invoice';
 
 @Component({
   selector: 'app-invoices',
@@ -19,14 +20,17 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   id: string | null;
   user?: User;
   creditCard?: CreditCard;
+  invoice?: Invoice;
   transactions: Transaction[] = [];
   subscription = new Subscription();
   invoiceTotalAmount = 0;
   today = new Date();
+  loading = false;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly userService: UserService,
-              private readonly service: InvoiceService) {
+              private readonly service: InvoiceService,
+              private readonly changeDetector: ChangeDetectorRef) {
     this.id = route.snapshot.paramMap.get('id');
   }
 
@@ -41,13 +45,10 @@ export class InvoicesComponent implements OnInit, OnDestroy {
     return [];
   }
 
-  get invoice() {
-    return this.creditCard?.invoices[0];
-  }
-
   set selectedUser(user: User) {
     this.user = user;
     this.creditCard = user?.creditCards?.find(c => c.id === this.id);
+    this.invoice = this.creditCard?.invoices[0];
     this.transactions = this.userTransactions;
     this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
   }
@@ -69,6 +70,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   getMonthInvoice(event: any) {
+    this.loading = true;
     const [year, month] = event.currentTarget.value.split(/-/);
     const date = new Date(year, month - 1, 1);
     const m = format(date, 'MMM', {locale: pt}).toUpperCase();
@@ -76,7 +78,10 @@ export class InvoicesComponent implements OnInit, OnDestroy {
       this.service.getInvoice(this.creditCard!.id, m, year)
         .subscribe(invoice => {
           this.transactions = invoice?.transactions ?? [];
+          this.invoice = invoice;
           this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
+          this.loading = false;
+          this.changeDetector.detectChanges();
         })
     );
   }
