@@ -88,10 +88,12 @@ export class CreditCardsComponent implements OnInit {
   }
 
   goToInvoices(creditCardId: string) {
+    this.bottomSheet?.close();
     this.router.navigate(['/secure/credit-cards', creditCardId]);
   }
 
   editCreditCard(creditCardId: string) {
+    this.bottomSheet?.close();
     this.router.navigate(['/secure/credit-cards-form', creditCardId]);
   }
 

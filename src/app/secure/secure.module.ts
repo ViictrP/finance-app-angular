@@ -11,6 +11,7 @@ import {UserService} from './services/user.service';
 import {LibModule} from '../lib/lib.module';
 import {CreditCardsComponent} from './components/credit-cards/credit-cards.component';
 import {InvoicesComponent} from './components/invoices/invoices.component';
+import {InvoiceService} from './services/invoice.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import {InvoicesComponent} from './components/invoices/invoices.component';
     ApiModule,
     LibModule
   ],
-  providers: [UserService]
+  providers: [
+    UserService,
+    InvoiceService
+  ]
 })
 export class SecureModule {
 }

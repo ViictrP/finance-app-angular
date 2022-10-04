@@ -5,6 +5,9 @@ import CreditCard from '../../../entities/CreditCard';
 import {Subscription} from 'rxjs';
 import User from '../../../entities/User';
 import Transaction from '../../../entities/Transaction';
+import {format} from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import {InvoiceService} from '../../services/invoice.service';
 
 @Component({
   selector: 'app-invoices',
@@ -15,14 +18,15 @@ export class InvoicesComponent implements OnInit, OnDestroy {
 
   id: string | null;
   user?: User;
-  selectedCreditCard?: CreditCard;
+  creditCard?: CreditCard;
   transactions: Transaction[] = [];
   subscription = new Subscription();
   invoiceTotalAmount = 0;
   today = new Date();
 
   constructor(private readonly route: ActivatedRoute,
-              private readonly userService: UserService) {
+              private readonly userService: UserService,
+              private readonly service: InvoiceService) {
     this.id = route.snapshot.paramMap.get('id');
   }
 
@@ -31,22 +35,26 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   get userTransactions() {
-    if (this.selectedCreditCard?.invoices.length) {
-      return this.selectedCreditCard?.invoices[0]?.transactions;
+    if (this.creditCard?.invoices.length) {
+      return this.creditCard?.invoices[0]?.transactions;
     }
     return [];
   }
 
   get invoice() {
-    return this.selectedCreditCard?.invoices[0];
+    return this.creditCard?.invoices[0];
+  }
+
+  set selectedUser(user: User) {
+    this.user = user;
+    this.creditCard = user?.creditCards?.find(c => c.id === this.id);
+    this.transactions = this.userTransactions;
+    this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
   }
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user => {
-      this.user = user;
-      this.selectedCreditCard = user?.creditCards?.find(c => c.id === this.id);
-      this.transactions = this.userTransactions;
-      this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
+      this.selectedUser = user;
     });
   }
 
@@ -61,6 +69,15 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   getMonthInvoice(event: any) {
-    console.log(event.currentTarget.value);
+    const [year, month] = event.currentTarget.value.split(/-/);
+    const date = new Date(year, month - 1, 1);
+    const m = format(date, 'MMM', {locale: pt}).toUpperCase();
+    this.subscription.add(
+      this.service.getInvoice(this.creditCard!.id, m, year)
+        .subscribe(invoice => {
+          this.transactions = invoice?.transactions ?? [];
+          this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
+        })
+    );
   }
 }

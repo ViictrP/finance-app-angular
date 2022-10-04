@@ -1,6 +1,6 @@
-<div *ngIf="selectedCreditCard;" class="px-4 mt-10">
+<div *ngIf="creditCard;" class="px-4 mt-10">
   <div class="mb-10">
-    <p>Cartão <span class="font-bold text-xl">{{selectedCreditCard.title}}</span></p>
+    <p>Cartão <span class="font-bold text-xl">{{creditCard.title}}</span></p>
     <input
       class="mt-4 pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 border-zinc-900 focus:ring transition ease-in-out duration-150"
       placeholder="02/10/2022"
@@ -21,7 +21,7 @@
     <div class="mb-4">
       <app-input
         icon="ph-magnifying-glass"
-        placeholder="filtrar transações do {{selectedCreditCard.title}}..."
+        placeholder="filtrar transações do {{creditCard.title}}..."
         (changed)="filterTransactions($event)">
       </app-input>
     </div>

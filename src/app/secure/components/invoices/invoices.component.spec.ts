@@ -3,6 +3,7 @@ import {InvoicesComponent} from './invoices.component';
 import {RoutingModule} from '../../../routing.module';
 import {UserService} from '../../services/user.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {InvoiceService} from '../../services/invoice.service';
 
 describe('InvoicesComponent', () => {
   let component: InvoicesComponent;
@@ -12,7 +13,7 @@ describe('InvoicesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InvoicesComponent],
       imports: [RoutingModule, HttpClientTestingModule],
-      providers: [UserService]
+      providers: [UserService, InvoiceService]
     })
 
     fixture = TestBed.createComponent(InvoicesComponent);
