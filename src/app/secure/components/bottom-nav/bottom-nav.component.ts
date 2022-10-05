@@ -18,10 +18,10 @@ export class BottomNavComponent {
   }
 
   addCreditCard() {
-
+    this.bottomSheet?.close();
   }
 
   addTransaction() {
-
+    this.bottomSheet?.close();
   }
 }
