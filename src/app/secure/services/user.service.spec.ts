@@ -47,8 +47,7 @@ describe('UserService', () => {
     });
     service.currentUser.subscribe(user => expect(user).toStrictEqual(_user));
     expect(getSpy).toHaveBeenCalledWith(
-      `${environment.server_host}/me`,
-      {headers: {"x-authentication-token": "TOKEN"}}
+      `${environment.server_host}/me`
     );
   });
 });
