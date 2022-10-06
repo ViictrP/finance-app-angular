@@ -17,7 +17,7 @@ export abstract class BaseComponent implements OnDestroy {
   subscribeAndRender<T>(stream$: Observable<T>, callback: (args: T) => void) {
     stream$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((subscribeArgs: any) => {
+      .subscribe((subscribeArgs: T) => {
         callback(subscribeArgs);
         this.detector.detectChanges();
       });
