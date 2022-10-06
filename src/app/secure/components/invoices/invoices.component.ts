@@ -1,28 +1,28 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
-import {Subscription} from 'rxjs';
 import User from '../../../entities/User';
 import Transaction from '../../../entities/Transaction';
 import {format} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import {InvoiceService} from '../../services/invoice.service';
 import Invoice from '../../../entities/Invoice';
+import {BaseComponent} from '../BaseComponent';
 
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.scss']
+  styleUrls: ['./invoices.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InvoicesComponent implements OnInit, OnDestroy {
+export class InvoicesComponent extends BaseComponent implements OnInit {
 
   id: string | null;
   user?: User;
   creditCard?: CreditCard;
   invoice?: Invoice;
   transactions: Transaction[] = [];
-  subscription = new Subscription();
   invoiceTotalAmount = 0;
   today = new Date();
   loading = false;
@@ -30,12 +30,9 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   constructor(private readonly route: ActivatedRoute,
               private readonly userService: UserService,
               private readonly service: InvoiceService,
-              private readonly changeDetector: ChangeDetectorRef) {
+              changeDetector: ChangeDetectorRef) {
+    super(changeDetector);
     this.id = route.snapshot.paramMap.get('id');
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   get userTransactions() {
@@ -54,7 +51,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(user => {
+    this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.selectedUser = user;
     });
   }
@@ -74,15 +71,13 @@ export class InvoicesComponent implements OnInit, OnDestroy {
     const [year, month] = event.currentTarget.value.split(/-/);
     const date = new Date(year, month - 1, 1);
     const m = format(date, 'MMM', {locale: pt}).toUpperCase();
-    this.subscription.add(
-      this.service.getInvoice(this.creditCard!.id, m, year)
-        .subscribe(invoice => {
-          this.transactions = invoice?.transactions ?? [];
-          this.invoice = invoice;
-          this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
-          this.loading = false;
-          this.changeDetector.detectChanges();
-        })
-    );
+    this.subscribeAndRender(
+      this.service.getInvoice(this.creditCard!.id, m, year),
+      (invoice) => {
+        this.transactions = invoice?.transactions ?? [];
+        this.invoice = invoice;
+        this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
+        this.loading = false;
+      });
   }
 }

@@ -1,21 +1,21 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {Subscription} from 'rxjs';
 import User from '../../../entities/User';
 import {ActivatedRoute} from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditCardService} from '../../services/credit-card.service';
+import {BaseComponent} from '../BaseComponent';
 
 @Component({
   selector: 'app-credit-card-form',
   templateUrl: './credit-card-form.component.html',
-  styleUrls: ['./credit-card-form.component.scss']
+  styleUrls: ['./credit-card-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreditCardFormComponent implements OnInit, OnDestroy {
+export class CreditCardFormComponent extends BaseComponent implements OnInit {
 
   user?: User;
-  subs = new Subscription();
   creditCard?: CreditCard;
   form: FormGroup;
   loading = false;
@@ -32,7 +32,8 @@ export class CreditCardFormComponent implements OnInit, OnDestroy {
               private readonly route: ActivatedRoute,
               private readonly formBuilder: FormBuilder,
               private readonly service: CreditCardService,
-              private readonly changeDetector: ChangeDetectorRef) {
+              changeDetector: ChangeDetectorRef) {
+    super(changeDetector);
     this.form = this.formBuilder.group({
       title: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -63,8 +64,9 @@ export class CreditCardFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.add(
-      this.userService.currentUser.subscribe(user => {
+    this.subscribeAndRender(
+      this.userService.currentUser,
+      (user) => {
         this.user = user;
         const id = this.route.snapshot.paramMap.get('id');
         this.creditCard = user?.creditCards?.find(c => c.id === id);
@@ -80,9 +82,10 @@ export class CreditCardFormComponent implements OnInit, OnDestroy {
           });
 
           this.form.get('invoiceClosingDay')?.disable();
+          this.form.get('number')?.disable();
         }
-      }),
-    );
+      }
+    )
   }
 
   saveCreditCard() {
@@ -92,19 +95,13 @@ export class CreditCardFormComponent implements OnInit, OnDestroy {
       id: this.creditCard?.id ?? '',
       title,
       description,
-      number,
+      number: this.creditCard?.number ?? number,
       invoiceClosingDay,
       backgroundColor: color,
       invoices: []
     };
-    this.service.saveCreditCard(creditCard, this.shouldUpdate)
-      .subscribe(() => {
-        this.loading = false;
-        this.changeDetector.detectChanges();
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscribeAndRender(
+      this.service.saveCreditCard(creditCard, this.shouldUpdate),
+      () => this.loading = false);
   }
 }

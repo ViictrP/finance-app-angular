@@ -1,12 +1,15 @@
-import {Component} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {BaseComponent} from '../BaseComponent';
 
 @Component({
   selector: 'app-transactio-form',
   templateUrl: './transaction-form.component.html',
-  styleUrls: ['./transaction-form.component.scss']
+  styleUrls: ['./transaction-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TransactionFormComponent {
+export class TransactionFormComponent extends BaseComponent {
 
-  subs = new Subscription();
+  constructor(detector: ChangeDetectorRef) {
+    super(detector);
+  }
 }
