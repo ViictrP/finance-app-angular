@@ -12,6 +12,9 @@ import {LibModule} from '../lib/lib.module';
 import {CreditCardsComponent} from './components/credit-cards/credit-cards.component';
 import {InvoicesComponent} from './components/invoices/invoices.component';
 import {InvoiceService} from './services/invoice.service';
+import {CreditCardFormComponent} from './components/credit-card-form/credit-card-form.component';
+import {TransactionFormComponent} from './components/transaction-form/transaction-form.component';
+import {CreditCardService} from './services/credit-card.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import {InvoiceService} from './services/invoice.service';
     HeaderComponent,
     BottomNavComponent,
     CreditCardsComponent,
-    InvoicesComponent
+    InvoicesComponent,
+    CreditCardFormComponent,
+    TransactionFormComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,8 @@ import {InvoiceService} from './services/invoice.service';
   ],
   providers: [
     UserService,
-    InvoiceService
+    InvoiceService,
+    CreditCardService
   ]
 })
 export class SecureModule {

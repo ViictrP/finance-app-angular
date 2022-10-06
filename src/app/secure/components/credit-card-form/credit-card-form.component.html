@@ -1,0 +1,78 @@
+<div class="px-4 mt-10">
+  <div class="mb-5">
+    <p class="text-xl">
+      {{creditCard ? 'Atualizar o cartão ' + creditCard.title : 'Adicionar um novo cartão'}}
+    </p>
+  </div>
+  <div>
+    <form [formGroup]="form" (submit)="saveCreditCard()">
+      <div class="mb-5">
+        <app-input
+          id="title"
+          icon="ph-text-t-fill"
+          placeholder="Título"
+          name="title"
+          [invalid]="title?.invalid ?? false"
+          formControlName="title"></app-input>
+        <p *ngIf="title?.invalid && title?.touched" id="title-error-message" class="text-red-600">
+          Este campo é obrigatório</p>
+      </div>
+      <div class="mb-5">
+        <app-input
+          id="description"
+          icon="ph-text-t-fill"
+          placeholder="Descrição"
+          name="description"
+          [invalid]="description?.invalid ?? false"
+          formControlName="description"></app-input>
+        <p *ngIf="description?.invalid && description?.touched" id="description-error-message" class="text-red-600">
+          Este campo é obrigatório</p>
+      </div>
+      <div class="mb-5">
+        <app-input
+          id="number"
+          icon="ph-credit-card-fill"
+          placeholder="Número"
+          name="number"
+          [invalid]="number?.invalid ?? false"
+          formControlName="number"></app-input>
+        <p *ngIf="number?.invalid && number?.touched" id="number-error-message" class="text-red-600">
+          Este campo é obrigatório</p>
+      </div>
+      <div class="mb-5">
+        <app-input
+          id="invoiceClosingDay"
+          icon="ph-calendar-fill"
+          placeholder="Dia de fechamento da fatura"
+          name="invoiceClosingDay"
+          [invalid]="invoiceClosingDay?.invalid ?? false"
+          formControlName="invoiceClosingDay"></app-input>
+        <p *ngIf="invoiceClosingDay?.invalid && invoiceClosingDay?.touched" id="invoiceClosingDay-error-message" class="text-red-600">
+          Este campo é obrigatório</p>
+      </div>
+      <div class="mb-5">
+        <app-select
+          name="color"
+          [invalid]="color?.invalid ?? false"
+          icon="ph-palette-fill"
+          placeholder="Selecione um cor..."
+          formControlName="color"
+          [options]="colorOptions">
+        </app-select>
+        <p *ngIf="color?.invalid && color?.touched" id="color-error-message" class="text-red-600">
+          Este campo é obrigatório</p>
+        <div [ngClass]="color?.value" class="mt-2 p-2 rounded-lg">
+          <p *ngIf="color?.value">Cor do cartão</p>
+        </div>
+      </div>
+      <app-loading-button
+        class="w-full"
+        [loading]="loading"
+        [disabled]="form.invalid || loading"
+        loadingLabel="salvando cartão..."
+        type="submit">
+        Salvar
+      </app-loading-button>
+    </form>
+  </div>
+</div>

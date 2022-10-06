@@ -1,24 +1,31 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
 @Component({
-  selector: 'app-input',
+  selector: 'app-select',
   template: `
     <div class="relative">
-      <input
+      <select
         [id]="id"
         [name]="name"
-        [(ngModel)]="value"
+        [value]="value"
         [disabled]="disabled"
-        [type]="inputType"
-        [placeholder]="placeholder"
-        (input)="valueChanged()"
-        [ngClass]="{'text-neutral-500' : disabled}"
+        [(ngModel)]="value"
+        (change)="valueChanged()"
+        [ngClass]="{'text-neutral-500' : disabled || value === '0'}"
         class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500 border-zinc-900'}} transition ease-in-out duration-150"
-      />
+      >
+        <option [value]="0" class="text-neutral-100">{{placeholder}}</option>
+        <option class="text-neutral-100 p-4" *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+      </select>
       <i class="absolute top-[15px] left-2 text-2xl text-zinc-300 {{icon}}"></i>
       <button
-        *ngIf="value && !disabled"
+        *ngIf="value && !disabled && value !== '0'"
         (click)="clear()"
         class="absolute top-[18px] right-4 text-xl"
         type="button">
@@ -30,21 +37,21 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
     {
       provide: NG_VALUE_ACCESSOR,
       multi:true,
-      useExisting: InputComponent
+      useExisting: SelectComponent
     }
   ]
 })
-export class InputComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor {
   @Input() id = '';
-  @Input() value = '';
+  @Input() value = '0';
   @Input() name = '';
-  @Input() inputType = 'text';
   @Input() icon = '';
   @Input() invalid = false;
-  @Input() placeholder = 'Example';
+  @Input() placeholder = '';
+  @Input() options: SelectOption[] = [];
   @Output() changed = new EventEmitter<string>();
-  touched = false;
   disabled = false;
+  touched = false;
 
   onChange = (_: any) => {
   };
@@ -64,9 +71,9 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   clear() {
-    this.value = '';
+    this.value = '0';
     this.markAsTouched();
-    this.onChange(this.value);
+    this.onChange('');
     this.changed.emit(this.value);
   }
 
@@ -79,7 +86,7 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   writeValue(value: string): void {
-    this.value = value;
+    this.value = value ?? '0';
   }
 
   setDisabledState(isDisabled: boolean) {
