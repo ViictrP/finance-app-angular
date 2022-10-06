@@ -10,6 +10,7 @@ import {ObservableDirective} from './directives/observable.directive';
 import {IconButtonComponent} from './components/buttons/icon-button.component';
 import {BottomSheetComponent} from './components/bottom-sheet/bottom-sheet.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {SelectComponent} from './components/form/select/select.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ObservableDirective,
     IconButtonComponent,
     BottomSheetComponent,
+    SelectComponent
   ],
   imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -32,7 +34,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ChipComponent,
     ObservableDirective,
     IconButtonComponent,
-    BottomSheetComponent
+    BottomSheetComponent,
+    SelectComponent
   ]
 })
 export class LibModule {

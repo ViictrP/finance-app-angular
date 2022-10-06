@@ -8,6 +8,8 @@ import {HomeComponent} from './secure/components/home/home.component';
 import {NgModule} from '@angular/core';
 import {CreditCardsComponent} from './secure/components/credit-cards/credit-cards.component';
 import {InvoicesComponent} from './secure/components/invoices/invoices.component';
+import {CreditCardFormComponent} from './secure/components/credit-card-form/credit-card-form.component';
+import {TransactionFormComponent} from './secure/components/transaction-form/transaction-form.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -39,6 +41,22 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'credit-cards/:id',
           component: InvoicesComponent
+        },
+        {
+          path: 'credit-card-form',
+          component: CreditCardFormComponent
+        },
+        {
+          path: 'credit-card-form/:id',
+          component: CreditCardFormComponent
+        },
+        {
+          path: 'transaction-form',
+          component: TransactionFormComponent
+        },
+        {
+          path: 'transaction-form/:id',
+          component: TransactionFormComponent
         }
       ]
     }

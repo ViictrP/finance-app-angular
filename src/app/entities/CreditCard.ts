@@ -6,9 +6,9 @@ export default interface CreditCard {
   title: string;
   description: string;
   number: string;
-  user: User;
+  user?: User;
   invoices: Invoice[];
   invoiceClosingDay: number;
-  createAt: Date;
+  createAt?: Date;
   backgroundColor: string;
 }

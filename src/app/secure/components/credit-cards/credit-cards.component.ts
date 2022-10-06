@@ -87,17 +87,17 @@ export class CreditCardsComponent implements OnInit {
     this.bottomSheet?.show();
   }
 
-  goToInvoices(creditCardId: string) {
+  goToInvoices(creditCardId?: string) {
     this.bottomSheet?.close();
     this.router.navigate(['/secure/credit-cards', creditCardId]);
   }
 
-  editCreditCard(creditCardId: string) {
+  editCreditCard(creditCardId?: string) {
     this.bottomSheet?.close();
-    this.router.navigate(['/secure/credit-cards-form', creditCardId]);
+    this.router.navigate(['/secure/credit-card-form', creditCardId]);
   }
 
-  excludeCreditCard(creditCardId: string) {
+  excludeCreditCard(creditCardId?: string) {
     console.log('nothing to do here ', creditCardId);
   }
 }
