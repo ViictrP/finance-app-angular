@@ -1,25 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import User from '../../../entities/User';
 import {UserService} from '../../services/user.service';
 import Transaction from '../../../entities/Transaction';
 import {Router} from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
+import {BaseComponent} from '../BaseComponent';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends BaseComponent implements OnInit {
 
   user?: User;
   filteredTransactions: Transaction[] = [];
   expensesAmount = 0;
-  private subs = new Subscription();
 
   constructor(private readonly userService: UserService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              detector: ChangeDetectorRef) {
+    super(detector);
   }
 
   get transactions(): Transaction[] {
@@ -31,11 +33,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subs.add(this.userService.currentUser.subscribe(user => {
+    this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.user = user;
       this.calculateExpensesAmout();
       this.filteredTransactions = this.user?.transactions ?? [];
-    }));
+    });
   }
 
   filterTransactions(text: string) {

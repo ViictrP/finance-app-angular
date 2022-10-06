@@ -15,6 +15,9 @@ import {InvoiceService} from './services/invoice.service';
 import {CreditCardFormComponent} from './components/credit-card-form/credit-card-form.component';
 import {TransactionFormComponent} from './components/transaction-form/transaction-form.component';
 import {CreditCardService} from './services/credit-card.service';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {UserHttpInterceptor} from './interceptors/user-http.interceptor';
+import {AuthorizationInterceptor} from './interceptors/authorization.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,17 @@ import {CreditCardService} from './services/credit-card.service';
   providers: [
     UserService,
     InvoiceService,
-    CreditCardService
+    CreditCardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserHttpInterceptor,
+      multi: true
+    }
   ]
 })
 export class SecureModule {

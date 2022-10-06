@@ -1,18 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import User from '../../../entities/User';
-import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
 import CreditCard from '../../../entities/CreditCard';
 import Transaction from '../../../entities/Transaction';
 import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {Router} from '@angular/router';
+import {BaseComponent} from '../BaseComponent';
 
 @Component({
   selector: 'app-credit-cards',
   templateUrl: './credit-cards.component.html',
-  styleUrls: ['./credit-cards.component.scss']
+  styleUrls: ['./credit-cards.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreditCardsComponent implements OnInit {
+export class CreditCardsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
 
@@ -21,10 +22,11 @@ export class CreditCardsComponent implements OnInit {
   creditCards: CreditCard[] = [];
   transactions: Transaction[] = [];
   invoiceTotalAmount: number | undefined;
-  private subs = new Subscription();
 
   constructor(private readonly userService: UserService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              detector: ChangeDetectorRef) {
+    super(detector);
   }
 
   private get userTransactions(): Transaction[] {
@@ -39,10 +41,10 @@ export class CreditCardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subs.add(this.userService.currentUser.subscribe(user => {
+    this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.user = user;
       this.creditCards = this.user.creditCards;
-    }));
+    })
   }
 
   selectCreditCard(elementId: string) {
