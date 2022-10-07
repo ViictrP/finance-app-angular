@@ -26,6 +26,7 @@ export class ChipComponent {
     'bg-purple-900': 'border-purple-600',
     'bg-orange-500': 'border-orange-400',
     'bg-zinc-900': 'border-zinc-800',
-    'bg-blue-500': 'border-blue-400'
+    'bg-blue-500': 'border-blue-400',
+    'bg-red-500': 'border-red-400'
   };
 }
