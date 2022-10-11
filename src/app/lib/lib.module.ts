@@ -11,6 +11,7 @@ import {IconButtonComponent} from './components/buttons/icon-button.component';
 import {BottomSheetComponent} from './components/bottom-sheet/bottom-sheet.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SelectComponent} from './components/form/select/select.component';
+import {InputDateComponent} from './components/form/input/input-date.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {SelectComponent} from './components/form/select/select.component';
     ObservableDirective,
     IconButtonComponent,
     BottomSheetComponent,
-    SelectComponent
+    SelectComponent,
+    InputDateComponent
   ],
   imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -35,7 +37,8 @@ import {SelectComponent} from './components/form/select/select.component';
     ObservableDirective,
     IconButtonComponent,
     BottomSheetComponent,
-    SelectComponent
+    SelectComponent,
+    InputDateComponent
   ]
 })
 export class LibModule {

@@ -1,12 +1,13 @@
 <div *ngIf="creditCard;" class="px-4 mt-10">
   <div class="mb-10">
-    <p>Cartão <span class="font-bold text-xl">{{creditCard.title}}</span></p>
-    <input
-      class="mt-4 pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 border-zinc-900 focus:ring transition ease-in-out duration-150"
-      placeholder="02/10/2022"
-      [value]="today | date: 'yyyy-MM'"
-      (change)="getMonthInvoice($event)"
-      type="month"/>
+    <p class="mb-2">Cartão <span class="font-bold text-xl">{{creditCard.title}}</span></p>
+    <app-input-date
+      [value]="today"
+      (changed)="getMonthInvoice($event)"
+      [hideClearButton]="true"
+      inputType="month"
+      placeholder="02/10/2022">
+    </app-input-date>
   </div>
   <div *ngIf="!loading; else loading_skeleton">
     <div class="flex flex-row justify-between items-center">
@@ -38,7 +39,10 @@
                 <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>
               </div>
               <div class="flex flex-row justify-between">
-                <p class="my-auto text-lg">{{transaction.description}}</p>
+                <p class="my-auto text-lg">
+                  {{transaction.description}}
+                  <span *ngIf="transaction.isInstallment">({{transaction.installmentNumber}}/{{transaction.installmentAmount}})</span>
+                </p>
                 <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
               </div>
             </div>

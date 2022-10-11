@@ -34,6 +34,7 @@
           icon="ph-credit-card-fill"
           placeholder="Número"
           name="number"
+          maxLength="4"
           [invalid]="number?.invalid ?? false"
           formControlName="number"></app-input>
         <p *ngIf="number?.invalid && number?.touched" id="number-error-message" class="text-red-600">
@@ -45,6 +46,7 @@
           icon="ph-calendar-fill"
           placeholder="Dia de fechamento da fatura"
           name="invoiceClosingDay"
+          maxLength="2"
           [invalid]="invoiceClosingDay?.invalid ?? false"
           formControlName="invoiceClosingDay"></app-input>
         <p *ngIf="invoiceClosingDay?.invalid && invoiceClosingDay?.touched" id="invoiceClosingDay-error-message" class="text-red-600">
