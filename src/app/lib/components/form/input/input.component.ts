@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import currencyMasker from '../../../helper/currencyMasker';
 import digitMasker from '../../../helper/digitMasker';
@@ -37,7 +37,7 @@ import digitMasker from '../../../helper/digitMasker';
     }
   ]
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() id = '';
   @Input() value = '';
   @Input() name = '';
@@ -49,8 +49,7 @@ export class InputComponent implements ControlValueAccessor {
   @Output() changed = new EventEmitter<string>();
   touched = false;
   disabled = false;
-  internalType = this.inputType === 'currency' ? 'text' : this.inputType;
-
+  internalType = 'text';
   onChange = (_: any) => {
   };
 
@@ -102,5 +101,9 @@ export class InputComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
+  }
+
+  ngOnInit(): void {
+    this.internalType = this.inputType === 'currency' ? 'text' : this.inputType;
   }
 }
