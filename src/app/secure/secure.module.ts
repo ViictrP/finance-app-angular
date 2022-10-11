@@ -18,6 +18,7 @@ import {CreditCardService} from './services/credit-card.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {UserHttpInterceptor} from './interceptors/user-http.interceptor';
 import {AuthorizationInterceptor} from './interceptors/authorization.interceptor';
+import TransactionService from './services/transaction.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {AuthorizationInterceptor} from './interceptors/authorization.interceptor
     UserService,
     InvoiceService,
     CreditCardService,
+    TransactionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,

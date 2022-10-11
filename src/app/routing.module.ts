@@ -21,6 +21,11 @@ export const APP_ROUTES: Routes = [{
       pathMatch: 'full'
     },
     {
+      path: 'secure',
+      redirectTo: '/secure/home',
+      pathMatch: 'full'
+    },
+    {
       path: 'login',
       component: LoginComponent,
       canActivate: [GuestGuard]

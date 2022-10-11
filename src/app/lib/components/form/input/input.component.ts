@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import currencyMasker from '../../../helper/currencyMasker';
+import digitMasker from '../../../helper/digitMasker';
 
 @Component({
   selector: 'app-input',
@@ -10,9 +12,10 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
         [name]="name"
         [(ngModel)]="value"
         [disabled]="disabled"
-        [type]="inputType"
+        [type]="internalType"
         [placeholder]="placeholder"
         (input)="valueChanged()"
+        [maxlength]="maxLength"
         [ngClass]="{'text-neutral-500' : disabled}"
         class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 bg-zinc-900 border-1 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500 border-zinc-900'}} transition ease-in-out duration-150"
       />
@@ -29,7 +32,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      multi:true,
+      multi: true,
       useExisting: InputComponent
     }
   ]
@@ -42,9 +45,11 @@ export class InputComponent implements ControlValueAccessor {
   @Input() icon = '';
   @Input() invalid = false;
   @Input() placeholder = 'Example';
+  @Input() maxLength = '10000';
   @Output() changed = new EventEmitter<string>();
   touched = false;
   disabled = false;
+  internalType = this.inputType === 'currency' ? 'text' : this.inputType;
 
   onChange = (_: any) => {
   };
@@ -53,9 +58,22 @@ export class InputComponent implements ControlValueAccessor {
   };
 
   valueChanged() {
+    if (this.inputType === 'currency') {
+      const [masked, value] = currencyMasker(this.value);
+      this.value = masked;
+      this.emitNewValue(String(value));
+    } else if (this.inputType === 'number') {
+      this.value = digitMasker(this.value);
+      this.emitNewValue(this.value);
+    } else {
+      this.emitNewValue(this.value);
+    }
+  }
+
+  private emitNewValue(val: string) {
     this.markAsTouched();
-    this.onChange(this.value);
-    this.changed.emit(this.value);
+    this.onChange(val);
+    this.changed.emit(String(val));
   }
 
   private markAsTouched() {
