@@ -5,7 +5,20 @@
       {{user.name}}
     </span>
   </p>
-  <button (click)="logOut()">sair</button>
+  <div class="flex flex-row gap-4">
+    <app-icon-button
+      class="m-auto"
+      size="big"
+      icon="ph-gear-fill"
+      (clicked)="editProfile()">
+    </app-icon-button>
+    <app-icon-button
+      class="m-auto"
+      size="big"
+      icon="ph-sign-out-fill"
+      (clicked)="logOut()">
+    </app-icon-button>
+  </div>
 </div>
 <ng-template #header_skeleton>
   <div role="status" class="max-w-sm rounded shadow animate-pulse md:p-6">

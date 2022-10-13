@@ -10,6 +10,8 @@ import {CreditCardsComponent} from './secure/components/credit-cards/credit-card
 import {InvoicesComponent} from './secure/components/invoices/invoices.component';
 import {CreditCardFormComponent} from './secure/components/credit-card-form/credit-card-form.component';
 import {TransactionFormComponent} from './secure/components/transaction-form/transaction-form.component';
+import {RegisterComponent} from './public/components/register/register.component';
+import {ProfileComponent} from './secure/components/profile/profile.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -28,6 +30,11 @@ export const APP_ROUTES: Routes = [{
     {
       path: 'login',
       component: LoginComponent,
+      canActivate: [GuestGuard]
+    },
+    {
+      path: 'register',
+      component: RegisterComponent,
       canActivate: [GuestGuard]
     },
     {
@@ -62,6 +69,10 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'transaction-form/:id',
           component: TransactionFormComponent
+        },
+        {
+          path: 'profile',
+          component: ProfileComponent
         }
       ]
     }

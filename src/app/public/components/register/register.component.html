@@ -1,0 +1,66 @@
+<div class="wrapper">
+  <div class="mt-10"></div>
+  <app-icon-button routerLink="../" icon="ph-arrow-left"></app-icon-button>
+  <div class="h-full flex flex-col justify-start mt-10">
+    <p class="text-xl">Registrar</p>
+    <p class="text-sm">preencha todos os campos obrigatórios</p>
+    <div class="mt-4">
+      <form [formGroup]="form" (ngSubmit)="register()">
+        <div class="mb-5">
+          <app-input
+            id="name"
+            icon="ph-user"
+            placeholder="Nome"
+            name="name"
+            [invalid]="name?.invalid ?? false"
+            formControlName="name"></app-input>
+          <p *ngIf="name?.invalid && name?.touched" id="name-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
+        </div>
+        <div class="mb-5">
+          <app-input
+            id="lastname"
+            icon="ph-user"
+            placeholder="Sobrenome"
+            name="lastname"
+            [invalid]="lastname?.invalid ?? false"
+            formControlName="lastname"></app-input>
+          <p *ngIf="lastname?.invalid && lastname?.touched" id="lastname-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
+        </div>
+        <div class="mb-5">
+          <app-input
+            id="username"
+            icon="ph-at"
+            placeholder="Usuário"
+            name="email"
+            [invalid]="email?.invalid ?? false"
+            formControlName="email"></app-input>
+          <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
+        </div>
+        <div class="mb-5 bg-transparent">
+          <app-input
+            id="password"
+            name="password"
+            formControlName="password"
+            icon="ph-lock"
+            inputType="password"
+            [invalid]="password?.invalid ?? false"
+            placeholder="Senha">
+          </app-input>
+          <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
+            Este campo é obrigatório</p>
+        </div>
+        <app-loading-button
+          class="w-full"
+          [loading]="loading"
+          [disabled]="form.invalid || loading"
+          loadingLabel="acessando..."
+          type="submit">
+          Registrar
+        </app-loading-button>
+      </form>
+    </div>
+  </div>
+</div>

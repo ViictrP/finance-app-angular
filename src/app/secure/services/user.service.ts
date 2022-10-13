@@ -23,4 +23,8 @@ export class UserService {
       tap(data => this.user = data)
     );
   }
+
+  updateProfile(user: User): Observable<User> {
+    return this.httpClient.put<User>(`${environment.server_host}/users`, user);
+  }
 }

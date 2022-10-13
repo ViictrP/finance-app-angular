@@ -1,0 +1,38 @@
+<div *ngIf="user" class="text-zinc-200 px-4">
+  <p>Salário</p>
+  <div class="flex flex-row justify-between gap-4">
+    <p class="font-bold text-3xl text-sky-500">{{user.salary | currency: 'BRL'}}</p>
+    <app-icon-button
+      size="ultra-big"
+      icon="ph-pencil-fill"
+      (clicked)="openEditForm()">
+    </app-icon-button>
+  </div>
+  <p class="text-sm mt-4">o salário é utilizado como valor base para calcular seu saldo disponível de cada mês.</p>
+</div>
+<app-bottom-sheet title="Alterar salário" #bottomSheet>
+  <div class="flex flex-col justify-evenly my-6">
+    <form [formGroup]="form" (submit)="saveSalary()">
+      <div class="flex flex-row gap-4">
+        <div>
+          <app-input
+            name="salary"
+            [invalid]="salary?.invalid || false"
+            formControlName="salary"
+            placeholder="ex: 1.000,00"
+            inputBackgroundColor="bg-zinc-800"
+            inputType="currency">
+          </app-input>
+        </div>
+        <app-loading-button
+          type="submit"
+          class="m-auto"
+          loadingLabel="salvando..."
+          [disabled]="form.invalid || loading"
+          [loading]="loading">
+          Salvar
+        </app-loading-button>
+      </div>
+    </form>
+  </div>
+</app-bottom-sheet>

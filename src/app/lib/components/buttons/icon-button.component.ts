@@ -3,9 +3,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'app-icon-button',
   template: `
-    <button (click)="clicked.emit()" class="inline-flex">
-      <i class="m-auto {{sizeMap[size]}} {{icon}}"></i>
-    </button>
+    <div class="flex justify-end">
+      <button (click)="clicked.emit()" class="inline-flex">
+        <i class="m-auto {{sizeMap[size]}} {{icon}}"></i>
+      </button>
+    </div>
   `
 })
 export class IconButtonComponent {
