@@ -19,6 +19,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {UserHttpInterceptor} from './interceptors/user-http.interceptor';
 import {AuthorizationInterceptor} from './interceptors/authorization.interceptor';
 import TransactionService from './services/transaction.service';
+import {ProfileComponent} from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import TransactionService from './services/transaction.service';
     CreditCardsComponent,
     InvoicesComponent,
     CreditCardFormComponent,
-    TransactionFormComponent
+    TransactionFormComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

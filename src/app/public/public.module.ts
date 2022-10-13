@@ -6,20 +6,27 @@ import {FormModule} from '../form.module';
 import {ApiModule} from '../api.module';
 import {CommonModule} from '@angular/common';
 import {LibModule} from '../lib/lib.module';
+import {RouterLink, RouterLinkWithHref} from '@angular/router';
+import {RegisterComponent} from './components/register/register.component';
+import {RegisterService} from './services/register.service';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     FormModule,
     ApiModule,
-    LibModule
+    LibModule,
+    RouterLinkWithHref,
+    RouterLink
   ],
   providers: [
     LoginService,
-    CookieService
+    CookieService,
+    RegisterService
   ]
 })
 export class PublicModule {

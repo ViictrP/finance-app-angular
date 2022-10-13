@@ -14,7 +14,7 @@ export class UserHttpInterceptor implements HttpInterceptor {
       .pipe(tap(response => {
         if (response instanceof HttpResponse) {
           const {method, url} = req;
-          const shouldCallUser = method !== 'GET' && (!url.includes('users') && !url.includes('login'));
+          const shouldCallUser = method !== 'GET' && !url.includes('login');
           if (shouldCallUser) {
             this.service.getProfile()
               .subscribe(() => console.log('fetching user\'s updated profile...'));

@@ -23,6 +23,10 @@ export class HeaderComponent implements OnInit {
     this.user$ = this.userService.getProfile();
   }
 
+  editProfile() {
+    this.router.navigate(['/secure/profile']);
+  }
+
   logOut() {
     this.loginService.logOut();
     this.router.navigate(['/login']);
