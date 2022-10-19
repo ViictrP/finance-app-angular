@@ -12,34 +12,29 @@ import {BottomSheetComponent} from './components/bottom-sheet/bottom-sheet.compo
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SelectComponent} from './components/form/select/select.component';
 import {InputDateComponent} from './components/form/input/input-date.component';
+import {ModalComponent} from './components/modal/modal.component';
+import {CategoryPipe} from './components/pipes/category.pipe';
+
+const components = [
+  InputComponent,
+  ButtonComponent,
+  LoadingButtonComponent,
+  CardComponent,
+  ChipComponent,
+  ObservableDirective,
+  IconButtonComponent,
+  BottomSheetComponent,
+  SelectComponent,
+  InputDateComponent,
+  ModalComponent,
+  CategoryPipe
+];
 
 @NgModule({
-  declarations: [
-    InputComponent,
-    ButtonComponent,
-    LoadingButtonComponent,
-    CardComponent,
-    ChipComponent,
-    ObservableDirective,
-    IconButtonComponent,
-    BottomSheetComponent,
-    SelectComponent,
-    InputDateComponent
-  ],
+  declarations: [...components],
   imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [
-    InputComponent,
-    ButtonComponent,
-    LoadingButtonComponent,
-    CardComponent,
-    ChipComponent,
-    ObservableDirective,
-    IconButtonComponent,
-    BottomSheetComponent,
-    SelectComponent,
-    InputDateComponent
-  ]
+  exports: [...components]
 })
 export class LibModule {
 
