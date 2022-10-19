@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import User from '../../../entities/User';
 import {ActivatedRoute} from '@angular/router';
@@ -6,6 +6,7 @@ import CreditCard from '../../../entities/CreditCard';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditCardService} from '../../services/credit-card.service';
 import {BaseComponent} from '../BaseComponent';
+import {ModalComponent} from '../../../lib/components/modal/modal.component';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -15,10 +16,13 @@ import {BaseComponent} from '../BaseComponent';
 })
 export class CreditCardFormComponent extends BaseComponent implements OnInit {
 
+  @ViewChild('modal') modal?: ModalComponent;
+
   user?: User;
   creditCard?: CreditCard;
   form: FormGroup;
   loading = false;
+  success = false;
   shouldUpdate = false;
   colorOptions = [
     {value: 'bg-purple-900', label: 'Roxo'},
@@ -102,6 +106,11 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
     };
     this.subscribeAndRender(
       this.service.saveCreditCard(creditCard, this.shouldUpdate),
-      () => this.loading = false);
+      () => {
+        this.success = true;
+        this.modal?.show();
+        this.loading = false;
+        this.success = false;
+      });
   }
 }

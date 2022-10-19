@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent} from '../BaseComponent';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
@@ -7,6 +7,7 @@ import TransactionService from '../../services/transaction.service';
 import User from '../../../entities/User';
 import Invoice from '../../../entities/Invoice';
 import Transaction from '../../../entities/Transaction';
+import {ModalComponent} from '../../../lib/components/modal/modal.component';
 
 @Component({
   selector: 'app-transactio-form',
@@ -15,6 +16,8 @@ import Transaction from '../../../entities/Transaction';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionFormComponent extends BaseComponent implements OnInit {
+
+  @ViewChild('modal') modal?: ModalComponent;
 
   form: FormGroup;
   categoryOptions = [
@@ -41,6 +44,7 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
   ];
   creditCards: SelectOption[] = [];
   loading = false;
+  success = false;
   user?: User;
 
   constructor(detector: ChangeDetectorRef,
@@ -117,7 +121,10 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(
       this.service.save(transaction),
       () => {
+        this.success = true;
         this.loading = false;
+        this.modal?.show();
+        this.success = false;
       }
     )
   }
