@@ -59,12 +59,14 @@
     ],
     "testPathIgnorePatterns": [
       "./node_modules/",
-      "frappe-charts/dist/frappe-charts.min.esm",
       "./dist/"
     ],
     "coveragePathIgnorePatterns": [
       ".module.ts",
       ".directive.ts"
+    ],
+    "transformIgnorePatterns": [
+      "!node_modules/"
     ],
     "collectCoverage": true,
     "coverageDirectory": "coverage",
