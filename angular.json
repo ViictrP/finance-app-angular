@@ -25,7 +25,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/frappe-charts/dist/frappe-charts.min.esm.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -14,6 +14,7 @@ import {SelectComponent} from './components/form/select/select.component';
 import {InputDateComponent} from './components/form/input/input-date.component';
 import {ModalComponent} from './components/modal/modal.component';
 import {CategoryPipe} from './components/pipes/category.pipe';
+import { ChartDirective } from './directives/chart.directive';
 
 const components = [
   InputComponent,
@@ -27,7 +28,8 @@ const components = [
   SelectComponent,
   InputDateComponent,
   ModalComponent,
-  CategoryPipe
+  CategoryPipe,
+  ChartDirective
 ];
 
 @NgModule({

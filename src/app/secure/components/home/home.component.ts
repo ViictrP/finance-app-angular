@@ -5,6 +5,7 @@ import Transaction from '../../../entities/Transaction';
 import {Router} from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
 import {BaseComponent} from '../BaseComponent';
+import {Data, Dataset} from '../../../lib/directives/chart.directive';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,19 @@ export class HomeComponent extends BaseComponent implements OnInit {
   user?: User;
   filteredTransactions: Transaction[] = [];
   expensesAmount = 0;
+
+  data: Data[] = [
+    {
+      title: "Some Data",
+      color: "light-blue",
+      values: [1200, 500, 600, 1400, 550, 897, 1000]
+    }
+  ];
+
+  dataset: Dataset = {
+    labels: ["JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"],
+    datasets: this.data
+  };
 
   constructor(private readonly userService: UserService,
               private readonly router: Router,

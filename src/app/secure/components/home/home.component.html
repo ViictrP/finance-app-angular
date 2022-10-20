@@ -1,13 +1,28 @@
 <div class="text-zinc-200 px-4">
-  <p class="text-xl">
-    salário&nbsp;
-    <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}} - {{expensesAmount | currency: 'BRL'}}</span>
-  </p>
   <div class="mt-4">
     <app-card>
-      <div class="h-44 flex">
-        <p class="m-auto text-5xl text-zinc-500">Line Chart</p>
+      <div class="flex flex-row justify-between">
+        <p class="text-xl text-left">
+          <small>salário</small><br/>
+          <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
+        </p>
+        <app-icon-button
+          size="big"
+          class="align-super mt-2"
+          icon="ph-chart-bar-fill">
+        </app-icon-button>
       </div>
+      <div
+        class="h-60"
+        appChart
+        [title]="'Line Chart'"
+        [data]="dataset"
+        [type]="'line'">
+      </div>
+      <p class="text-xl text-right">
+        <small>gastos</small><br/>
+        <span class="text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
+      </p>
     </app-card>
   </div>
 </div>
@@ -54,7 +69,7 @@
   </ng-container>
   <ng-container *ngIf="filteredTransactions.length === 0">
     <div class="w-full flex flex-col items-center justify-center h-36">
-      <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon" />
+      <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon"/>
       <p class="text-neutral-300">Nenhum lançamento encontrado</p>
     </div>
   </ng-container>
