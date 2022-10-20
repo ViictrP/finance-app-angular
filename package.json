@@ -59,7 +59,7 @@
     ],
     "testPathIgnorePatterns": [
       "./node_modules/",
-      "frappe-charts/",
+      "frappe-charts/dist/frappe-charts.min.esm",
       "./dist/"
     ],
     "coveragePathIgnorePatterns": [
