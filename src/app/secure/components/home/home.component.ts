@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
 import {BaseComponent} from '../BaseComponent';
 import {Data, Dataset} from '../../../lib/directives/chart.directive';
+import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
 
 @Component({
   selector: 'app-home',
@@ -71,17 +72,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
   creditCardsTotal: { [key: string]: number } = {};
 
   private calculateExpensesAmout() {
-    const debitAmount = this.user?.transactions?.reduce((sum, current) => sum + Number(current.amount), 0);
-    const creditCardsAmount = this.creditCards.reduce((sum, current) => {
-      const invoice = current.invoices[0];
-      const amount = invoice ? invoice.transactions.reduce((sum, current) => {
-        return sum + Number(current.amount);
-      }, 0) : 0;
-      const creditCardSum = sum + Number(amount);
-      this.creditCardsTotal[current.id] = amount;
-      return creditCardSum;
-    }, 0);
-    this.expensesAmount = debitAmount! + creditCardsAmount;
+    const [total, creditCardsTotal] = calculateExpensesHelper((this.user?.transactions || []), this.creditCards);
+    this.expensesAmount = total;
+    this.creditCardsTotal = creditCardsTotal;
   }
 
   calculatePercentage(creditCardId: string) {

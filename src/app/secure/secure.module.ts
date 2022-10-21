@@ -20,18 +20,24 @@ import {UserHttpInterceptor} from './interceptors/user-http.interceptor';
 import {AuthorizationInterceptor} from './interceptors/authorization.interceptor';
 import TransactionService from './services/transaction.service';
 import {ProfileComponent} from './components/profile/profile.component';
+import { BalanceComponent } from './components/balance/balance.component';
+
+const components = [
+  SecureComponent,
+  HomeComponent,
+  HeaderComponent,
+  BottomNavComponent,
+  CreditCardsComponent,
+  InvoicesComponent,
+  CreditCardFormComponent,
+  TransactionFormComponent,
+  ProfileComponent,
+  BalanceComponent
+];
 
 @NgModule({
   declarations: [
-    SecureComponent,
-    HomeComponent,
-    HeaderComponent,
-    BottomNavComponent,
-    CreditCardsComponent,
-    InvoicesComponent,
-    CreditCardFormComponent,
-    TransactionFormComponent,
-    ProfileComponent
+    ...components
   ],
   imports: [
     CommonModule,
