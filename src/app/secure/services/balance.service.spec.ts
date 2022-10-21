@@ -1,12 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { BalanceService } from './balance.service';
+import {BalanceService} from './balance.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('BalanceService', () => {
   let service: BalanceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(BalanceService);
   });
 
