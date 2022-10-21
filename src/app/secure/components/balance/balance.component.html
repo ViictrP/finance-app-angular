@@ -63,7 +63,7 @@
         <div class="flex flex-col gap-2">
           <div class="flex flex-row justify-between">
             <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-              <i class="ph-fork-knife-fill"></i>
+              <i class="{{transaction.category | categoryIcon }}"></i>
               {{transaction.category | category }}
             </p>
             <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>

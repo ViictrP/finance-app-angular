@@ -22,23 +22,23 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
   form: FormGroup;
   categoryOptions = [
     {
-      value: 'RESTAURANTE',
+      value: 'food',
       label: 'Restaurante'
     },
     {
-      value: 'CREDIT_CARD',
+      value: 'credit-card',
       label: 'Cartão'
     },
     {
-      value: 'HOME',
+      value: 'home',
       label: 'Casa'
     },
     {
-      value: 'SHOP',
+      value: 'shop',
       label: 'Shop'
     },
     {
-      value: 'OTHER',
+      value: 'other',
       label: 'Outro'
     }
   ];

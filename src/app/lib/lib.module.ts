@@ -15,6 +15,7 @@ import {InputDateComponent} from './components/form/input/input-date.component';
 import {ModalComponent} from './components/modal/modal.component';
 import {CategoryPipe} from './components/pipes/category.pipe';
 import { ChartDirective } from './directives/chart.directive';
+import { CategoryIconPipe } from './components/pipes/category-icon.pipe';
 
 const components = [
   InputComponent,
@@ -33,10 +34,10 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, CategoryIconPipe],
   imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [...components]
+  exports: [...components, CategoryIconPipe]
 })
 export class LibModule {
 
