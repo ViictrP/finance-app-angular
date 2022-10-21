@@ -1,7 +1,7 @@
 export const categoryMapResponse: { [key: string]: string } = {
-  RESTAURANTE: 'Restaurante',
-  CREDIT_CARD: 'Cartão',
-  HOME: 'Casa',
-  SHOP: 'Shop',
-  OTHER: 'Outro',
+  food: 'Restaurante',
+  'credit-card': 'Cartão',
+  home: 'Casa',
+  shop: 'Shop',
+  other: 'Outro',
 };
