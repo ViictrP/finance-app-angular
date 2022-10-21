@@ -20,6 +20,7 @@ export class ChartDirective implements OnChanges {
   @Input() data: Dataset = {} as any;
   @Input() type = 'line';
   @Input() height = 250;
+  @Input() colors?: string[];
 
   @Output() frappe: EventEmitter<any> = new EventEmitter();
 
@@ -34,7 +35,7 @@ export class ChartDirective implements OnChanges {
       },
       type: this.type, // or 'bar', 'line', 'scatter', 'pie', 'percentage'
       height: this.height,
-      colors: ['#fef08a'],
+      colors: this.colors || ['#fef08a'],
       axisOptions: {
         xAxisMode: 'tick',
         xIsSeries: true,

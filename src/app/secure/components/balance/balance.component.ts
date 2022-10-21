@@ -9,6 +9,7 @@ import {BalanceService} from '../../services/balance.service';
 import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
 import {format} from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import {Data, Dataset} from '../../../lib/directives/chart.directive';
 
 @Component({
   selector: 'app-balance',
@@ -24,11 +25,27 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   expensesAmount = 0;
   loading = false;
 
+  data: Data[] = [
+    {
+      title: "Some Data",
+      color: "light-blue",
+      values: [1, 2, 0.7]
+    }
+  ];
+  dataset: Dataset = {
+    labels: ["Salario", "Gastos", "Disponível"],
+    datasets: this.data
+  };
+
   constructor(changeDetector: ChangeDetectorRef,
               private readonly userService: UserService,
               private readonly service: BalanceService,
               private readonly router: Router) {
     super(changeDetector);
+  }
+
+  get salary() {
+    return this.user?.salary || 0;
   }
 
   get transactions(): Transaction[] {
@@ -70,6 +87,7 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     const [total, creditCardsTotal] = calculateExpensesHelper(transactions, creditCards);
     this.expensesAmount = total;
     this.creditCardsTotal = creditCardsTotal;
+    this.dataset.datasets[0].values = [this.salary, total, this.salary - total];
   }
 
   calculatePercentage(creditCardId: string) {
