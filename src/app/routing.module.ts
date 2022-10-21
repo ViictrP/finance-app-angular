@@ -12,6 +12,7 @@ import {CreditCardFormComponent} from './secure/components/credit-card-form/cred
 import {TransactionFormComponent} from './secure/components/transaction-form/transaction-form.component';
 import {RegisterComponent} from './public/components/register/register.component';
 import {ProfileComponent} from './secure/components/profile/profile.component';
+import {BalanceComponent} from './secure/components/balance/balance.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -73,6 +74,10 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'profile',
           component: ProfileComponent
+        },
+        {
+          path: 'balance',
+          component: BalanceComponent
         }
       ]
     }

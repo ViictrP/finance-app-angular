@@ -5,14 +5,15 @@ import {Component, Input} from '@angular/core';
   template: `
     <div
       [ngClass]="colorMap[color] || color"
-      class="py-2 px-4 w-full border-[0.5px] border-zinc-800 {{borderMap[color]}} rounded-lg shadow-md">
+      class="{{noPadding ? '' : 'py-2 px-4'}} w-full border-[0.5px] border-zinc-800 {{borderMap[color]}} rounded-lg shadow-md">
       <ng-content></ng-content>
     </div>
   `
 })
 export class CardComponent {
 
-  @Input() color = 'bg-zinc-900'
+  @Input() color = 'bg-zinc-900';
+  @Input() noPadding = false;
 
   constructor() {
   }

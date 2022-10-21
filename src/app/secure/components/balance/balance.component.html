@@ -1,29 +1,37 @@
 <div class="text-zinc-200 px-4">
+  <app-input-date
+    [value]="today"
+    (changed)="getBalance($event)"
+    [hideClearButton]="true"
+    inputType="month"
+    placeholder="02/10/2022">
+  </app-input-date>
   <div class="mt-4">
     <app-card [noPadding]="true">
-      <div class="py-2 px-4 flex flex-row justify-between">
-        <p class="text-xl text-left">
-          <small>salário</small><br/>
-          <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
-        </p>
-        <app-icon-button
-          routerLink="/secure/balance"
-          size="big"
-          class="align-super mt-2"
-          icon="ph-chart-bar-fill">
-        </app-icon-button>
+      <div class="flex flex-row">
+        <div class="py-2 px-4 gap-2 flex flex-col">
+          <p class="text-md text-left">
+            <small>salário</small><br/>
+            <span class="text-xl text-sky-300 font-bold">{{salary | currency: 'BRL'}}</span>
+          </p>
+          <p class="text-md text-left">
+            <small>gastos</small><br/>
+            <span class="text-xl text-yellow-200 font-bold">{{expensesAmount | currency: 'BRL'}}</span>
+          </p>
+          <p class="text-md text-left">
+            <small>disponível</small><br/>
+            <span class="text-xl text-green-200 font-bold">{{(salary || 0) - expensesAmount | currency: 'BRL'}}</span>
+          </p>
+        </div>
+        <div class="m-auto w-full">
+          <div
+            appChart
+            [colors]="['#7dd3fc', '#fde047', '#bbf7d0']"
+            [type]="'donut'"
+            [data]="dataset">
+          </div>
+        </div>
       </div>
-      <div
-        class="h-60"
-        appChart
-        [title]="'Line Chart'"
-        [data]="dataset"
-        [type]="'line'">
-      </div>
-      <p class="py-2 px-4 text-xl text-right">
-        <small>gastos</small><br/>
-        <span class="text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
-      </p>
     </app-card>
   </div>
 </div>
