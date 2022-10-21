@@ -8,4 +8,10 @@ describe('CategoryPipe', () => {
 
     expect(mapped).toStrictEqual('Restaurante');
   });
+
+  it('Should map the category into icon', () => {
+    const mapped = pipe.transform('food', true);
+
+    expect(mapped).toStrictEqual('ph-fork-knife-fill');
+  });
 });
