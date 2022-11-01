@@ -26,7 +26,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/frappe-charts/dist/frappe-charts.min.esm.js"
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           },
           "configurations": {

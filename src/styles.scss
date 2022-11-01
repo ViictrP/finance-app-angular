@@ -29,3 +29,7 @@ textarea:focus,
 select:focus {
   border-color: transparent;
 }
+
+g.apexcharts-gridlines-horizontal {
+  display: none !important;
+}

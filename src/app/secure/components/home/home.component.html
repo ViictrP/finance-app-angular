@@ -1,77 +1,85 @@
-<div class="text-zinc-200 px-4">
-  <div class="mt-4">
-    <app-card [noPadding]="true">
-      <div class="py-2 px-4 flex flex-row justify-between">
-        <p class="text-xl text-left">
-          <small>salário</small><br/>
-          <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
+<div class='text-zinc-200 px-4'>
+  <div class='mt-4'>
+    <app-card [noPadding]='true'>
+      <div class='py-2 px-4 flex flex-row justify-between'>
+        <p class='text-xl text-left'>
+          <small>salário</small><br />
+          <span class='text-sky-300 font-bold'>{{user?.salary | currency: 'BRL'}}</span>
         </p>
         <app-icon-button
-          routerLink="/secure/balance"
-          size="big"
-          class="align-super mt-2"
-          icon="ph-chart-bar-fill">
+          routerLink='/secure/balance'
+          size='big'
+          class='align-super mt-2'
+          icon='ph-chart-bar-fill'>
         </app-icon-button>
       </div>
-      <div
-        class="h-60"
-        appChart
-        [title]="'Line Chart'"
-        [data]="dataset"
-        [type]="'line'">
+      <div class='pl-2'>
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [stroke]="chartOptions.stroke!"
+          [tooltip]="chartOptions.tooltip!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [fill]="chartOptions.fill!"
+          [markers]="chartOptions.markers!"
+          [theme]="chartOptions.theme!"
+          [yaxis]="chartOptions.yaxis!"
+          [title]="chartOptions.title!"
+        ></apx-chart>
       </div>
-      <p class="py-2 px-4 text-xl text-right">
-        <small>gastos</small><br/>
-        <span class="text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
+      <p class='py-2 px-4 text-xl text-right'>
+        <small>gastos</small><br />
+        <span class='text-yellow-200'>{{expensesAmount | currency: 'BRL'}}</span>
       </p>
     </app-card>
   </div>
 </div>
-<div class="mt-10">
-  <p class="text-2xl mb-4 px-4">Impacto nos gastos</p>
-  <div class="flex gap-3 overflow-x-auto scrollbar-none px-4">
-    <ng-container *ngFor="let creditCard of creditCards">
+<div class='mt-10'>
+  <p class='text-2xl mb-4 px-4'>Impacto nos gastos</p>
+  <div class='flex gap-3 overflow-x-auto scrollbar-none px-4'>
+    <ng-container *ngFor='let creditCard of creditCards'>
       <app-chip
-        (clicked)="goToInvoices(creditCard.id)"
-        [title]="creditCard.title"
-        [color]="creditCard.backgroundColor"
-        description="{{calculatePercentage(creditCard.id)}}%">
+        (clicked)='goToInvoices(creditCard.id)'
+        [title]='creditCard.title'
+        [color]='creditCard.backgroundColor'
+        description='{{calculatePercentage(creditCard.id)}}%'>
       </app-chip>
     </ng-container>
   </div>
 </div>
-<div class="mt-10 mb-32 px-4">
-  <p class="text-2xl mb-4">Transações</p>
-  <div class="mb-4">
+<div class='mt-10 mb-32 px-4'>
+  <p class='text-2xl mb-4'>Transações</p>
+  <div class='mb-4'>
     <app-input
-      icon="ph-magnifying-glass"
-      placeholder="filtrar transações..."
-      (changed)="filterTransactions($event)">
+      icon='ph-magnifying-glass'
+      placeholder='filtrar transações...'
+      (changed)='filterTransactions($event)'>
     </app-input>
   </div>
-  <ng-container *ngFor="let transaction of filteredTransactions">
-    <div class="mb-4">
+  <ng-container *ngFor='let transaction of filteredTransactions'>
+    <div class='mb-4'>
       <app-card>
-        <div class="flex flex-col gap-2">
-          <div class="flex flex-row justify-between">
-            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-              <i class="{{transaction.category | category: true }}"></i>
+        <div class='flex flex-col gap-2'>
+          <div class='flex flex-row justify-between'>
+            <p class='text-zinc-500 text-lg inline-flex items-center gap-1'>
+              <i class='{{transaction.category | category: true }}'></i>
               {{transaction.category | category }}
             </p>
-            <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>
+            <p class='text-zinc-500'>{{transaction.date | date: 'dd/MMM'}}</p>
           </div>
-          <div class="flex flex-row justify-between">
-            <p class="my-auto text-lg">{{transaction.description}}</p>
-            <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+          <div class='flex flex-row justify-between'>
+            <p class='my-auto text-lg'>{{transaction.description}}</p>
+            <p class='my-auto text-yellow-200 text-xl'>{{transaction.amount | currency: 'BRL'}}</p>
           </div>
         </div>
       </app-card>
     </div>
   </ng-container>
-  <ng-container *ngIf="filteredTransactions.length === 0">
-    <div class="w-full flex flex-col items-center justify-center h-36">
-      <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon"/>
-      <p class="text-neutral-300">Nenhum lançamento encontrado</p>
+  <ng-container *ngIf='filteredTransactions.length === 0'>
+    <div class='w-full flex flex-col items-center justify-center h-36'>
+      <img class='w-[64px] h-[64px]' src='../../../../assets/img/invoice.png' alt='Invoice Icon' />
+      <p class='text-neutral-300'>Nenhum lançamento encontrado</p>
     </div>
   </ng-container>
 </div>
