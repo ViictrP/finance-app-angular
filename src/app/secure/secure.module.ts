@@ -21,6 +21,7 @@ import {AuthorizationInterceptor} from './interceptors/authorization.interceptor
 import TransactionService from './services/transaction.service';
 import {ProfileComponent} from './components/profile/profile.component';
 import { BalanceComponent } from './components/balance/balance.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 const components = [
   SecureComponent,
@@ -43,6 +44,7 @@ const components = [
     CommonModule,
     RoutingModule,
     FormModule,
+    NgApexchartsModule,
     ApiModule,
     LibModule
   ],
