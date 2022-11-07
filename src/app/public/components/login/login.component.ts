@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
 import LoginRequest from '../../../dto/login.request';
 import {Router} from '@angular/router';
+import { MessageComponent } from '../../../lib/components/message/message.component';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
+  @ViewChild('message') message?: MessageComponent;
 
   formGroup: FormGroup;
   loading = false;
@@ -31,9 +34,9 @@ export class LoginComponent {
     return this.formGroup.get('password');
   }
 
-  handleError(error: any) {
+  handleError() {
     this.loading = false;
-    console.log(error);
+    this.message?.show('Usuário ou senha inválidos', 'ERROR');
   }
 
   handleSuccess() {
@@ -47,7 +50,7 @@ export class LoginComponent {
     this.service.login(request)
       .subscribe({
         next: () => this.handleSuccess(),
-        error: error => this.handleError(error)
+        error: error => this.handleError()
       });
   }
 }
