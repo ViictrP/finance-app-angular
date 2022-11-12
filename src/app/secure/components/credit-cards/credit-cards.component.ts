@@ -6,7 +6,7 @@ import Transaction from '../../../entities/Transaction';
 import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../BaseComponent';
-import {categoryMapResponse} from '../../../dto/categoryMap.response';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
 
 @Component({
   selector: 'app-credit-cards',
@@ -17,12 +17,15 @@ import {categoryMapResponse} from '../../../dto/categoryMap.response';
 export class CreditCardsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
+  @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
 
   user?: User;
   selectedCreditCard?: CreditCard;
   creditCards: CreditCard[] = [];
   transactions: Transaction[] = [];
+  selectedTransaction?: Transaction;
   invoiceTotalAmount: number | undefined;
+  loading = false;
 
   constructor(private readonly userService: UserService,
               private readonly router: Router,
@@ -102,5 +105,14 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
 
   excludeCreditCard(creditCardId?: string) {
     console.log('nothing to do here ', creditCardId);
+  }
+
+  editTransaction(transaction: Transaction) {
+    this.selectedTransaction = transaction;
+    this.deleteTransactionModal?.show();
+  }
+
+  deleteTransaction(all = false) {
+    this.deleteTransactionModal?.close();
   }
 }
