@@ -18,13 +18,13 @@ export class LoginService {
   }
 
   async isLoggedIn() {
-    const platform = window.navigator.userAgent.toLowerCase();
-    const isMobile = platform.includes('mobile');
-    let token = undefined;
-    if (isMobile) {
-      token = await this.getToken();
-    }
-    return Boolean(token) || Boolean(this.cookieService.get('access_token'));
+    // const platform = window.navigator.userAgent.toLowerCase();
+    // const isMobile = platform.includes('mobile');
+    // let token = undefined;
+    // if (isMobile) {
+    //   token = await this.getToken();
+    // }
+    return Boolean(this.cookieService.get('access_token'));
   }
 
   login(request: LoginRequest): Observable<LoginResponse> {
