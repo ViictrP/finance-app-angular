@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
+import { LoadingButtonComponent } from '../../../lib/components/buttons/loading-button.component';
+import { MessageComponent } from '../../../lib/components/message/message.component';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 
 
 describe('LoginComponent', () => {
@@ -18,7 +21,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent, InputComponent],
+      declarations: [
+        LoginComponent,
+        LoadingButtonComponent,
+        MessageComponent,
+        IconButtonComponent,
+        InputComponent
+      ],
       imports: [
         FormModule,
         HttpClientTestingModule,
