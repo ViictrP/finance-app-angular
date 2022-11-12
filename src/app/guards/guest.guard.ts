@@ -10,10 +10,10 @@ export class GuestGuard implements CanActivate {
               private readonly router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const isLoggedIn = this.loginService.isLoggedIn;
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const isLoggedIn = await this.loginService.isLoggedIn();
     if (isLoggedIn) {
-      this.router.navigate(['/secure/home']);
+      await this.router.navigate(['/secure/home']);
       return false;
     }
     return true;

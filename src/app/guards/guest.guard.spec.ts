@@ -23,18 +23,24 @@ describe('GuestGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('Should return true if user is not logged in', () => {
-    jest.spyOn(loginService, 'isLoggedIn', 'get').mockImplementation(() => false);
-    const canActivate = guard.canActivate({} as any, {} as any);
+  it('Should return true if user is not logged in', async () => {
+    const promise = new Promise<boolean>((resolve) => {
+      resolve(false);
+    });
+    jest.spyOn(loginService, 'isLoggedIn').mockImplementation(() => promise);
+    const canActivate = await guard.canActivate({} as any, {} as any);
 
     expect(canActivate).toBeTruthy();
   });
 
-  it('Should return false and navigate to home if user is logged in', () => {
-    jest.spyOn(loginService, 'isLoggedIn', 'get').mockImplementation(() => true);
+  it('Should return false and navigate to home if user is logged in', async () => {
+    const promise = new Promise<boolean>((resolve) => {
+      resolve(true);
+    });
+    jest.spyOn(loginService, 'isLoggedIn').mockImplementation(() => promise);
     jest.spyOn(router, 'navigate').mockImplementation(jest.fn());
     const navigateSpy = jest.spyOn(router, 'navigate');
-    const canActivate = guard.canActivate({} as any, {} as any);
+    const canActivate = await guard.canActivate({} as any, {} as any);
 
     expect(canActivate).toBeFalsy();
     expect(navigateSpy).toHaveBeenCalledWith(['/secure/home']);

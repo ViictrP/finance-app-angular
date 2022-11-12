@@ -1,7 +1,6 @@
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {LoginService} from '../public/services/login.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { LoginService } from '../public/services/login.service';
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
@@ -10,10 +9,10 @@ export class LoggedInGuard implements CanActivate {
               private readonly router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const isLoggedIn = this.loginService.isLoggedIn;
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const isLoggedIn = await this.loginService.isLoggedIn();
     if (!isLoggedIn) {
-      this.router.navigate(['/login']);
+      await this.router.navigate(['/login']);
       return false;
     }
     return true;

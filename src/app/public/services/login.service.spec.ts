@@ -26,8 +26,8 @@ describe('LoginService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Should return boolean when isLoggedIn is called', () => {
-    const isLoggedIn = service.isLoggedIn;
+  it('Should return boolean when isLoggedIn is called', async () => {
+    const isLoggedIn = await service.isLoggedIn();
     expect(isLoggedIn).toBeFalsy();
   });
 
@@ -46,10 +46,10 @@ describe('LoginService', () => {
     );
   }));
 
-  it('Should log out with success', () => {
+  it('Should log out with success', async () => {
     const deleteCookieSpy = jest.spyOn(cookieService, 'delete');
     service.logOut();
-    const isLoggedIn = service.isLoggedIn;
+    const isLoggedIn = await service.isLoggedIn();
 
     expect(deleteCookieSpy).toHaveBeenCalledWith('access_token');
     expect(isLoggedIn).toBeFalsy();

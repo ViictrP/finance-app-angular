@@ -19,7 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "apexcharts"
+              "apexcharts",
+              "react-native-webview-invoke/browser"
             ],
             "assets": [
               "src/favicon.ico",

@@ -1,18 +1,18 @@
-import {AppComponent} from './components/app.component';
-import {LoginComponent} from './public/components/login/login.component';
-import {RouterModule, Routes} from '@angular/router';
-import {GuestGuard} from './guards/guest.guard';
-import {SecureComponent} from './secure/components/secure.component';
-import {LoggedInGuard} from './guards/logged-in.guard';
-import {HomeComponent} from './secure/components/home/home.component';
-import {NgModule} from '@angular/core';
-import {CreditCardsComponent} from './secure/components/credit-cards/credit-cards.component';
-import {InvoicesComponent} from './secure/components/invoices/invoices.component';
-import {CreditCardFormComponent} from './secure/components/credit-card-form/credit-card-form.component';
-import {TransactionFormComponent} from './secure/components/transaction-form/transaction-form.component';
-import {RegisterComponent} from './public/components/register/register.component';
-import {ProfileComponent} from './secure/components/profile/profile.component';
-import {BalanceComponent} from './secure/components/balance/balance.component';
+import { AppComponent } from './components/app.component';
+import { LoginComponent } from './public/components/login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { GuestGuard } from './guards/guest.guard';
+import { SecureComponent } from './secure/components/secure.component';
+import { LoggedInGuard } from './guards/logged-in.guard';
+import { HomeComponent } from './secure/components/home/home.component';
+import { NgModule } from '@angular/core';
+import { CreditCardsComponent } from './secure/components/credit-cards/credit-cards.component';
+import { InvoicesComponent } from './secure/components/invoices/invoices.component';
+import { CreditCardFormComponent } from './secure/components/credit-card-form/credit-card-form.component';
+import { TransactionFormComponent } from './secure/components/transaction-form/transaction-form.component';
+import { RegisterComponent } from './public/components/register/register.component';
+import { ProfileComponent } from './secure/components/profile/profile.component';
+import { BalanceComponent } from './secure/components/balance/balance.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
