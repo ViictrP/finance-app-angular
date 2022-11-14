@@ -11,6 +11,8 @@ import {IconButtonComponent} from '../components/buttons/icon-button.component';
 import {FormModule} from '../../form.module';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
+import TransactionService from '../../secure/services/transaction.service';
+import { ModalComponent } from '../components/modal/modal.component';
 
 describe('ObservableDirective', () => {
   let component: CreditCardsComponent;
@@ -25,14 +27,18 @@ describe('ObservableDirective', () => {
         InputComponent,
         BottomSheetComponent,
         ButtonComponent,
-        IconButtonComponent
+        IconButtonComponent,
+        ModalComponent
       ],
       imports: [
         HttpClientTestingModule,
         NoopAnimationsModule,
         FormModule
       ],
-      providers: [UserService]
+      providers: [
+        UserService,
+        TransactionService
+      ]
     }).createComponent(CreditCardsComponent);
 
     component = fixture.componentInstance;

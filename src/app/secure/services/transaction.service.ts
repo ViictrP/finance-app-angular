@@ -13,4 +13,8 @@ export default class TransactionService {
   save(transaction: Transaction): Observable<Transaction> {
     return this.httpClient.post<Transaction>(`${environment.server_host}/transactions`, transaction);
   }
+
+  delete(transactionId: string, all: boolean): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.server_host}/transactions/${transactionId}?all=${all}`);
+  }
 }

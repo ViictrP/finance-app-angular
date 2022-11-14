@@ -6,6 +6,11 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import User from '../../../entities/User';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
+import TransactionService from '../../services/transaction.service';
+import { BottomSheetComponent } from '../../../lib/components/bottom-sheet/bottom-sheet.component';
+import { ButtonComponent } from '../../../lib/components/buttons/button.component';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -15,8 +20,18 @@ describe('CreditCardsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, FormModule],
-      declarations: [CreditCardsComponent, InputComponent],
-      providers: [UserService]
+      declarations: [
+        CreditCardsComponent,
+        InputComponent,
+        BottomSheetComponent,
+        ButtonComponent,
+        ModalComponent,
+        IconButtonComponent
+      ],
+      providers: [
+        UserService,
+        TransactionService
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreditCardsComponent);

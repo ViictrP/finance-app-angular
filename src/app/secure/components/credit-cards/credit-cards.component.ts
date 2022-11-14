@@ -7,6 +7,7 @@ import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-
 import {Router} from '@angular/router';
 import {BaseComponent} from '../BaseComponent';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import TransactionService from '../../services/transaction.service';
 
 @Component({
   selector: 'app-credit-cards',
@@ -28,6 +29,7 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
   loading = false;
 
   constructor(private readonly userService: UserService,
+              private readonly transactionService: TransactionService,
               private readonly router: Router,
               detector: ChangeDetectorRef) {
     super(detector);
@@ -113,6 +115,18 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
   }
 
   deleteTransaction(all = false) {
-    this.deleteTransactionModal?.close();
+    if (this.selectedTransaction) {
+      this.subscribeAndRender(
+        this.transactionService.delete(this.selectedTransaction.id!, all),
+        () => {
+          const transactions = this.selectedCreditCard!
+            .invoices[0]
+            .transactions;
+
+          transactions.splice(transactions.findIndex(t => t.id === this.selectedTransaction!.id!), 1);
+          this.deleteTransactionModal?.close();
+        }
+      );
+    }
   }
 }
