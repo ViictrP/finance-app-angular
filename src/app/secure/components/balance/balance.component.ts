@@ -1,19 +1,20 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import User from 'src/app/entities/User';
-import {BaseComponent} from '../BaseComponent';
-import {UserService} from '../../services/user.service';
+import { BaseComponent } from '../BaseComponent';
+import { UserService } from '../../services/user.service';
 import Transaction from '../../../entities/Transaction';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
-import {BalanceService} from '../../services/balance.service';
-import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
-import {format} from 'date-fns';
+import { BalanceService } from '../../services/balance.service';
+import { calculateExpensesHelper } from '../../helper/calculateExpenses.helper';
+import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
-  styleUrls: ['./balance.component.scss']
+  styleUrls: ['./balance.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BalanceComponent extends BaseComponent implements OnInit {
 
