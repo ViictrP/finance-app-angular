@@ -1,0 +1,14 @@
+.balance-container {
+  @apply p-4 h-72 gap-2 flex flex-row justify-evenly font-light;
+}
+
+.balance-bar {
+  @apply
+  mx-auto
+  w-9
+  mb-4
+  bg-yellow-200
+  rounded-md
+  border-[1px]
+  border-yellow-100
+}

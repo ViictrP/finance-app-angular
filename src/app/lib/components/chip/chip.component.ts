@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
       (click)="clicked.emit()"
       [ngClass]="colorMap[color] || color"
       class="cursor-pointer flex px-4 py-1 w-min-[50px] text-center border-[0.5px] {{borderMap[color]}} rounded-full">
-      <p class="m-auto"><span class="font-bold">{{title}}</span>&nbsp;&nbsp;<span class="text-xl">{{description}}</span></p>
+      <p class="m-auto"><span class="font-light">{{title}}</span>&nbsp;&nbsp;<span class="text-xl">{{description}}</span></p>
     </div>
   `
 })

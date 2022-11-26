@@ -2,7 +2,7 @@
   <div class="mt-4">
     <app-card [noPadding]="true">
       <div class="py-2 px-4 flex flex-row justify-between">
-        <p class="text-xl text-left">
+        <p class="text-2xl text-left">
           <small>salário</small><br />
           <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
         </p>
@@ -14,30 +14,30 @@
         </app-icon-button>
       </div>
       <div class="">
-        <div id="balance" class="p-4 h-72 gap-2 flex flex-row justify-evenly">
+        <div id="balance" class="balance-container">
           <div class="flex h-full flex-col justify-end">
-            <div class="mx-auto h-36 w-5 mb-4 bg-yellow-200 rounded-xl border-[1px] border-yellow-100"></div>
+            <div class="balance-bar h-[59%]"></div>
             <p class="text-xs mx-auto">JAN</p>
           </div>
           <div class="flex h-full flex-col justify-end">
-            <div class="mx-auto h-28 w-5 mb-4 bg-yellow-200 rounded-xl border-[1px] border-yellow-100"></div>
+            <div class="balance-bar h-[69%]"></div>
             <p class="text-xs mx-auto">FEV</p>
           </div>
           <div class="flex h-full flex-col justify-end">
-            <div class="mx-auto h-44 w-5 mb-4 bg-yellow-200 rounded-xl border-[1px] border-yellow-100"></div>
+            <div class="balance-bar h-[49%]"></div>
             <p class="text-xs mx-auto">MAR</p>
           </div>
           <div class="flex h-full flex-col justify-end">
-            <div class="mx-auto h-72 w-5 mb-4 bg-yellow-200 rounded-xl border-[1px] border-yellow-100"></div>
+            <div class="balance-bar h-[39%]"></div>
             <p class="text-xs mx-auto">MAI</p>
           </div>
           <div class="flex h-full flex-col justify-end">
-            <div class="mx-auto h-32 w-5 mb-4 bg-yellow-200 rounded-xl border-[1px] border-yellow-100"></div>
+            <div class="balance-bar h-[79%]"></div>
             <p class="text-xs mx-auto">JUN</p>
           </div>
         </div>
       </div>
-      <p class="py-2 px-4 text-xl text-right">
+      <p class="py-2 px-4 text-2xl text-right">
         <small>gastos</small><br />
         <span class="text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
       </p>
@@ -88,7 +88,7 @@
   <ng-container *ngIf="filteredTransactions.length === 0">
     <div class="w-full flex flex-col items-center justify-center h-36">
       <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon" />
-      <p class="text-neutral-300">Nenhum lançamento encontrado</p>
+      <p class="text-neutral-300 font-light">Nenhum lançamento encontrado</p>
     </div>
   </ng-container>
 </div>
