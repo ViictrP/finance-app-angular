@@ -4,8 +4,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   selector: 'app-icon-button',
   template: `
     <div class="flex justify-end">
-      <button (click)="clicked.emit()" class="inline-flex">
+      <button (click)="clicked.emit()" class="inline-flex gap-2">
         <i class="m-auto {{sizeMap[size]}} {{icon}}"></i>
+        <span class="m-auto {{sizeMap[size]}}">{{title}}</span>
       </button>
     </div>
   `
@@ -13,6 +14,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class IconButtonComponent {
   @Input() icon = '';
   @Input() size: 'small' | 'medium' | 'big' | 'ultra-big' = 'medium';
+  @Input() title?: string;
   @Output() clicked = new EventEmitter();
 
   sizeMap = {

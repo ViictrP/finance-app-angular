@@ -13,6 +13,9 @@ import { TransactionFormComponent } from './secure/components/transaction-form/t
 import { RegisterComponent } from './public/components/register/register.component';
 import { ProfileComponent } from './secure/components/profile/profile.component';
 import { BalanceComponent } from './secure/components/balance/balance.component';
+import {
+  RecurringExpensesFormComponent
+} from './secure/components/recurring-expenses-form/recurring-expenses-form.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -78,6 +81,10 @@ export const APP_ROUTES: Routes = [{
         {
           path: 'balance',
           component: BalanceComponent
+        },
+        {
+          path: 'recurring-expenses-form',
+          component: RecurringExpensesFormComponent
         }
       ]
     }

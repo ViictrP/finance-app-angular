@@ -4,6 +4,7 @@ import {UserService} from '../../services/user.service';
 import User from '../../../entities/User';
 import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   constructor(detector: ChangeDetectorRef,
               formBuilder: FormBuilder,
-              private readonly userService: UserService) {
+              private readonly userService: UserService,
+              private readonly router: Router) {
     super(detector);
     this.form = formBuilder.group({
       salary: [this.user?.salary, [Validators.required]]
@@ -51,5 +53,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.bottomSheet?.close();
       }
     );
+  }
+
+  addRecurringExpense() {
+    this.router.navigate(['secure/recurring-expenses-form']);
   }
 }
