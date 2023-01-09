@@ -22,6 +22,8 @@ import TransactionService from './services/transaction.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { RecurringExpensesFormComponent } from './components/recurring-expenses-form/recurring-expenses-form.component';
+import { RecurringExpensesService } from './services/recurring-expenses.service';
 
 const components = [
   SecureComponent,
@@ -34,6 +36,7 @@ const components = [
   TransactionFormComponent,
   ProfileComponent,
   BalanceComponent,
+  RecurringExpensesFormComponent
 ];
 
 @NgModule({
@@ -53,6 +56,7 @@ const components = [
     InvoiceService,
     CreditCardService,
     TransactionService,
+    RecurringExpensesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,
