@@ -18,7 +18,7 @@ let input = Input();
         <app-icon-button
           (click)="close($event)"
           *ngIf="showCloseButton"
-          class="absolute p-1 text-neutral-200 dark:bg-gray-800 border-[0.5px] border-gray-200 dark:border-gray-700 rounded-full top-[-10px] right-[-10px]"
+          class="gap-0 absolute p-1 text-neutral-200 dark:bg-gray-800 border-[0.5px] border-gray-200 dark:border-gray-700 rounded-full top-[-10px] right-[-10px]"
           size="small"
           icon="ph-x-fill">
         </app-icon-button>
