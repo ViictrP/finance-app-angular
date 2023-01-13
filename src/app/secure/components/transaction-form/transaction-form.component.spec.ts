@@ -5,6 +5,10 @@ import {UserService} from '../../services/user.service';
 import TransactionService from '../../services/transaction.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoadingButtonComponent} from '../../../lib/components/buttons/loading-button.component';
+import {
+  CommonTransactionFormComponent
+} from '../../../lib/components/form/transaction/common-transaction-form.component';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
 
 describe('TransactionForm', () => {
   let component: TransactionFormComponent;
@@ -12,7 +16,12 @@ describe('TransactionForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TransactionFormComponent, LoadingButtonComponent],
+      declarations: [
+        TransactionFormComponent,
+        LoadingButtonComponent,
+        CommonTransactionFormComponent,
+        ModalComponent
+      ],
       imports: [FormModule, HttpClientTestingModule],
       providers: [UserService, TransactionService]
     });

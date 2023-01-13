@@ -24,7 +24,8 @@ describe('HeaderComponent', () => {
     lastname: 'User',
     name: 'User',
     password: 'PQIWORUSLU##!@',
-    transactions: []
+    transactions: [],
+    recurringExpenses: []
   };
 
   beforeEach(async () => {

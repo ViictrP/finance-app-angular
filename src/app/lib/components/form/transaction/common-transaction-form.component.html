@@ -1,0 +1,76 @@
+<form [formGroup]="form" (submit)="save()">
+  <div class="mb-10" *ngIf="!!creditCards">
+    <p class="text-2xl font-bold mb-2">Cartões</p>
+    <app-select
+      name="creditCard"
+      icon="ph-credit-card-fill"
+      placeholder="Selecione um cartão..."
+      formControlName="creditCard"
+      [options]="creditCards">
+    </app-select>
+  </div>
+  <p *ngIf="showTitle" class="mb-2 text-xl font-bold">Adicionar transação</p>
+  <div class="mb-5" *ngIf="!hiddenFields?.includes('date')">
+    <app-input-date
+      id="date"
+      icon=""
+      placeholder="Data do lançamento"
+      [invalid]="date?.invalid ?? false"
+      formControlName="date">
+    </app-input-date>
+    <p *ngIf="date?.invalid && date?.touched" id="date-error-message" class="text-red-600">
+      Este campo é obrigatório</p>
+  </div>
+  <div class="mb-5" *ngIf="!hiddenFields?.includes('category')">
+    <app-select
+      name="color"
+      [invalid]="category?.invalid ?? false"
+      icon="ph-tag-fill"
+      placeholder="Selecione uma categoria..."
+      formControlName="category"
+      [options]="categoryOptions">
+    </app-select>
+    <p *ngIf="category?.invalid && category?.touched" id="category-error-message" class="text-red-600">
+      Este campo é obrigatório</p>
+  </div>
+  <div class="mb-5" *ngIf="!hiddenFields?.includes('description')">
+    <app-input
+      id="description"
+      icon="ph-text-t-fill"
+      placeholder="Descrição"
+      [invalid]="description?.invalid ?? false"
+      formControlName="description">
+    </app-input>
+    <p *ngIf="description?.invalid && description?.touched" id="description-error-message" class="text-red-600">
+      Este campo é obrigatório</p>
+  </div>
+  <div class="mb-5" *ngIf="!hiddenFields?.includes('amount')">
+    <app-input
+      id="amount"
+      icon="ph-currency-circle-dollar-fill"
+      placeholder="Valor"
+      inputType="currency"
+      [invalid]="amount?.invalid ?? false"
+      formControlName="amount">
+    </app-input>
+    <p *ngIf="amount?.invalid && amount?.touched" id="amount-error-message" class="text-red-600">
+      Este campo é obrigatório</p>
+  </div>
+  <div class="mb-5" *ngIf="!hiddenFields?.includes('installmentAmount')">
+    <app-input
+      inputType="number"
+      id="installmentAmount"
+      icon="ph-receipt-fill"
+      placeholder="Parcelas"
+      formControlName="installmentAmount">
+    </app-input>
+  </div>
+  <app-loading-button
+    class="w-full"
+    [loading]="loading"
+    [disabled]="form.invalid || loading"
+    loadingLabel="salvando transação..."
+    type="submit">
+    Salvar
+  </app-loading-button>
+</form>

@@ -23,6 +23,7 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   user?: User;
   filteredTransactions: Transaction[] = [];
   expensesAmount = 0;
+  recurringExpensesAmount = 0;
   loading = false;
 
   constructor(changeDetector: ChangeDetectorRef,
@@ -49,8 +50,14 @@ export class BalanceComponent extends BaseComponent implements OnInit {
       this.userService.currentUser,
       (user) => {
         this.user = user;
-        this.calculateExpensesAmout((this.user?.transactions || []), this.creditCards);
-        this.filteredTransactions = this.user?.transactions ?? [];
+        const transactions = (this.user?.transactions || []);
+        this.calculateExpensesAmout(transactions, this.creditCards, (this.user?.recurringExpenses || []));
+        this.filteredTransactions = transactions.concat(
+          this.user?.recurringExpenses.map(transaction => {
+            transaction.recurring = true;
+            return transaction;
+          })
+        ) ?? [];
       }
     )
   }
@@ -71,9 +78,10 @@ export class BalanceComponent extends BaseComponent implements OnInit {
 
   creditCardsTotal: { [key: string]: number } = {};
 
-  private calculateExpensesAmout(transactions: Transaction[], creditCards: CreditCard[]) {
+  private calculateExpensesAmout(transactions: Transaction[], creditCards: CreditCard[], recurringExpenses: Transaction[]) {
     const [total, creditCardsTotal] = calculateExpensesHelper(transactions, creditCards);
-    this.expensesAmount = total;
+    this.recurringExpensesAmount = recurringExpenses.reduce((sum, current) => sum + Number(current.amount), 0);
+    this.expensesAmount = total + this.recurringExpensesAmount;
     this.creditCardsTotal = creditCardsTotal;
   }
 
@@ -87,9 +95,14 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(
       this.service.getBalance(month.toUpperCase(), date.getFullYear()),
       (balance) => {
-        const {transactions, creditCards} = balance;
-        this.calculateExpensesAmout(transactions, creditCards);
-        this.filteredTransactions = transactions;
+        const {transactions, creditCards, recurringExpenses} = balance;
+        this.calculateExpensesAmout(transactions, creditCards, recurringExpenses);
+        this.filteredTransactions = transactions.concat(
+          recurringExpenses.map(transaction => {
+            transaction.recurring = true;
+            return transaction;
+          })
+        );
         this.loading = false;
       }
     );

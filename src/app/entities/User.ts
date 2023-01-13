@@ -12,4 +12,5 @@ export default interface User {
   salary?: number;
   creditCards: CreditCard[];
   transactions: Transaction[];
+  recurringExpenses: Transaction[]
 }
