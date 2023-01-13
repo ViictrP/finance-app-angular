@@ -4,7 +4,10 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   selector: 'app-icon-button',
   template: `
     <div class="flex justify-end">
-      <button (click)="clicked.emit()" class="inline-flex">
+      <button
+        [ngClass]="{'gap-2': !!title}"
+        (click)="clicked.emit()"
+        class="inline-flex">
         <i class="m-auto {{sizeMap[size]}} {{icon}}"></i>
         <span class="m-auto {{sizeMap[size]}}">{{title}}</span>
       </button>

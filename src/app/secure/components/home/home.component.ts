@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import User from '../../../entities/User';
 import {UserService} from '../../services/user.service';
 import Transaction from '../../../entities/Transaction';
@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
 import {BaseComponent} from '../BaseComponent';
 import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import TransactionService from '../../services/transaction.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +16,18 @@ import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent extends BaseComponent implements OnInit {
+  @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
   user?: User;
   filteredTransactions: Transaction[] = [];
+  selectedTransaction?: Transaction;
+  creditCardsTotal: { [key: string]: number } = {};
   expensesAmount = 0;
+  recurringExpenseAmount = 0;
 
   constructor(private readonly userService: UserService,
               private readonly router: Router,
-              detector: ChangeDetectorRef) {
+              detector: ChangeDetectorRef,
+              private readonly transactionService: TransactionService,) {
     super(detector);
   }
 
@@ -36,7 +43,13 @@ export class HomeComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.user = user;
       this.calculateExpensesAmout();
-      this.filteredTransactions = this.user?.transactions ?? [];
+      this.filteredTransactions = this.user?.transactions.concat(
+        this.user?.recurringExpenses
+          .map(transaction => {
+            transaction.recurring = true
+            return transaction;
+          })
+      ) ?? [];
     });
   }
 
@@ -54,15 +67,32 @@ export class HomeComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/secure/credit-cards', creditCardId]);
   }
 
-  creditCardsTotal: { [key: string]: number } = {};
-
   private calculateExpensesAmout() {
-    const [total, creditCardsTotal] = calculateExpensesHelper((this.user?.transactions || []), this.creditCards);
-    this.expensesAmount = total;
+    const [total, creditCardsTotal] = calculateExpensesHelper((this.user!.transactions || []), this.creditCards);
+    this.recurringExpenseAmount = this.user!.recurringExpenses.reduce((sum, current) => sum + Number(current.amount), 0);
+    this.expensesAmount = total + this.recurringExpenseAmount;
     this.creditCardsTotal = creditCardsTotal;
   }
 
   calculatePercentage(creditCardId: string) {
     return parseFloat(String((this.creditCardsTotal[creditCardId] / this.expensesAmount) * 100)).toFixed(2);
+  }
+
+  editTransaction(transaction: Transaction) {
+    this.selectedTransaction = transaction;
+    this.deleteTransactionModal?.show();
+  }
+
+  //TODO fix deletion of transaction and recurring transaction
+  deleteTransaction(all = false) {
+    if (this.selectedTransaction) {
+      this.subscribeAndRender(
+        this.transactionService.delete(this.selectedTransaction.id!, all),
+        () => {
+          this.filteredTransactions.splice(this.filteredTransactions.findIndex(t => t.id === this.selectedTransaction!.id!), 1);
+          this.deleteTransactionModal?.close();
+        }
+      );
+    }
   }
 }
