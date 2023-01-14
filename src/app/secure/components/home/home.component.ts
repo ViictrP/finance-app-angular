@@ -27,7 +27,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
   constructor(private readonly userService: UserService,
               private readonly router: Router,
               detector: ChangeDetectorRef,
-              private readonly transactionService: TransactionService,) {
+              private readonly transactionService: TransactionService) {
     super(detector);
   }
 
