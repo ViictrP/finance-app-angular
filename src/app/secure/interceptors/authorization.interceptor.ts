@@ -12,7 +12,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return from(getToken())
       .pipe(switchMap(accessToken => {
-        alert(accessToken);
         const request = req.clone({
           setHeaders: {
             'x-authentication-token': accessToken,
