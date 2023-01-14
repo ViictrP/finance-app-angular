@@ -9,6 +9,9 @@ import {InputDateComponent} from '../../../lib/components/form/input/input-date.
 import {CardComponent} from '../../../lib/components/card/card.component';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
+import TransactionService from '../../services/transaction.service';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 
 describe('BalanceComponent', () => {
   let component: BalanceComponent;
@@ -20,7 +23,9 @@ describe('BalanceComponent', () => {
         BalanceComponent,
         InputDateComponent,
         CardComponent,
-        InputComponent
+        InputComponent,
+        ModalComponent,
+        IconButtonComponent
       ],
       imports: [
         HttpClientTestingModule,
@@ -30,6 +35,7 @@ describe('BalanceComponent', () => {
       providers: [
         UserService,
         BalanceService,
+        TransactionService
       ]
     }).compileComponents();
 

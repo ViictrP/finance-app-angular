@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import User from 'src/app/entities/User';
 import { BaseComponent } from '../BaseComponent';
 import { UserService } from '../../services/user.service';
@@ -9,6 +9,8 @@ import { BalanceService } from '../../services/balance.service';
 import { calculateExpensesHelper } from '../../helper/calculateExpenses.helper';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import TransactionService from '../../services/transaction.service';
+import { ModalComponent } from '../../../lib/components/modal/modal.component';
 
 @Component({
   selector: 'app-balance',
@@ -17,7 +19,7 @@ import pt from 'date-fns/locale/pt';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BalanceComponent extends BaseComponent implements OnInit {
-
+  @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
   readonly today = new Date();
 
   user?: User;
@@ -25,11 +27,13 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   expensesAmount = 0;
   recurringExpensesAmount = 0;
   loading = false;
+  selectedTransaction?: Transaction;
 
   constructor(changeDetector: ChangeDetectorRef,
               private readonly userService: UserService,
               private readonly service: BalanceService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly transactionService: TransactionService) {
     super(changeDetector);
   }
 
@@ -106,5 +110,22 @@ export class BalanceComponent extends BaseComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  editTransaction(transaction: Transaction) {
+    this.selectedTransaction = transaction;
+    this.deleteTransactionModal?.show();
+  }
+
+  deleteTransaction(all = false) {
+    if (this.selectedTransaction) {
+      this.subscribeAndRender(
+        this.transactionService.delete(this.selectedTransaction.id!, all),
+        () => {
+          this.filteredTransactions.splice(this.filteredTransactions.findIndex(t => t.id === this.selectedTransaction!.id!), 1);
+          this.deleteTransactionModal?.close();
+        }
+      );
+    }
   }
 }
