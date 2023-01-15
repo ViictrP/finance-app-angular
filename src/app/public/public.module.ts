@@ -6,7 +6,7 @@ import {FormModule} from '../form.module';
 import {ApiModule} from '../api.module';
 import {CommonModule} from '@angular/common';
 import {LibModule} from '../lib/lib.module';
-import {RouterLink, RouterLinkWithHref} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {RegisterComponent} from './components/register/register.component';
 import {RegisterService} from './services/register.service';
 
@@ -20,7 +20,7 @@ import {RegisterService} from './services/register.service';
     FormModule,
     ApiModule,
     LibModule,
-    RouterLinkWithHref,
+    RouterLink,
     RouterLink
   ],
   providers: [
