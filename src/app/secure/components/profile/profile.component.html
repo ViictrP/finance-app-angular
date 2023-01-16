@@ -1,21 +1,30 @@
-<div *ngIf="user" class="text-zinc-200 px-4">
+<div *ngIf="user" class="text-zinc-900 dark:text-zinc-200 px-4">
   <p>Salário</p>
   <div class="flex flex-row justify-between gap-4">
     <p class="font-bold text-3xl text-sky-500">{{user.salary | currency: 'BRL'}}</p>
     <app-icon-button
       size="ultra-big"
       icon="ph-pencil-fill"
-      (clicked)="openEditForm()">
-    </app-icon-button>
+      (clicked)="openEditForm()" />
   </div>
   <p class="text-sm mt-4">o salário é utilizado como valor base para calcular seu saldo disponível de cada mês.</p>
-  <div class="mt-5 py-5 border-t-[0.5px] border-zinc-800 flex justify-start">
+  <div class="my-5 py-5 border-t-[0.5px] border-b-[0.5px] dark:border-zinc-800 border-zinc-300 flex justify-start">
     <app-icon-button
       (clicked)="addRecurringExpense()"
       size="big"
       icon="ph-plus"
-      title="Gasto Recorrente">
-    </app-icon-button>
+      title="Gasto Recorrente" />
+  </div>
+  <div class="flex pb-5 flex-row justify-between gap-2 border-b-[0.5px] dark:border-zinc-800 border-zinc-300">
+    <div class="text-2xl inline-flex gap-2">
+      <i class="ph-palette my-auto"></i>
+      <p>Dark mode</p>
+    </div>
+    <app-switch
+      [value]="isDarkMode"
+      (switched)="themeChanged($event)"
+      class="mt-1"
+    />
   </div>
 </div>
 <app-bottom-sheet title="Alterar salário" #bottomSheet>
@@ -29,8 +38,7 @@
             formControlName="salary"
             placeholder="ex: 1.000,00"
             inputBackgroundColor="bg-zinc-800"
-            inputType="currency">
-          </app-input>
+            inputType="currency" />
         </div>
         <app-loading-button
           type="submit"

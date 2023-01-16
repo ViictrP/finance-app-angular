@@ -13,7 +13,7 @@
             placeholder="Nome"
             name="name"
             [invalid]="name?.invalid ?? false"
-            formControlName="name"></app-input>
+            formControlName="name" />
           <p *ngIf="name?.invalid && name?.touched" id="name-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
@@ -24,7 +24,7 @@
             placeholder="Sobrenome"
             name="lastname"
             [invalid]="lastname?.invalid ?? false"
-            formControlName="lastname"></app-input>
+            formControlName="lastname" />
           <p *ngIf="lastname?.invalid && lastname?.touched" id="lastname-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
@@ -35,7 +35,7 @@
             placeholder="Usuário"
             name="email"
             [invalid]="email?.invalid ?? false"
-            formControlName="email"></app-input>
+            formControlName="email" />
           <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
@@ -47,8 +47,7 @@
             icon="ph-lock"
             inputType="password"
             [invalid]="password?.invalid ?? false"
-            placeholder="Senha">
-          </app-input>
+            placeholder="Senha" />
           <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>

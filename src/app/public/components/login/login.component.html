@@ -12,7 +12,7 @@
             placeholder="Usuário"
             name="email"
             [invalid]="email?.invalid ?? false"
-            formControlName="email"></app-input>
+            formControlName="email" />
           <p *ngIf="email?.invalid && email?.touched" id="email-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>
@@ -24,8 +24,7 @@
             icon="ph-lock-fill"
             inputType="password"
             [invalid]="password?.invalid ?? false"
-            placeholder="Senha">
-          </app-input>
+            placeholder="Senha" />
           <p *ngIf="password?.invalid && password?.touched" id="password-error-message" class="text-red-600">
             Este campo é obrigatório</p>
         </div>

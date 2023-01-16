@@ -24,6 +24,7 @@ import { BalanceComponent } from './components/balance/balance.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { RecurringExpensesFormComponent } from './components/recurring-expenses-form/recurring-expenses-form.component';
 import { RecurringExpensesService } from './services/recurring-expenses.service';
+import { PreferencesService } from './services/preferences.service';
 
 const components = [
   SecureComponent,
@@ -57,6 +58,7 @@ const components = [
     CreditCardService,
     TransactionService,
     RecurringExpensesService,
+    PreferencesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,

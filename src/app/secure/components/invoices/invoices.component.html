@@ -6,17 +6,16 @@
       (changed)="getMonthInvoice($event)"
       [hideClearButton]="true"
       inputType="month"
-      placeholder="02/10/2022">
-    </app-input-date>
+      placeholder="02/10/2022" />
   </div>
   <div *ngIf="!loading; else loading_skeleton">
     <div class="flex flex-row justify-between items-center">
       <div class="text-left">
-        <p class="text-lg text-neutral-300">Fatura de {{invoice?.month}} de {{invoice?.year}}</p>
+        <p class="text-lg text-neutral-600 dark:text-neutral-300">Fatura de {{invoice?.month}} de {{invoice?.year}}</p>
       </div>
       <div class="text-right">
         <div></div>
-        <p class="text-xl font-bold text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
+        <p class="text-xl font-bold text-yellow-500 dark:text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
       </div>
     </div>
     <div class="mt-4 mb-32">
@@ -24,8 +23,7 @@
         <app-input
           icon="ph-magnifying-glass"
           placeholder="filtrar transações do {{creditCard.title}}..."
-          (changed)="filterTransactions($event)">
-        </app-input>
+          (changed)="filterTransactions($event)" />
       </div>
       <ng-container *ngFor="let transaction of transactions">
         <div class="mb-4">
@@ -43,7 +41,7 @@
                   {{transaction.description}}
                   <span *ngIf="transaction.isInstallment">({{transaction.installmentNumber}}/{{transaction.installmentAmount}})</span>
                 </p>
-                <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+                <p class="my-auto text-yellow-500 dark:text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
               </div>
             </div>
           </app-card>

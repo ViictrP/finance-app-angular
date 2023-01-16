@@ -10,8 +10,7 @@
           routerLink="/secure/balance"
           size="big"
           class="align-super mt-2"
-          icon="ph-chart-bar-fill">
-        </app-icon-button>
+          icon="ph-chart-bar-fill" />
       </div>
       <div class="">
         <div id="balance" class="balance-container">
@@ -52,8 +51,7 @@
         (clicked)="goToInvoices(creditCard.id)"
         [title]="creditCard.title"
         [color]="creditCard.backgroundColor"
-        description="{{calculatePercentage(creditCard.id)}}%">
-      </app-chip>
+        description="{{calculatePercentage(creditCard.id)}}%" />
     </ng-container>
   </div>
 </div>
@@ -63,8 +61,7 @@
     <app-input
       icon="ph-magnifying-glass"
       placeholder="filtrar transações..."
-      (changed)="filterTransactions($event)">
-    </app-input>
+      (changed)="filterTransactions($event)" />
   </div>
   <ng-container *ngFor="let transaction of filteredTransactions">
     <div class="mb-4">

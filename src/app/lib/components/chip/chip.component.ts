@@ -5,7 +5,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   template: `
     <div
       (click)="clicked.emit()"
-      [ngClass]="colorMap[color] || 'bg-white dark:bg-sky-900'"
+      [ngClass]="colorMap[color] || 'bg-white dark:bg-zinc-900'"
       class="cursor-pointer flex px-4 py-1 w-min-[50px] text-center border-[0.5px] {{borderMap[color] || 'border-zinc-200 dark:border-zinc-800'}} rounded-full shadow-sm">
       <p class="m-auto"><span class="font-light">{{title}}</span>&nbsp;&nbsp;<span class="text-xl">{{description}}</span></p>
     </div>

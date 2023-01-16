@@ -84,9 +84,6 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
             invoiceClosingDay: this.creditCard.invoiceClosingDay,
             color: this.creditCard.backgroundColor
           });
-
-          this.form.get('invoiceClosingDay')?.disable();
-          this.form.get('number')?.disable();
         }
       }
     )
@@ -99,7 +96,7 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
       id: this.creditCard?.id ?? '',
       title,
       description,
-      number: this.creditCard?.number ?? number,
+      number,
       invoiceClosingDay,
       backgroundColor: color,
       invoices: []

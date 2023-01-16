@@ -1,6 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import { PreferencesService } from '../secure/services/preferences.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -8,6 +9,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [PreferencesService],
       imports: [RouterTestingModule]
     }).compileComponents();
   });
