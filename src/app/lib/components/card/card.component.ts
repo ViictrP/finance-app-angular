@@ -5,15 +5,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <div
       (click)="clicked.emit()"
-      [ngClass]="colorMap[color] || color"
-      class="{{noPadding ? '' : 'py-2 px-4'}} w-full border-[0.5px] border-zinc-800 {{borderMap[color]}} rounded-lg shadow-md">
+      [ngClass]="colorMap[color] || 'bg-white dark:bg-zinc-900'"
+      class="{{noPadding ? '' : 'py-2 px-4'}} w-full border-[0.5px] border-zinc-300 dark:border-zinc-800 {{borderMap[color]}} rounded-lg shadow-sm">
       <ng-content></ng-content>
     </div>
   `
 })
 export class CardComponent {
 
-  @Input() color = 'bg-zinc-900';
+  @Input() color = '';
   @Input() noPadding = false;
   @Output() clicked = new EventEmitter<any>();
 
