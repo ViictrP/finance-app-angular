@@ -20,7 +20,7 @@ export class PreferencesService {
     this.theme = new BehaviorSubject<string>('');
     fromPromise(getPreferences())
       .subscribe(preferences => {
-        this.preferences = JSON.parse(preferences);
+        this.preferences = JSON.parse(preferences ?? {});
         this.theme = new BehaviorSubject<string>(this.preferences.theme);
       });
   }
