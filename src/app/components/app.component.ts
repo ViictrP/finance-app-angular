@@ -14,17 +14,16 @@ export class AppComponent extends BaseComponent implements OnInit {
   theme = 'light';
 
   constructor(readonly changeDetector: ChangeDetectorRef,
-              private readonly themeService: PreferencesService) {
+              private readonly preferencesService: PreferencesService) {
     super(changeDetector);
   }
 
   ngOnInit(): void {
     this.subscribeAndRender(
-      this.themeService.currentTheme$,
+      this.preferencesService.currentTheme$,
       theme => {
-        if (theme === LIGHT_THEME) {
-          document.documentElement.classList.remove(DARK_THEME);
-        }
+        document.documentElement.classList.remove(LIGHT_THEME);
+        document.documentElement.classList.remove(DARK_THEME);
         document.documentElement.classList.add(theme);
       },
     );
