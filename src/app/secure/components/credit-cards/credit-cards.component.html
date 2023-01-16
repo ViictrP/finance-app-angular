@@ -40,7 +40,7 @@
         size="big"
         icon="ph-list-fill">
       </app-icon-button>
-      <p class="text-xl font-bold text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
+      <p class="text-xl font-bold text-yellow-500 dark:text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
     </div>
   </div>
   <div class="mt-4 mb-32">
@@ -67,7 +67,7 @@
                 {{transaction.description}}&nbsp;
                 <span *ngIf="transaction.isInstallment">({{transaction.installmentNumber}}/{{transaction.installmentAmount}})</span>
               </p>
-              <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+              <p class="my-auto text-yellow-500 dark:text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
             </div>
           </div>
         </app-card>

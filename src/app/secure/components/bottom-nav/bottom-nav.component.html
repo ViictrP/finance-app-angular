@@ -1,23 +1,23 @@
 <div
   id="bottom-nav"
-  class="flex flex-row justify-around fixed z-50 w-full h-16 bottom-0 border-t-[0.5px] border-zinc-800 bg-zinc-900">
+  class="flex flex-row justify-around fixed z-50 w-full h-16 bottom-0 border-t-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
   <app-icon-button
     size="ultra-big"
     icon="ph-house-simple-fill"
-    class="flex m-auto"
+    class="flex m-auto text-gray-500 dark:text-gray-300"
     routerLinkActive="link-active"
     routerLink="/secure/home">
   </app-icon-button>
   <button
     (click)="showBottomSheet()"
-    class="flex m-auto h-14 w-14 text-5xl border-[0.5px] border-zinc-600 bg-zinc-700 rounded-full">
-    <i class="m-auto ph-plus-fill"></i>
+    class="flex m-auto h-14 w-14 text-5xl border-[0.5px] border-zinc-300 dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-700 rounded-full">
+    <i class="m-auto ph-plus-fill text-gray-500 dark:text-gray-300"></i>
   </button>
   <app-icon-button
     size="ultra-big"
     icon="ph-credit-card-fill"
     routerLinkActive="link-active"
-    class="flex m-auto"
+    class="flex m-auto text-gray-500 dark:text-gray-300"
     routerLink="/secure/credit-cards">
   </app-icon-button>
 </div>

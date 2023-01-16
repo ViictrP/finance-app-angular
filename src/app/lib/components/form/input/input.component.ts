@@ -16,8 +16,8 @@ import digitMasker from '../../../helper/digitMasker';
         [placeholder]="placeholder"
         (input)="valueChanged()"
         [maxlength]="maxLength"
-        [ngClass]="{'text-neutral-500' : disabled}"
-        class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 {{inputBackgroundColor}} border-1 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500 border-zinc-900'}} transition ease-in-out duration-150"
+        [ngClass]="{'text-zinc-900 dark:text-white' : disabled}"
+        class="{{icon ? 'pl-10' : 'pl-5'}} pr-9 py-3 text-xl w-full rounded-md mb-1 {{inputBackgroundColor}} border-1 focus:ring {{invalid && touched ? 'border-red-500 focus:ring-red-500' : 'focus:ring-sky-500 border-zinc-200 dark:border-zinc-900'}} transition ease-in-out duration-150"
       />
       <i class="absolute top-[15px] left-2 text-2xl text-zinc-300 {{icon}}"></i>
       <button
@@ -46,7 +46,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() invalid = false;
   @Input() placeholder = 'Example';
   @Input() maxLength = '10000';
-  @Input() inputBackgroundColor = 'bg-zinc-900';
+  @Input() inputBackgroundColor = 'dark:bg-zinc-900';
   @Output() changed = new EventEmitter<string>();
   touched = false;
   disabled = false;

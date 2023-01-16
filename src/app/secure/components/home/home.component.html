@@ -1,10 +1,10 @@
-<div class="text-zinc-200 px-4">
+<div class="dark:text-zinc-200 px-4">
   <div class="mt-4">
     <app-card [noPadding]="true">
       <div class="py-2 px-4 flex flex-row justify-between">
         <p class="text-2xl text-left">
           <small>salário</small><br />
-          <span class="text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
+          <span class="text-sky-500 dark:text-sky-300 font-bold">{{user?.salary | currency: 'BRL'}}</span>
         </p>
         <app-icon-button
           routerLink="/secure/balance"
@@ -39,14 +39,14 @@
       </div>
       <p class="py-2 px-4 text-2xl text-right">
         <small>gastos</small><br />
-        <span class="text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
+        <span class="text-yellow-600 dark:text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
       </p>
     </app-card>
   </div>
 </div>
 <div class="mt-10">
   <p class="text-2xl mb-4 px-4">Impacto nos gastos</p>
-  <div class="flex gap-3 overflow-x-auto scrollbar-none px-4">
+  <div class="flex gap-3 overflow-x-auto scrollbar-none px-4 py-2">
     <ng-container *ngFor="let creditCard of creditCards">
       <app-chip
         (clicked)="goToInvoices(creditCard.id)"
@@ -82,7 +82,7 @@
           </div>
           <div class="flex flex-row justify-between">
             <p class="my-auto text-lg">{{transaction.description}}</p>
-            <p class="my-auto text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
+            <p class="my-auto text-yellow-600 dark:text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
           </div>
         </div>
       </app-card>
@@ -103,18 +103,18 @@
     Excluir transação?<br/>
   </p>
   <p>Esta ação removerá permanentemente essa transação.</p>
-  <div class="flex border-t-[1px] border-zinc-700 items-center justify-between gap-4 w-full mt-8">
+  <div class="flex border-t-[1px] dark:border-zinc-700 items-center justify-between gap-4 w-full mt-8">
     <button
       type="button"
       (click)="deleteTransaction()"
-      class="py-2 px-4 mt-4 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+      class="py-2 px-4 mt-4 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-indigo-200 dark:text-white w-full transition ease-in duration-200 text-center text-base font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
       excluir <ng-container *ngIf="selectedTransaction?.isInstallment">uma</ng-container>
     </button>
     <button
       *ngIf="selectedTransaction?.isInstallment"
       type="button"
       (click)="deleteTransaction(true)"
-      class="py-2 px-4 mt-4 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+      class="py-2 px-4 mt-4 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-indigo-200 dark:text-white w-full transition ease-in duration-200 text-center text-base font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
       excluir todas ({{selectedTransaction?.installmentAmount}})
     </button>
   </div>
