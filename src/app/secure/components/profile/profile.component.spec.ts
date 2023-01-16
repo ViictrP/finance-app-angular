@@ -8,6 +8,7 @@ import {LoadingButtonComponent} from '../../../lib/components/buttons/loading-bu
 import {ButtonComponent} from '../../../lib/components/buttons/button.component';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {IconButtonComponent} from '../../../lib/components/buttons/icon-button.component';
+import { PreferencesService } from '../../services/preferences.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -27,7 +28,10 @@ describe('ProfileComponent', () => {
         FormModule,
         HttpClientTestingModule
       ],
-      providers: [UserService]
+      providers: [
+        UserService,
+        PreferencesService
+      ]
     });
 
     fixture = TestBed.createComponent(ProfileComponent);
