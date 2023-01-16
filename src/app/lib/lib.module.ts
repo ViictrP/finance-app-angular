@@ -16,6 +16,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { CategoryPipe } from './components/pipes/category.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { CommonTransactionFormComponent } from './components/form/transaction/common-transaction-form.component';
+import { SwitchComponent } from './components/form/switch/switch.component';
 
 const components = [
   InputComponent,
@@ -31,7 +32,8 @@ const components = [
   ModalComponent,
   CategoryPipe,
   MessageComponent,
-  CommonTransactionFormComponent
+  CommonTransactionFormComponent,
+  SwitchComponent
 ];
 
 @NgModule({

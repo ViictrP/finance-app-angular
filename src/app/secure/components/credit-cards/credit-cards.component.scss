@@ -3,7 +3,7 @@
   scroll-snap-stop: normal;
   scroll-behavior: smooth;
   scroll-padding: 2rem;
-  @apply px-6 flex overflow-auto gap-4 scrollbar-none;
+  @apply px-6 py-4 flex overflow-auto gap-4 scrollbar-none;
 }
 
 .card-carousel-item {

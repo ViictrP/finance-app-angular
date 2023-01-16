@@ -1,10 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {BaseComponent} from '../BaseComponent';
-import {UserService} from '../../services/user.service';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { BaseComponent } from '../BaseComponent';
+import { UserService } from '../../services/user.service';
 import User from '../../../entities/User';
-import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { BottomSheetComponent } from '../../../lib/components/bottom-sheet/bottom-sheet.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PreferencesService } from '../../services/preferences.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +18,13 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   user?: User;
   form: FormGroup;
   loading = false;
+  isDarkMode = false;
 
   constructor(detector: ChangeDetectorRef,
               formBuilder: FormBuilder,
               private readonly userService: UserService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly preferencesService: PreferencesService) {
     super(detector);
     this.form = formBuilder.group({
       salary: [this.user?.salary, [Validators.required]]
@@ -37,6 +40,13 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(
       this.userService.currentUser,
       (user) => this.user = user
+    );
+
+    this.subscribeAndRender(
+      this.preferencesService.currentTheme$,
+      theme => {
+        this.isDarkMode = theme === 'dark';
+      }
     )
   }
 
@@ -57,5 +67,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   addRecurringExpense() {
     this.router.navigate(['secure/recurring-expenses-form']);
+  }
+
+  themeChanged(isDarkMode: boolean) {
+    this.preferencesService.saveTheme(isDarkMode);
   }
 }
