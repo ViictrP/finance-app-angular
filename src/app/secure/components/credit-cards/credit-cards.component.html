@@ -28,7 +28,7 @@
           <p class="text-lg text-neutral-200">fechamento todo dia {{creditCard.invoiceClosingDay}}</p>
           <div class="inline-flex gap-2">
             <p class="mt-1 text-2xl font-bold text-yellow-200 dark:text-yellow-200">{{creditCard.totalInvoiceAmount ?? 0 | currency: 'BRL'}}</p>
-            <p *ngIf="creditCard.invoices[0]" class="mt-auto text-lg text-neutral-200">- {{creditCard.invoices[0]?.month}}</p>
+            <p *ngIf="creditCard.invoices[0]" class="mt-auto text-lg text-neutral-200">- {{creditCard.invoices[0].month}}</p>
           </div>
         </div>
       </div>
