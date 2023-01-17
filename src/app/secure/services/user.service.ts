@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import User from '../../entities/User';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -20,6 +20,14 @@ export class UserService {
 
   getProfile(): Observable<User> {
     return this.httpClient.get<User>(`${environment.server_host}/me`).pipe(
+      tap(profile => {
+        profile.creditCards
+          .forEach(creditCard => {
+            creditCard.totalInvoiceAmount = creditCard.invoices[0]?.transactions
+              .reduce((sum, current) =>
+                sum + Number(current.amount), 0);
+          });
+      }),
       tap(data => this.user = data)
     );
   }

@@ -50,7 +50,7 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
     this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.user = user;
       this.creditCards = this.user.creditCards;
-    })
+    });
   }
 
   selectCreditCard(elementId: string) {

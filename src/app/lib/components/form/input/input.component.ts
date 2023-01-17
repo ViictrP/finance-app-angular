@@ -46,7 +46,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() invalid = false;
   @Input() placeholder = 'Example';
   @Input() maxLength = '10000';
-  @Input() inputBackgroundColor = 'dark:bg-zinc-900';
+  @Input() inputBackgroundColor = 'bg-zinc-200 dark:bg-zinc-900';
   @Output() changed = new EventEmitter<string>();
   touched = false;
   disabled = false;

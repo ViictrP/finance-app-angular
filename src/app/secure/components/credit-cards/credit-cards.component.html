@@ -16,15 +16,21 @@
            style="scroll-snap-align: start; flex: 0 0 100%"
            (isIntersecting)="selectCreditCard($event)"
            class="card-carousel-item">
-        <div class="border-2 border-zinc-900 flex flex-row justify-between">
-          <p class="text-2xl">{{creditCard.title}} <small class="text-neutral-400">{{creditCard.number}}</small></p>
+        <div class="flex flex-row justify-between">
+          <p class="text-2xl text-neutral-200">{{creditCard.title}} #<small class="text-neutral-200 font-black">{{creditCard.number}}</small></p>
           <app-icon-button
-            class="my-auto"
+            class="my-auto text-neutral-200"
             (clicked)="toggleBottomSheet()"
             size="big"
             icon="ph-list-fill" />
         </div>
-        <p class="text-2xl font-bold text-yellow-500 dark:text-yellow-200">{{invoiceTotalAmount | currency: 'BRL'}}</p>
+        <div class="mt-3">
+          <p class="text-lg text-neutral-200">fechamento todo dia {{creditCard.invoiceClosingDay}}</p>
+          <div class="inline-flex gap-2">
+            <p class="mt-1 text-2xl font-bold text-yellow-200 dark:text-yellow-200">{{creditCard.totalInvoiceAmount ?? 0 | currency: 'BRL'}}</p>
+            <p *ngIf="creditCard.invoices[0]" class="mt-auto text-lg text-neutral-200">- {{creditCard.invoices[0]?.month}}</p>
+          </div>
+        </div>
       </div>
     </app-card>
   </ng-container>
@@ -45,7 +51,7 @@
     </div>
     <ng-container *ngFor="let transaction of transactions">
       <div class="mb-4">
-        <app-card (clicked)="editTransaction(transaction)">
+        <app-card [color]="'bg-white dark:bg-zinc-900'" (clicked)="editTransaction(transaction)">
           <div class="flex flex-col gap-2">
             <div class="flex flex-row justify-between">
               <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
