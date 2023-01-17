@@ -1,6 +1,6 @@
 <div class="dark:text-zinc-200 px-4">
   <div class="mt-4">
-    <app-card [noPadding]="true">
+    <app-card [color]="'bg-white dark:bg-zinc-900'" [noPadding]="true">
       <div class="py-2 px-4 flex flex-row justify-between">
         <p class="text-2xl text-left">
           <small>salário</small><br />
@@ -65,7 +65,7 @@
   </div>
   <ng-container *ngFor="let transaction of filteredTransactions">
     <div class="mb-4">
-      <app-card (clicked)="editTransaction(transaction)">
+      <app-card [color]="'bg-white dark:bg-zinc-900'" (clicked)="editTransaction(transaction)">
         <div class="flex flex-col gap-2">
           <div class="flex flex-row justify-between">
             <p class="text-zinc-500 text-lg inline-flex items-center gap-1">

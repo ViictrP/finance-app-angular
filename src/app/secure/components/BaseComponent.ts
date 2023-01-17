@@ -6,7 +6,7 @@ export abstract class BaseComponent implements OnDestroy {
 
   private readonly destroy$ = new Subject();
 
-  protected constructor(protected readonly detector: ChangeDetectorRef) {
+  protected constructor(private readonly detector: ChangeDetectorRef) {
   }
 
   ngOnDestroy(): void {
@@ -21,5 +21,9 @@ export abstract class BaseComponent implements OnDestroy {
         callback(subscribeArgs);
         this.detector.detectChanges();
       });
+  }
+
+  detectChanges() {
+    this.detector.detectChanges();
   }
 }
