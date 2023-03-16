@@ -7,6 +7,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {UserService} from '../../services/user.service';
 import {of} from 'rxjs';
 import User from '../../../entities/User';
+import { WebViewService } from '../../../lib/service/web-view.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -32,7 +33,7 @@ describe('HeaderComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       imports: [HttpClientTestingModule],
-      providers: [LoginService, UserService]
+      providers: [LoginService, UserService, WebViewService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

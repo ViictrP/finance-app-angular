@@ -24,7 +24,7 @@ export class AppComponent extends BaseComponent implements OnInit {
       theme => {
         document.documentElement.classList.remove(LIGHT_THEME);
         document.documentElement.classList.remove(DARK_THEME);
-        document.documentElement.classList.add(theme);
+        document.documentElement.classList.add(!!theme ? theme : 'dark');
       },
     );
   }

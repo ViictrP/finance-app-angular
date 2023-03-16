@@ -6,6 +6,7 @@ import LoginRequest from '../../dto/login.request';
 import {environment} from '../../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 import {of} from 'rxjs';
+import { WebViewService } from '../../lib/service/web-view.service';
 
 jest.mock('../../lib/helper/webViewHelper', () => ({
   getToken: jest.fn()
@@ -19,7 +20,7 @@ describe('LoginService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [LoginService, CookieService]
+      providers: [LoginService, CookieService, WebViewService]
     });
     service = TestBed.inject(LoginService);
     httpClient = TestBed.inject(HttpClient);

@@ -6,6 +6,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {InvoiceService} from '../../services/invoice.service';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import { WebViewService } from '../../../lib/service/web-view.service';
 
 describe('InvoicesComponent', () => {
   let component: InvoicesComponent;
@@ -21,7 +22,8 @@ describe('InvoicesComponent', () => {
       providers: [
         UserService,
         InvoiceService,
-        TransactionService
+        TransactionService,
+        WebViewService
       ]
     })
 

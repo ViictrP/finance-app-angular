@@ -6,6 +6,7 @@ import {LoginService} from '../../services/login.service';
 import {RegisterService} from '../../services/register.service';
 import {IconButtonComponent} from '../../../lib/components/buttons/icon-button.component';
 import {LoadingButtonComponent} from '../../../lib/components/buttons/loading-button.component';
+import { WebViewService } from '../../../lib/service/web-view.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -22,7 +23,7 @@ describe('RegisterComponent', () => {
         FormModule,
         HttpClientTestingModule
       ],
-      providers: [LoginService, RegisterService]
+      providers: [LoginService, RegisterService, WebViewService]
     });
 
     fixture = TestBed.createComponent(RegisterComponent);
