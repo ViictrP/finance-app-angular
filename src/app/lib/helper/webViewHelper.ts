@@ -1,5 +1,5 @@
 import invoke from 'react-native-webview-invoke/browser';
-//TODO: criar preferencesService para encapsular esses métodos
+
 type SaveTokenFn = (token: string) => void;
 type GetTokenFn = () => Promise<string>;
 type DeleteTokenFn = () => void;
