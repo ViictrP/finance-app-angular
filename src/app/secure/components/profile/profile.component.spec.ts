@@ -9,6 +9,7 @@ import {ButtonComponent} from '../../../lib/components/buttons/button.component'
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {IconButtonComponent} from '../../../lib/components/buttons/icon-button.component';
 import { PreferencesService } from '../../services/preferences.service';
+import { WebViewService } from '../../../lib/service/web-view.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -30,7 +31,8 @@ describe('ProfileComponent', () => {
       ],
       providers: [
         UserService,
-        PreferencesService
+        PreferencesService,
+        WebViewService
       ]
     });
 

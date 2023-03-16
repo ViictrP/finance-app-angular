@@ -11,6 +11,7 @@ import {FormModule} from '../../../form.module';
 import { LoadingButtonComponent } from '../../../lib/components/buttons/loading-button.component';
 import { MessageComponent } from '../../../lib/components/message/message.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
+import { WebViewService } from '../../../lib/service/web-view.service';
 
 
 describe('LoginComponent', () => {
@@ -33,7 +34,7 @@ describe('LoginComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      providers: [LoginService]
+      providers: [LoginService, WebViewService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
