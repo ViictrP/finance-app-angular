@@ -2,6 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import { PreferencesService } from '../secure/services/preferences.service';
+import { WebViewService } from '../lib/service/web-view.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,7 +10,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers: [PreferencesService],
+      providers: [PreferencesService, WebViewService],
       imports: [RouterTestingModule]
     }).compileComponents();
   });
