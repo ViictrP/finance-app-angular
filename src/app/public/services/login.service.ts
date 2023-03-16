@@ -4,28 +4,29 @@ import { Observable, tap } from 'rxjs';
 import LoginResponse from '../../dto/login.response';
 import { environment } from '../../../environments/environment';
 import LoginRequest from '../../dto/login.request';
-import { deleteToken, getToken, saveToken } from '../../lib/helper/webViewHelper';
+import { WebViewService } from '../../lib/service/web-view.service';
 
 @Injectable()
 export class LoginService {
 
 
-  constructor(private readonly httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient,
+              private readonly webViewService: WebViewService) {
   }
 
   async isLoggedIn() {
-    const token = await getToken();
+    const token = await this.webViewService.getToken();
     return Boolean(token);
   }
 
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(`${environment.server_host}/login`, request)
       .pipe(
-        tap(data => saveToken(data.accessToken))
+        tap(data => this.webViewService.saveToken(data.accessToken))
       );
   }
 
   logOut() {
-    deleteToken();
+    this.webViewService.deleteToken();
   }
 }

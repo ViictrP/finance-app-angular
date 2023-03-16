@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { getPreferences, savePreferences } from '../../lib/helper/webViewHelper';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { WebViewService } from '../../lib/service/web-view.service';
 
 export const LIGHT_THEME = 'light';
 export const DARK_THEME = 'dark';
@@ -15,12 +15,12 @@ export class PreferencesService {
   preferences: Preferences;
   theme: BehaviorSubject<string>;
 
-  constructor() {
+  constructor(private readonly webViewService: WebViewService) {
     this.preferences = {} as Preferences;
     this.theme = new BehaviorSubject<string>('');
-    fromPromise(getPreferences())
+    fromPromise(this.webViewService.getPreferences())
       .subscribe(preferences => {
-        this.preferences = JSON.parse(preferences ?? {});
+        this.preferences = JSON.parse(!!preferences ? preferences : '{}');
         this.theme = new BehaviorSubject<string>(this.preferences.theme);
       });
   }
@@ -32,6 +32,6 @@ export class PreferencesService {
   saveTheme(isDarkMode: boolean) {
     this.preferences.theme = isDarkMode ? 'dark' : 'light';
     this.theme.next(this.preferences.theme);
-    savePreferences(JSON.stringify(this.preferences));
+    this.webViewService.savePreferences(JSON.stringify(this.preferences));
   }
 }

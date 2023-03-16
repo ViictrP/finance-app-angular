@@ -17,6 +17,7 @@ import { CategoryPipe } from './components/pipes/category.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { CommonTransactionFormComponent } from './components/form/transaction/common-transaction-form.component';
 import { SwitchComponent } from './components/form/switch/switch.component';
+import { WebViewService } from './service/web-view.service';
 
 const components = [
   InputComponent,
@@ -36,11 +37,14 @@ const components = [
   SwitchComponent
 ];
 
+const services = [WebViewService];
+
 @NgModule({
   declarations: [...components],
   imports: [FormModule, CommonModule, BrowserAnimationsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [...components],
+  providers: [...services]
 })
 export class LibModule {
 

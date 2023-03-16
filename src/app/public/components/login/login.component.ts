@@ -4,8 +4,8 @@ import { LoginService } from '../../services/login.service';
 import LoginRequest from '../../../dto/login.request';
 import { Router } from '@angular/router';
 import { MessageComponent } from '../../../lib/components/message/message.component';
-import invoke from 'react-native-webview-invoke/browser';
 import LoginResponse from '../../../dto/login.response';
+import { saveToken } from 'src/app/lib/helper/webViewHelper';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,6 @@ export class LoginComponent {
 
   formGroup: FormGroup;
   loading = false;
-  saveToken: any;
 
   constructor(private readonly formBuilder: FormBuilder,
               private readonly service: LoginService,
@@ -27,7 +26,6 @@ export class LoginComponent {
       email: [null, Validators.required],
       password: [null, Validators.required],
     });
-    this.saveToken = invoke.bind('saveToken');
   }
 
   get email() {
@@ -45,9 +43,7 @@ export class LoginComponent {
 
   handleSuccess(response: LoginResponse) {
     this.loading = false;
-    if (this.saveToken) {
-      this.saveToken(response.accessToken);
-    }
+    saveToken(response.accessToken);
     this.router.navigate(['/secure/home']);
   }
 
