@@ -8,7 +8,7 @@ import Transaction from '../../../entities/Transaction';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 
 @Component({
-  selector: 'app-transactio-form',
+  selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,10 +33,12 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
       this.userService.currentUser,
       (user) => {
         this.user = user;
-        this.creditCards = user?.creditCards?.map(creditCard => ({
-          value: creditCard.id,
-          label: creditCard.title
-        }));
+        if (this.creditCards?.length !== user?.creditCards?.length) {
+          this.creditCards = user?.creditCards?.map(creditCard => ({
+            value: creditCard.id,
+            label: creditCard.title
+          }));
+        }
       }
     );
   }
