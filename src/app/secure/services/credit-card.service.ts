@@ -10,7 +10,7 @@ export class CreditCardService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  saveCreditCard(creditCard: CreditCard, shouldUpdate: boolean): Observable<CreditCard> {
+  save(creditCard: CreditCard, shouldUpdate: boolean): Observable<CreditCard> {
     const url = `${environment.server_host}/credit-cards`;
 
     if (shouldUpdate) {
@@ -18,5 +18,9 @@ export class CreditCardService {
     } else {
       return this.httpClient.post<CreditCard>(url, creditCard);
     }
+  }
+
+  delete(creditCard: CreditCard): Observable<unknown> {
+    return this.httpClient.delete(`${environment.server_host}/credit-cards/${creditCard.id}`);
   }
 }

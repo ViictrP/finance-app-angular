@@ -10,7 +10,7 @@ export class InvoiceService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  getInvoice(creditCardId: string, month: string, year: number): Observable<Invoice> {
+  get(creditCardId: string, month: string, year: number): Observable<Invoice> {
     return this.httpClient.get<Invoice>(`${environment.server_host}/credit-cards/${creditCardId}/invoices?month=${month}&year=${year}`);
   }
 }

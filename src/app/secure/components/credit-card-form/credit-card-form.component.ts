@@ -102,7 +102,7 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
       invoices: []
     };
     this.subscribeAndRender(
-      this.service.saveCreditCard(creditCard, this.shouldUpdate),
+      this.service.save(creditCard, this.shouldUpdate),
       () => {
         this.success = true;
         this.modal?.show();

@@ -75,7 +75,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
     const year = value.getFullYear();
     const m = format(value, 'MMM', {locale: pt}).toUpperCase();
     this.subscribeAndRender(
-      this.service.getInvoice(this.creditCard!.id, m, year),
+      this.service.get(this.creditCard!.id, m, year),
       (invoice) => {
         this.transactions = invoice?.transactions ?? [];
         this.invoice = invoice;

@@ -8,6 +8,7 @@ import {BaseComponent} from '../BaseComponent';
 import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import TransactionService from '../../services/transaction.service';
+import { RecurringExpensesService } from '../../services/recurring-expenses.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   constructor(private readonly userService: UserService,
               private readonly router: Router,
               detector: ChangeDetectorRef,
-              private readonly transactionService: TransactionService) {
+              private readonly transactionService: TransactionService,
+              private readonly recurringExpenseService: RecurringExpensesService) {
     super(detector);
   }
 
@@ -43,7 +45,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.user = user;
       this.calculateExpensesAmout();
-      this.filteredTransactions = this.user?.transactions.concat(
+      this.filteredTransactions = this.user?.transactions?.concat(
         this.user?.recurringExpenses
           .map(transaction => {
             transaction.recurring = true
@@ -69,7 +71,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
   private calculateExpensesAmout() {
     const [total, creditCardsTotal] = calculateExpensesHelper((this.user!.transactions || []), this.creditCards);
-    this.recurringExpenseAmount = this.user!.recurringExpenses.reduce((sum, current) => sum + Number(current.amount), 0);
+    this.recurringExpenseAmount = this.user!.recurringExpenses?.reduce((sum, current) => sum + Number(current.amount), 0);
     this.expensesAmount = total + this.recurringExpenseAmount;
     this.creditCardsTotal = creditCardsTotal;
   }
@@ -83,11 +85,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
     this.deleteTransactionModal?.show();
   }
 
-  //TODO fix deletion of transaction and recurring transaction
   deleteTransaction(all = false) {
     if (this.selectedTransaction) {
+      const deleteTransaction$ = this.transactionService.delete(this.selectedTransaction.id!, all);
+      const deleteRecurringExpense$ = this.recurringExpenseService.delete(this.selectedTransaction);
       this.subscribeAndRender(
-        this.transactionService.delete(this.selectedTransaction.id!, all),
+        this.selectedTransaction.recurring ? deleteRecurringExpense$ : deleteTransaction$,
         () => {
           this.filteredTransactions.splice(this.filteredTransactions.findIndex(t => t.id === this.selectedTransaction!.id!), 1);
           this.deleteTransactionModal?.close();

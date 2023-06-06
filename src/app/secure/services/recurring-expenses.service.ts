@@ -13,4 +13,8 @@ export class RecurringExpensesService {
   save(transaction: Transaction): Observable<Transaction> {
     return this.httpClient.post<Transaction>(`${environment.server_host}/recurring-expenses`, transaction);
   }
+
+  delete(transaction: Transaction): Observable<unknown> {
+    return this.httpClient.delete(`${environment.server_host}/recurring-expenses/${transaction.id}`);
+  }
 }
