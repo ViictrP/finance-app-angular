@@ -13,6 +13,7 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import TransactionService from '../../secure/services/transaction.service';
 import { ModalComponent } from '../components/modal/modal.component';
+import { CreditCardService } from '../../secure/services/credit-card.service';
 
 describe('ObservableDirective', () => {
   let component: CreditCardsComponent;
@@ -37,7 +38,8 @@ describe('ObservableDirective', () => {
       ],
       providers: [
         UserService,
-        TransactionService
+        TransactionService,
+        CreditCardService
       ]
     }).createComponent(CreditCardsComponent);
 

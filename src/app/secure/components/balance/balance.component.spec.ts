@@ -12,6 +12,7 @@ import {FormModule} from '../../../form.module';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
+import { RecurringExpensesService } from '../../services/recurring-expenses.service';
 
 describe('BalanceComponent', () => {
   let component: BalanceComponent;
@@ -35,7 +36,8 @@ describe('BalanceComponent', () => {
       providers: [
         UserService,
         BalanceService,
-        TransactionService
+        TransactionService,
+        RecurringExpensesService
       ]
     }).compileComponents();
 

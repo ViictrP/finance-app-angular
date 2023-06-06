@@ -9,6 +9,7 @@ import { IconButtonComponent } from '../../../lib/components/buttons/icon-button
 import { InputComponent } from '../../../lib/components/form/input/input.component';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { FormModule } from '../../../form.module';
+import { RecurringExpensesService } from '../../services/recurring-expenses.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -29,7 +30,8 @@ describe('HomeComponent', () => {
       ],
       providers: [
         UserService,
-        TransactionService
+        TransactionService,
+        RecurringExpensesService
       ]
     }).compileComponents();
 

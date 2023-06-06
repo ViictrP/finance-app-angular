@@ -11,6 +11,7 @@ import { BottomSheetComponent } from '../../../lib/components/bottom-sheet/botto
 import { ButtonComponent } from '../../../lib/components/buttons/button.component';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
+import { CreditCardService } from '../../services/credit-card.service';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -30,7 +31,8 @@ describe('CreditCardsComponent', () => {
       ],
       providers: [
         UserService,
-        TransactionService
+        TransactionService,
+        CreditCardService
       ]
     }).compileComponents();
 
