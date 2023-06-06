@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import { RecurringExpensesService } from '../../services/recurring-expenses.service';
 
 @Component({
   selector: 'app-balance',
@@ -33,7 +34,8 @@ export class BalanceComponent extends BaseComponent implements OnInit {
               private readonly userService: UserService,
               private readonly service: BalanceService,
               private readonly router: Router,
-              private readonly transactionService: TransactionService) {
+              private readonly transactionService: TransactionService,
+              private readonly recurringExpenseService: RecurringExpensesService) {
     super(changeDetector);
   }
 
@@ -119,8 +121,10 @@ export class BalanceComponent extends BaseComponent implements OnInit {
 
   deleteTransaction(all = false) {
     if (this.selectedTransaction) {
+      const deleteTransaction$ = this.transactionService.delete(this.selectedTransaction.id!, all);
+      const deleteRecurringExpense$ = this.recurringExpenseService.delete(this.selectedTransaction);
       this.subscribeAndRender(
-        this.transactionService.delete(this.selectedTransaction.id!, all),
+        this.selectedTransaction.recurring ? deleteRecurringExpense$ : deleteTransaction$,
         () => {
           this.filteredTransactions.splice(this.filteredTransactions.findIndex(t => t.id === this.selectedTransaction!.id!), 1);
           this.deleteTransactionModal?.close();

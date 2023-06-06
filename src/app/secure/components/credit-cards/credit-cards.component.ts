@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../BaseComponent';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import TransactionService from '../../services/transaction.service';
+import { CreditCardService } from '../../services/credit-card.service';
 
 @Component({
   selector: 'app-credit-cards',
@@ -29,6 +30,7 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
   loading = false;
 
   constructor(private readonly userService: UserService,
+              private readonly service: CreditCardService,
               private readonly transactionService: TransactionService,
               private readonly router: Router,
               detector: ChangeDetectorRef) {
@@ -105,8 +107,14 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
     this.router.navigate(['/secure/credit-card-form', creditCardId]);
   }
 
-  excludeCreditCard(creditCardId?: string) {
-    console.log('nothing to do here ', creditCardId);
+  excludeCreditCard(creditCard: CreditCard) {
+    this.subscribeAndRender(this.service.delete(creditCard),
+      () => {
+        this.creditCards = this.user!.creditCards;
+        this.bottomSheet?.close();
+        this.selectedCreditCard = undefined;
+        this.transactions = [];
+      });
   }
 
   editTransaction(transaction: Transaction) {
