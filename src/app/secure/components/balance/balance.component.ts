@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import User from 'src/app/entities/User';
 import { BaseComponent } from '../BaseComponent';
 import { UserService } from '../../services/user.service';
@@ -6,7 +12,6 @@ import Transaction from '../../../entities/Transaction';
 import { Router } from '@angular/router';
 import CreditCard from '../../../entities/CreditCard';
 import { BalanceService } from '../../services/balance.service';
-import { calculateExpensesHelper } from '../../helper/calculateExpenses.helper';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import TransactionService from '../../services/transaction.service';
@@ -26,9 +31,9 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   user?: User;
   filteredTransactions: Transaction[] = [];
   expensesAmount = 0;
-  recurringExpensesAmount = 0;
   loading = false;
   selectedTransaction?: Transaction;
+  creditCardsTotal: { [key: string]: number } = {};
 
   constructor(changeDetector: ChangeDetectorRef,
               private readonly userService: UserService,
@@ -56,14 +61,7 @@ export class BalanceComponent extends BaseComponent implements OnInit {
       this.userService.currentUser,
       (user) => {
         this.user = user;
-        const transactions = (this.user?.transactions || []);
-        this.calculateExpensesAmout(transactions, this.creditCards, (this.user?.recurringExpenses || []));
-        this.filteredTransactions = transactions.concat(
-          this.user?.recurringExpenses.map(transaction => {
-            transaction.recurring = true;
-            return transaction;
-          })
-        ) ?? [];
+        this.getBalance(new Date());
       }
     )
   }
@@ -82,15 +80,6 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/secure/credit-cards', creditCardId]);
   }
 
-  creditCardsTotal: { [key: string]: number } = {};
-
-  private calculateExpensesAmout(transactions: Transaction[], creditCards: CreditCard[], recurringExpenses: Transaction[]) {
-    const [total, creditCardsTotal] = calculateExpensesHelper(transactions, creditCards);
-    this.recurringExpensesAmount = recurringExpenses.reduce((sum, current) => sum + Number(current.amount), 0);
-    this.expensesAmount = total + this.recurringExpensesAmount;
-    this.creditCardsTotal = creditCardsTotal;
-  }
-
   calculatePercentage(creditCardId: string) {
     return parseFloat(String((this.creditCardsTotal[creditCardId] / this.expensesAmount) * 100)).toFixed(2);
   }
@@ -101,10 +90,10 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     this.subscribeAndRender(
       this.service.getBalance(month.toUpperCase(), date.getFullYear()),
       (balance) => {
-        const {transactions, creditCards, recurringExpenses} = balance;
-        this.calculateExpensesAmout(transactions, creditCards, recurringExpenses);
-        this.filteredTransactions = transactions.concat(
-          recurringExpenses.map(transaction => {
+        this.expensesAmount = balance.expenses;
+        this.creditCardsTotal = balance.creditCardExpenses;
+        this.filteredTransactions = balance.transactions.concat(
+          balance.recurringExpenses.map(transaction => {
             transaction.recurring = true;
             return transaction;
           })
