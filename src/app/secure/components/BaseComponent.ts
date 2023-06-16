@@ -1,5 +1,6 @@
-import {Observable, Subject, takeUntil} from 'rxjs';
+import { forkJoin, Observable, Subject, take, takeUntil } from 'rxjs';
 import {ChangeDetectorRef, Injectable, OnDestroy} from '@angular/core';
+import { combineLatest } from 'rxjs/internal/operators/combineLatest';
 
 @Injectable()
 export abstract class BaseComponent implements OnDestroy {
@@ -21,6 +22,15 @@ export abstract class BaseComponent implements OnDestroy {
         callback(subscribeArgs);
         this.detector.detectChanges();
       });
+  }
+
+  subscribeAndRenderMany<T>(stream$: Observable<T>[], callback: (args: T[]) => void) {
+    forkJoin(stream$)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((subscribeArgs) => {
+      callback(subscribeArgs);
+      this.detector.detectChanges();
+    });
   }
 
   detectChanges() {
