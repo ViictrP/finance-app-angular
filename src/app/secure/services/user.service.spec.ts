@@ -23,7 +23,8 @@ describe('UserService', () => {
     name: 'User',
     password: 'PQIWORUSLU##!@',
     transactions: [],
-    recurringExpenses: []
+    recurringExpenses: [],
+    monthClosures: []
   };
 
   beforeEach(() => {
