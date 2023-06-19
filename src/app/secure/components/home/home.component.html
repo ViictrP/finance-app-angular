@@ -14,31 +14,23 @@
       </div>
       <div class="">
         <div id="balance" class="balance-container">
-          <div class="flex h-full flex-col justify-end">
-            <div class="balance-bar h-[59%]"></div>
-            <p class="text-xs mx-auto">JAN</p>
-          </div>
-          <div class="flex h-full flex-col justify-end">
-            <div class="balance-bar h-[69%]"></div>
-            <p class="text-xs mx-auto">FEV</p>
-          </div>
-          <div class="flex h-full flex-col justify-end">
-            <div class="balance-bar h-[49%]"></div>
-            <p class="text-xs mx-auto">MAR</p>
-          </div>
-          <div class="flex h-full flex-col justify-end">
-            <div class="balance-bar h-[39%]"></div>
-            <p class="text-xs mx-auto">MAI</p>
-          </div>
-          <div class="flex h-full flex-col justify-end">
-            <div class="balance-bar h-[79%]"></div>
-            <p class="text-xs mx-auto">JUN</p>
+          <div *ngFor="let monthClosure of user?.monthClosures" class="flex h-full flex-col justify-end">
+            <div
+              [style]="{height: getBarsHeight(monthClosure.expenses, monthClosure.total)}"
+              class="mx-auto w-5 mb-4 rounded-t-md border-[1px] border-yellow-300 dark:border-yellow-400 bg-yellow-400 dark:bg-yellow-500">
+            </div>
+            <p style="line-height: 1.8" class="text-xs text-center">
+              {{monthClosure.month}} <br/>
+              <span class="px-[3px] rounded-lg border-[1px] border-yellow-300 dark:border-yellow-400 bg-yellow-400 dark:bg-yellow-500 font-bold">
+                {{monthClosure.expenses / 1000 | currency: 'BRL'}}K
+              </span>
+            </p>
           </div>
         </div>
       </div>
       <p class="py-2 px-4 text-2xl text-right">
         <small>gastos</small><br />
-        <span class="text-yellow-600 dark:text-yellow-200">{{expensesAmount | currency: 'BRL'}}</span>
+        <span class="text-yellow-500 dark:text-yellow-200 font-bold">{{expensesAmount | currency: 'BRL'}}</span>
       </p>
     </app-card>
   </div>
@@ -63,28 +55,10 @@
       placeholder="filtrar transações..."
       (changed)="filterTransactions($event)" />
   </div>
-  <ng-container *ngFor="let transaction of filteredTransactions">
-    <div class="mb-4">
-      <app-card [color]="'bg-white dark:bg-zinc-900'" (clicked)="editTransaction(transaction)">
-        <div class="flex flex-col gap-2">
-          <div class="flex flex-row justify-between">
-            <p class="text-zinc-500 text-lg inline-flex items-center gap-1">
-              <i class="{{transaction.category | category: true }}"></i>
-              {{transaction.category | category }}&nbsp;&nbsp;
-              <span
-                class="bg-yellow-300 px-2 rounded-md text-xs text-zinc-900"
-                *ngIf="transaction.recurring">recorrente</span>
-            </p>
-            <p class="text-zinc-500">{{transaction.date | date: 'dd/MMM'}}</p>
-          </div>
-          <div class="flex flex-row justify-between">
-            <p class="my-auto text-lg">{{transaction.description}}</p>
-            <p class="my-auto text-yellow-600 dark:text-yellow-200 text-xl">{{transaction.amount | currency: 'BRL'}}</p>
-          </div>
-        </div>
-      </app-card>
-    </div>
-  </ng-container>
+  <app-transaction-list
+    [transactions]="filteredTransactions"
+    (editTransaction)="editTransaction($event)">
+  </app-transaction-list>
   <ng-container *ngIf="filteredTransactions.length === 0">
     <div class="w-full flex flex-col items-center justify-center h-36">
       <img class="w-[64px] h-[64px]" src="../../../../assets/img/invoice.png" alt="Invoice Icon" />
