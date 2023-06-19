@@ -20,11 +20,6 @@ export class CardComponent {
   constructor() {
   }
 
-  colorMap: {[key: string]: string} = {
-    'bg-purple-900': 'bg-purple-900',
-    'bg-orange-500': 'bg-orange-500'
-  };
-
   borderMap: {[key: string]: string} = {
     'bg-purple-900': 'border-purple-600',
     'bg-orange-500': 'border-orange-400',

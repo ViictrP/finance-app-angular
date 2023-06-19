@@ -1,5 +1,6 @@
 import Transaction from './Transaction';
 import CreditCard from './CreditCard';
+import MonthClosure from './MonthClosure';
 
 export default interface User {
   id: string;
@@ -12,5 +13,6 @@ export default interface User {
   salary?: number;
   creditCards: CreditCard[];
   transactions: Transaction[];
-  recurringExpenses: Transaction[]
+  recurringExpenses: Transaction[];
+  monthClosures: MonthClosure[];
 }

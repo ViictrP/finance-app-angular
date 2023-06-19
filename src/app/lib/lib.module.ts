@@ -18,6 +18,7 @@ import { MessageComponent } from './components/message/message.component';
 import { CommonTransactionFormComponent } from './components/form/transaction/common-transaction-form.component';
 import { SwitchComponent } from './components/form/switch/switch.component';
 import { WebViewService } from './service/web-view.service';
+import { TransactionListComponent } from './components/misc/transaction-list.component';
 
 const components = [
   InputComponent,
@@ -34,7 +35,8 @@ const components = [
   CategoryPipe,
   MessageComponent,
   CommonTransactionFormComponent,
-  SwitchComponent
+  SwitchComponent,
+  TransactionListComponent
 ];
 
 const services = [WebViewService];

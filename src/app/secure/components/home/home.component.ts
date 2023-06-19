@@ -98,4 +98,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
       );
     }
   }
+
+  getBarsHeight(available: number, salary: number): string {
+    return `${Math.max(0, Math.floor((available * 100) / salary)) - 20}%`;
+  }
+
+  protected readonly parseFloat = parseFloat;
 }
