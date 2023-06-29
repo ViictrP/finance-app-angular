@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import {UserService} from '../../services/user.service';
-import CreditCard from '../../../entities/CreditCard';
-import Transaction from '../../../entities/Transaction';
+import CreditCardDto from '../../../dto/credit-card.dto';
+import TransactionDto from '../../../dto/transaction.dto';
 import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../BaseComponent';
@@ -21,11 +21,11 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
   @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
 
-  user?: User;
-  selectedCreditCard?: CreditCard;
-  creditCards: CreditCard[] = [];
-  transactions: Transaction[] = [];
-  selectedTransaction?: Transaction;
+  user?: UserDto;
+  selectedCreditCard?: CreditCardDto;
+  creditCards: CreditCardDto[] = [];
+  transactions: TransactionDto[] = [];
+  selectedTransaction?: TransactionDto;
   invoiceTotalAmount: number | undefined;
   loading = false;
 
@@ -37,14 +37,14 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
     super(detector);
   }
 
-  private get userTransactions(): Transaction[] {
+  private get userTransactions(): TransactionDto[] {
     if (this.selectedCreditCard?.invoices.length) {
       return this.selectedCreditCard?.invoices[0].transactions;
     }
     return [];
   }
 
-  private get userCreditCards(): CreditCard[] {
+  private get userCreditCards(): CreditCardDto[] {
     return this.user!.creditCards;
   }
 
@@ -107,7 +107,7 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
     this.router.navigate(['/secure/credit-card-form', creditCardId]);
   }
 
-  excludeCreditCard(creditCard: CreditCard) {
+  excludeCreditCard(creditCard: CreditCardDto) {
     this.subscribeAndRender(this.service.delete(creditCard),
       () => {
         this.creditCards = this.user!.creditCards;
@@ -117,7 +117,7 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
       });
   }
 
-  editTransaction(transaction: Transaction) {
+  editTransaction(transaction: TransactionDto) {
     this.selectedTransaction = transaction;
     this.deleteTransactionModal?.show();
   }

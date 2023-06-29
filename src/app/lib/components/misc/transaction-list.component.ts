@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import Transaction from '../../../entities/Transaction';
+import TransactionDto from '../../../dto/transaction.dto';
 
 @Component({
   selector: 'app-transaction-list',
@@ -30,8 +30,8 @@ import Transaction from '../../../entities/Transaction';
 })
 export class TransactionListComponent {
 
-  @Input() transactions: Transaction[] = [];
-  @Output() editTransaction = new EventEmitter<Transaction>();
+  @Input() transactions: TransactionDto[] = [];
+  @Output() editTransaction = new EventEmitter<TransactionDto>();
 
   constructor() {
   }

@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {CreditCardsComponent} from './credit-cards.component';
 import {UserService} from '../../services/user.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
 import TransactionService from '../../services/transaction.service';
@@ -54,7 +54,7 @@ describe('CreditCardsComponent', () => {
           }]
         }]
       }]
-    } as User;
+    } as UserDto;
   });
 
   it('should create', () => {
@@ -63,7 +63,7 @@ describe('CreditCardsComponent', () => {
 
   it('Should set user on init', () => {
     component.ngOnInit();
-    service.user$.next({id: 'test'} as User);
+    service.user$.next({id: 'test'} as UserDto);
 
     expect(component.user!.id).toStrictEqual('test');
   });

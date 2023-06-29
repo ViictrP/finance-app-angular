@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../../public/services/login.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import {UserService} from '../../services/user.service';
 
 @Component({
@@ -12,7 +12,7 @@ import {UserService} from '../../services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  user$?: Observable<User>;
+  user$?: Observable<UserDto>;
 
   constructor(private readonly loginService: LoginService,
               private readonly userService: UserService,

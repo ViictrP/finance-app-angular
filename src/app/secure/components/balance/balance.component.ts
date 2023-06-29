@@ -5,12 +5,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import User from 'src/app/entities/User';
+import UserDto from 'src/app/dto/user.dto';
 import { BaseComponent } from '../BaseComponent';
 import { UserService } from '../../services/user.service';
-import Transaction from '../../../entities/Transaction';
+import TransactionDto from '../../../dto/transaction.dto';
 import { Router } from '@angular/router';
-import CreditCard from '../../../entities/CreditCard';
+import CreditCardDto from '../../../dto/credit-card.dto';
 import { BalanceService } from '../../services/balance.service';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -28,11 +28,11 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
   readonly today = new Date();
 
-  user?: User;
-  filteredTransactions: Transaction[] = [];
+  user?: UserDto;
+  filteredTransactions: TransactionDto[] = [];
   expensesAmount = 0;
   loading = false;
-  selectedTransaction?: Transaction;
+  selectedTransaction?: TransactionDto;
   creditCardsTotal: { [key: string]: number } = {};
 
   constructor(changeDetector: ChangeDetectorRef,
@@ -48,11 +48,11 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     return this.user?.salary || 0;
   }
 
-  get transactions(): Transaction[] {
+  get transactions(): TransactionDto[] {
     return this.user!.transactions;
   }
 
-  get creditCards(): CreditCard[] {
+  get creditCards(): CreditCardDto[] {
     return this.user?.creditCards ?? [];
   }
 
@@ -103,7 +103,7 @@ export class BalanceComponent extends BaseComponent implements OnInit {
     );
   }
 
-  editTransaction(transaction: Transaction) {
+  editTransaction(transaction: TransactionDto) {
     this.selectedTransaction = transaction;
     this.deleteTransactionModal?.show();
   }

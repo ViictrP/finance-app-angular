@@ -1,4 +1,4 @@
-export default interface MonthClosure {
+export default interface MonthClosureDto {
   id: string;
   index: number;
   month: string;

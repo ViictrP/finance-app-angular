@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SelectOption } from '../select/select.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Transaction from '../../../../entities/Transaction';
-import Invoice from '../../../../entities/Invoice';
+import TransactionDto from '../../../../dto/transaction.dto';
+import InvoiceDto from '../../../../dto/invoice.dto';
 
 @Component({
   selector: 'app-common-transaction-form',
@@ -14,7 +14,7 @@ export class CommonTransactionFormComponent {
   @Input() creditCards?: SelectOption[];
   @Input() loading = false;
   @Input() hiddenFields?: string[];
-  @Output() submitted = new EventEmitter<Transaction>();
+  @Output() submitted = new EventEmitter<TransactionDto>();
   @Input() showTitle = true;
   form: FormGroup;
   categoryOptions = [
@@ -76,7 +76,7 @@ export class CommonTransactionFormComponent {
   }
 
   save() {
-    const transaction: Transaction = {
+    const transaction: TransactionDto = {
       isInstallment: Number(this.form.value.installmentAmount) > 1,
       date: this.form.value.date,
       category: this.form.value.category,
@@ -90,7 +90,7 @@ export class CommonTransactionFormComponent {
         creditCard: {
           id: this.form.value.creditCard
         }
-      } as Invoice;
+      } as InvoiceDto;
     }
     this.submitted.emit(transaction);
   }

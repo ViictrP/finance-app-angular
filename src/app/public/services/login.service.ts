@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import LoginResponse from '../../dto/login.response';
+import AccessTokenDto from '../../dto/access-token.dto';
 import { environment } from '../../../environments/environment';
-import LoginRequest from '../../dto/login.request';
+import LoginDto from '../../dto/login.dto';
 import { WebViewService } from '../../lib/service/web-view.service';
 
 @Injectable()
@@ -19,8 +19,8 @@ export class LoginService {
     return Boolean(token);
   }
 
-  login(request: LoginRequest): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>(`${environment.server_host}/login`, request)
+  login(request: LoginDto): Observable<AccessTokenDto> {
+    return this.httpClient.post<AccessTokenDto>(`${environment.server_host}/login`, request)
       .pipe(
         tap(data => this.webViewService.saveToken(data.accessToken))
       );

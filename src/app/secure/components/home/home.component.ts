@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import {UserService} from '../../services/user.service';
-import Transaction from '../../../entities/Transaction';
+import TransactionDto from '../../../dto/transaction.dto';
 import {Router} from '@angular/router';
-import CreditCard from '../../../entities/CreditCard';
+import CreditCardDto from '../../../dto/credit-card.dto';
 import {BaseComponent} from '../BaseComponent';
 import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
@@ -18,9 +18,9 @@ import { RecurringExpensesService } from '../../services/recurring-expenses.serv
 })
 export class HomeComponent extends BaseComponent implements OnInit {
   @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
-  user?: User;
-  filteredTransactions: Transaction[] = [];
-  selectedTransaction?: Transaction;
+  user?: UserDto;
+  filteredTransactions: TransactionDto[] = [];
+  selectedTransaction?: TransactionDto;
   creditCardsTotal: { [key: string]: number } = {};
   expensesAmount = 0;
   recurringExpenseAmount = 0;
@@ -33,11 +33,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
     super(detector);
   }
 
-  get transactions(): Transaction[] {
+  get transactions(): TransactionDto[] {
     return this.user!.transactions;
   }
 
-  get creditCards(): CreditCard[] {
+  get creditCards(): CreditCardDto[] {
     return this.user?.creditCards ?? [];
   }
 
@@ -80,7 +80,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     return parseFloat(String((this.creditCardsTotal[creditCardId] / this.expensesAmount) * 100)).toFixed(2);
   }
 
-  editTransaction(transaction: Transaction) {
+  editTransaction(transaction: TransactionDto) {
     this.selectedTransaction = transaction;
     this.deleteTransactionModal?.show();
   }

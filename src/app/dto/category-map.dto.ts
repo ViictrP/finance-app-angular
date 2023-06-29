@@ -1,4 +1,4 @@
-export const categoryMapResponse: { [key: string]: string } = {
+export const categoryMapDto: { [key: string]: string } = {
   food: 'Restaurante',
   'credit-card': 'Cartão',
   home: 'Casa',

@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
-import CreditCard from '../../../entities/CreditCard';
-import User from '../../../entities/User';
-import Transaction from '../../../entities/Transaction';
+import CreditCardDto from '../../../dto/credit-card.dto';
+import UserDto from '../../../dto/user.dto';
+import TransactionDto from '../../../dto/transaction.dto';
 import {format} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import {InvoiceService} from '../../services/invoice.service';
-import Invoice from '../../../entities/Invoice';
+import InvoiceDto from '../../../dto/invoice.dto';
 import {BaseComponent} from '../BaseComponent';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
@@ -21,14 +21,14 @@ import { ModalComponent } from '../../../lib/components/modal/modal.component';
 export class InvoicesComponent extends BaseComponent implements OnInit {
   @ViewChild('deleteTransactionModal') deleteTransactionModal: ModalComponent | undefined;
   id: string | null;
-  user?: User;
-  creditCard?: CreditCard;
-  invoice?: Invoice;
-  transactions: Transaction[] = [];
+  user?: UserDto;
+  creditCard?: CreditCardDto;
+  invoice?: InvoiceDto;
+  transactions: TransactionDto[] = [];
   invoiceTotalAmount = 0;
   today = new Date();
   loading = false;
-  selectedTransaction?: Transaction;
+  selectedTransaction?: TransactionDto;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly userService: UserService,
@@ -46,7 +46,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
     return [];
   }
 
-  set selectedUser(user: User) {
+  set selectedUser(user: UserDto) {
     this.user = user;
     this.creditCard = user?.creditCards?.find(c => c.id === this.id);
     this.invoice = this.creditCard?.invoices[0];
@@ -84,7 +84,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
       });
   }
 
-  editTransaction(transaction: Transaction) {
+  editTransaction(transaction: TransactionDto) {
     this.selectedTransaction = transaction;
     this.deleteTransactionModal?.show();
   }

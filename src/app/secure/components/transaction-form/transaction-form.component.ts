@@ -3,8 +3,8 @@ import { BaseComponent } from '../BaseComponent';
 import { UserService } from '../../services/user.service';
 import { SelectOption } from '../../../lib/components/form/select/select.component';
 import TransactionService from '../../services/transaction.service';
-import User from '../../../entities/User';
-import Transaction from '../../../entities/Transaction';
+import UserDto from '../../../dto/user.dto';
+import TransactionDto from '../../../dto/transaction.dto';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 
 @Component({
@@ -20,7 +20,7 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
   creditCards: SelectOption[] = [];
   loading = false;
   success = false;
-  user?: User;
+  user?: UserDto;
 
   constructor(detector: ChangeDetectorRef,
               private readonly userService: UserService,
@@ -43,7 +43,7 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
     );
   }
 
-  save(transaction: Transaction) {
+  save(transaction: TransactionDto) {
     this.loading = true;
 
     this.subscribeAndRender(

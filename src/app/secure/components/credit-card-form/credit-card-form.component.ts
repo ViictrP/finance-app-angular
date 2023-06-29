@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import {ActivatedRoute} from '@angular/router';
-import CreditCard from '../../../entities/CreditCard';
+import CreditCardDto from '../../../dto/credit-card.dto';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditCardService} from '../../services/credit-card.service';
 import {BaseComponent} from '../BaseComponent';
@@ -18,8 +18,8 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
 
   @ViewChild('modal') modal?: ModalComponent;
 
-  user?: User;
-  creditCard?: CreditCard;
+  user?: UserDto;
+  creditCard?: CreditCardDto;
   form: FormGroup;
   loading = false;
   success = false;
@@ -92,7 +92,7 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
   saveCreditCard() {
     this.loading = true;
     const {title, description, number, invoiceClosingDay, color} = this.form.value;
-    const creditCard: CreditCard = {
+    const creditCard: CreditCardDto = {
       id: this.creditCard?.id ?? '',
       title,
       description,
