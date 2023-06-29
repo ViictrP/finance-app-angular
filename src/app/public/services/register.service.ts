@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import User from '../../entities/User';
+import UserDto from '../../dto/user.dto';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
@@ -9,7 +9,7 @@ export class RegisterService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  register(user: User): Observable<User> {
-    return this.httpClient.post<User>(`${environment.server_host}/users`, user);
+  register(user: UserDto): Observable<UserDto> {
+    return this.httpClient.post<UserDto>(`${environment.server_host}/users`, user);
   }
 }

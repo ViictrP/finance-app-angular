@@ -3,7 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {UserService} from './user.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {HttpClient} from '@angular/common/http';
-import User from '../../entities/User';
+import UserDto from '../../dto/user.dto';
 import {of} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {environment} from '../../../environments/environment';
@@ -13,7 +13,7 @@ describe('UserService', () => {
   let httpClient: HttpClient;
   let cookieService: CookieService;
 
-  const _user: User = {
+  const _user: UserDto = {
     active: true,
     createdAt: new Date(),
     creditCards: [],

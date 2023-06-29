@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {UserService} from '../../services/user.service';
 import {of} from 'rxjs';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import { WebViewService } from '../../../lib/service/web-view.service';
 
 describe('HeaderComponent', () => {
@@ -16,7 +16,7 @@ describe('HeaderComponent', () => {
   let userService: UserService;
   let router: Router;
 
-  const _user: User = {
+  const _user: UserDto = {
     active: true,
     createdAt: new Date(),
     creditCards: [],

@@ -2,7 +2,7 @@ import {LoginService} from './login.service';
 import {HttpClient} from '@angular/common/http';
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import LoginRequest from '../../dto/login.request';
+import LoginDto from '../../dto/login.dto';
 import {environment} from '../../../environments/environment';
 import {CookieService} from 'ngx-cookie-service';
 import {of} from 'rxjs';
@@ -40,7 +40,7 @@ describe('LoginService', () => {
     const accessToken = {accessToken: 'TOKEN'};
     const postSpy = jest.spyOn(httpClient, 'post').mockImplementation(() => of(accessToken));
     const setCookieSpy = jest.spyOn(cookieService, 'set');
-    const request: LoginRequest = {email: 'admin@admin.com', password: 'password'};
+    const request: LoginDto = {email: 'admin@admin.com', password: 'password'};
     service.login(request).subscribe(() => {
       expect(setCookieSpy).toHaveBeenCalledWith('access_token', 'TOKEN');
     });

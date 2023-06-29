@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../BaseComponent';
 import { UserService } from '../../services/user.service';
-import User from '../../../entities/User';
+import UserDto from '../../../dto/user.dto';
 import { BottomSheetComponent } from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { PreferencesService } from '../../services/preferences.service';
 export class ProfileComponent extends BaseComponent implements OnInit {
 
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
-  user?: User;
+  user?: UserDto;
   form: FormGroup;
   loading = false;
   isDarkMode = false;

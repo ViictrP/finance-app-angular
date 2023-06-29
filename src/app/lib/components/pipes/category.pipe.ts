@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {categoryMapResponse} from '../../../dto/categoryMap.response';
-import {categoryMaIconpResponse} from '../../../dto/categoryMapIcon.response';
+import {categoryMapDto} from '../../../dto/category-map.dto';
+import {categoryMaIconpResponse} from '../../../dto/category-map-icon.dto';
 
 @Pipe({
   name: 'category'
@@ -11,7 +11,7 @@ export class CategoryPipe implements PipeTransform {
     if (icon) {
       return categoryMaIconpResponse[value];
     }
-    return categoryMapResponse[value];
+    return categoryMapDto[value];
   }
 
 }

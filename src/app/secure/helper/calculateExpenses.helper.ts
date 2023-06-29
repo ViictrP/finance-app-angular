@@ -1,9 +1,9 @@
-import Transaction from '../../entities/Transaction';
-import CreditCard from '../../entities/CreditCard';
+import TransactionDto from '../../dto/transaction.dto';
+import CreditCardDto from '../../dto/credit-card.dto';
 
 type CreditCardsTotal = { [key: string]: number };
 
-export const calculateExpensesHelper = (transactions: Transaction[], creditCards: CreditCard[]): [number, CreditCardsTotal] => {
+export const calculateExpensesHelper = (transactions: TransactionDto[], creditCards: CreditCardDto[]): [number, CreditCardsTotal] => {
   const total: CreditCardsTotal = {};
   const debitAmount = transactions?.reduce((sum, current) => sum + Number(current.amount), 0);
   const creditCardsAmount = creditCards.reduce((sum, current) => {

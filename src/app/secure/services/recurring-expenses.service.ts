@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Transaction from '../../entities/Transaction';
+import TransactionDto from '../../dto/transaction.dto';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -10,11 +10,11 @@ export class RecurringExpensesService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  save(transaction: Transaction): Observable<Transaction> {
-    return this.httpClient.post<Transaction>(`${environment.server_host}/recurring-expenses`, transaction);
+  save(transaction: TransactionDto): Observable<TransactionDto> {
+    return this.httpClient.post<TransactionDto>(`${environment.server_host}/recurring-expenses`, transaction);
   }
 
-  delete(transaction: Transaction): Observable<unknown> {
+  delete(transaction: TransactionDto): Observable<unknown> {
     return this.httpClient.delete(`${environment.server_host}/recurring-expenses/${transaction.id}`);
   }
 }
