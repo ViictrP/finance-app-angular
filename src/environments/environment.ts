@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server_host: 'https://api.financeapp.dev'
+  server_host: '/api'
 };
 
 /*

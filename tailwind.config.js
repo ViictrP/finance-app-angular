@@ -14,7 +14,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('tailwind-scrollbar'),
-    require('flowbite/plugin')
+    require('tailwind-scrollbar')
   ],
 }

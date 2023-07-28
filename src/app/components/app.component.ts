@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../secure/components/BaseComponent';
-import 'flowbite';
 import { DARK_THEME, LIGHT_THEME, PreferencesService } from '../secure/services/preferences.service';
 
 @Component({
