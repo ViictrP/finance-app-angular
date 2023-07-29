@@ -8,6 +8,18 @@
       inputType="month"
       placeholder="02/10/2022" />
   </div>
+</div>
+  <div class="my-10 dark:bg-black-400 p-4">
+    <ng-container *ngIf="!loading">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [labels]="chartOptions.labels!"
+      >
+      </apx-chart>
+    </ng-container>
+  </div>
+<div *ngIf="creditCard;" class="px-4 mt-10">
   <div *ngIf="!loading; else loading_skeleton">
     <div class="flex flex-row justify-between items-center">
       <div class="text-left">
