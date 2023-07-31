@@ -45,13 +45,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
   selectedTransaction?: TransactionDto;
   chartOptions: Partial<ChartOptions> = {};
   @ViewChild('chart') chart?: ChartComponent;
-  categoryMap: Map<string, string> = new Map([
-    ['other', 'Outro'],
-    ['food', 'Restaurante'],
-    ['home', 'Casa'],
-    ['credit-card', 'Cartão'],
-    ['shop', 'Shop'],
-  ]);
+  categoryFilter = false;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly userService: UserService,
@@ -78,15 +72,21 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.subscribeAndRender(this.userService.currentUser, (user) => {
       this.selectedUser = user;
-      this.rerenderChart();
+      this.renderChart();
     });
   }
 
-  private rerenderChart() {
+  private renderChart() {
     const map: Map<string, number> = new Map();
+    const categoryMap: Map<string, string> = new Map([
+      ['other', 'Outro'],
+      ['food', 'Restaurante'],
+      ['home', 'Casa'],
+      ['credit-card', 'Cartão'],
+      ['shop', 'Shop'],
+    ]);
     this.transactions.forEach(t => {
       const category = map.get(t.category);
       const amount = Number(t.amount);
@@ -96,12 +96,21 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
         map.set(t.category, amount);
       }
     });
+    const series = Array.from(map.values()).map(value => Number(value.toFixed(2)));
+    const labels = Array.from(map.keys()).map(k => categoryMap.get(k.toLowerCase()));
     this.chartOptions = {
-      series: Array.from(map.values()).map(value => Number(value.toFixed(2))),
+      series,
       chart: {
         type: 'donut',
+        events: {
+          dataPointSelection: (e: any, chart?: any, options?: any) => {
+            const label = labels[options.selectedDataPoints[0][0]];
+            const category = Array.from(categoryMap.entries()).find(v => v[1] === label);
+            this.filterTransactionsByCategory(!!category ? category![0] : undefined);
+          }
+        }
       },
-      labels: Array.from(map.keys()).map(k => this.categoryMap.get(k.toLowerCase())),
+      labels,
       responsive: [
         {
           breakpoint: 480,
@@ -128,6 +137,18 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
     }
   }
 
+  filterTransactionsByCategory(category?: string) {
+    if (category) {
+      this.categoryFilter = true;
+      this.transactions = this.userTransactions.filter(
+        t => t.category.toLowerCase().includes(category.toLowerCase())
+      );
+    } else {
+      this.transactions = this.userTransactions ?? [];
+    }
+    this.detectChanges();
+  }
+
   getMonthInvoice(value: Date) {
     this.loading = true;
     const year = value.getFullYear();
@@ -136,7 +157,7 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
       this.service.get(this.creditCard!.id, m, year),
       (invoice) => {
         this.transactions = invoice?.transactions ?? [];
-        this.rerenderChart();
+        this.renderChart();
         this.invoice = invoice;
         this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
         this.loading = false;
