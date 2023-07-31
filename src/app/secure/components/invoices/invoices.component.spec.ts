@@ -12,20 +12,20 @@ describe('InvoicesComponent', () => {
   let component: InvoicesComponent;
   let fixture: ComponentFixture<InvoicesComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [
         InvoicesComponent,
-        ModalComponent
+        ModalComponent,
       ],
       imports: [RoutingModule, HttpClientTestingModule],
       providers: [
         UserService,
         InvoiceService,
         TransactionService,
-        WebViewService
-      ]
-    })
+        WebViewService,
+      ],
+    });
 
     fixture = TestBed.createComponent(InvoicesComponent);
     component = fixture.componentInstance;
