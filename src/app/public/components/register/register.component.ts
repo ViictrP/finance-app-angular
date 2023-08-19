@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
-import {BaseComponent} from '../../../secure/components/BaseComponent';
+import {BaseComponent} from '../../../lib/components/BaseComponent';
 import {RegisterService} from '../../services/register.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 export class RegisterComponent extends BaseComponent {
 
   form: FormGroup;
-  loading = false;
 
   constructor(detector: ChangeDetectorRef,
               formBuilder: FormBuilder,

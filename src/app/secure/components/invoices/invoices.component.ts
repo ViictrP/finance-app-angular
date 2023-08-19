@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { InvoiceService } from '../../services/invoice.service';
 import InvoiceDto from '../../../dto/invoice.dto';
-import { BaseComponent } from '../BaseComponent';
+import { BaseComponent } from '../../../lib/components/BaseComponent';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import {
@@ -41,7 +41,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
   transactions: TransactionDto[] = [];
   invoiceTotalAmount = 0;
   today = new Date();
-  loading = false;
   selectedTransaction?: TransactionDto;
   chartOptions: Partial<ChartOptions> = {};
   @ViewChild('chart') chart?: ChartComponent;
@@ -150,7 +149,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
   }
 
   getMonthInvoice(value: Date) {
-    this.loading = true;
     const year = value.getFullYear();
     const m = format(value, 'MMM', { locale: pt }).toUpperCase();
     this.subscribeAndRender(
@@ -160,7 +158,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
         this.renderChart();
         this.invoice = invoice;
         this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
-        this.loading = false;
       });
   }
 

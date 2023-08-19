@@ -5,7 +5,7 @@ import CreditCardDto from '../../../dto/credit-card.dto';
 import TransactionDto from '../../../dto/transaction.dto';
 import {BottomSheetComponent} from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import {Router} from '@angular/router';
-import {BaseComponent} from '../BaseComponent';
+import {BaseComponent} from '../../../lib/components/BaseComponent';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import TransactionService from '../../services/transaction.service';
 import { CreditCardService } from '../../services/credit-card.service';
@@ -27,7 +27,6 @@ export class CreditCardsComponent extends BaseComponent implements OnInit, OnDes
   transactions: TransactionDto[] = [];
   selectedTransaction?: TransactionDto;
   invoiceTotalAmount: number | undefined;
-  loading = false;
 
   constructor(private readonly userService: UserService,
               private readonly service: CreditCardService,

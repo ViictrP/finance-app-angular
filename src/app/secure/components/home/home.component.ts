@@ -4,7 +4,7 @@ import {UserService} from '../../services/user.service';
 import TransactionDto from '../../../dto/transaction.dto';
 import {Router} from '@angular/router';
 import CreditCardDto from '../../../dto/credit-card.dto';
-import {BaseComponent} from '../BaseComponent';
+import {BaseComponent} from '../../../lib/components/BaseComponent';
 import {calculateExpensesHelper} from '../../helper/calculateExpenses.helper';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import TransactionService from '../../services/transaction.service';

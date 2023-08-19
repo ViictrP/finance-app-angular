@@ -8,6 +8,7 @@ import {SecureModule} from './secure/secure.module';
 import {GuardsModule} from './guards/guards.module';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { LibModule } from './lib/lib.module';
 
 registerLocaleData(ptBr);
 
@@ -21,7 +22,8 @@ registerLocaleData(ptBr);
     RoutingModule,
     GuardsModule,
     PublicModule,
-    SecureModule
+    SecureModule,
+    LibModule,
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt'}],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { BaseComponent } from '../BaseComponent';
+import { BaseComponent } from '../../../lib/components/BaseComponent';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import UserDto from '../../../dto/user.dto';
@@ -15,7 +15,6 @@ import { ModalComponent } from '../../../lib/components/modal/modal.component';
 export class RecurringExpensesFormComponent extends BaseComponent implements OnInit {
   @ViewChild('modal') modal?: ModalComponent;
   user$?: Observable<UserDto>;
-  loading = false;
   success = false;
 
   constructor(private readonly changeDetector: ChangeDetectorRef,
@@ -29,13 +28,10 @@ export class RecurringExpensesFormComponent extends BaseComponent implements OnI
   }
 
   save(transaction: TransactionDto) {
-    this.loading = true;
-
     this.subscribeAndRender(
       this.service.save(transaction),
       () => {
         this.success = true;
-        this.loading = false;
         this.modal?.show();
         this.success = false;
       }

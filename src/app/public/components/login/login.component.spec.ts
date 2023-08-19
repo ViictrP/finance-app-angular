@@ -9,7 +9,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
 import { LoadingButtonComponent } from '../../../lib/components/buttons/loading-button.component';
-import { MessageComponent } from '../../../lib/components/message/message.component';
+import { MessagerComponent } from '../../../lib/components/toaster/messager.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { WebViewService } from '../../../lib/service/web-view.service';
 
@@ -25,7 +25,7 @@ describe('LoginComponent', () => {
       declarations: [
         LoginComponent,
         LoadingButtonComponent,
-        MessageComponent,
+        MessagerComponent,
         IconButtonComponent,
         InputComponent
       ],
