@@ -10,6 +10,7 @@ import { InputComponent } from '../../../lib/components/form/input/input.compone
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { FormModule } from '../../../form.module';
 import { RecurringExpensesService } from '../../services/recurring-expenses.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -31,7 +32,8 @@ describe('HomeComponent', () => {
       providers: [
         UserService,
         TransactionService,
-        RecurringExpensesService
+        RecurringExpensesService,
+        ToastService
       ]
     }).compileComponents();
 

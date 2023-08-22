@@ -16,7 +16,7 @@ export class LoginComponent extends BaseComponent {
 
   formGroup: FormGroup;
 
-  constructor(private readonly formBuilder: FormBuilder,
+  constructor(readonly formBuilder: FormBuilder,
               private readonly service: LoginService,
               private readonly router: Router,
               private readonly webviewService: WebViewService,

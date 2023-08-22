@@ -9,7 +9,6 @@ import { DARK_THEME, LIGHT_THEME, PreferencesService } from '../secure/services/
 })
 export class AppComponent implements OnInit {
   title = 'Finance App';
-  theme = 'light';
   constructor(readonly changeDetector: ChangeDetectorRef,
               private readonly preferencesService: PreferencesService) {
   }

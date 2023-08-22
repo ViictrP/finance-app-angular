@@ -7,6 +7,7 @@ import {InvoiceService} from '../../services/invoice.service';
 import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { WebViewService } from '../../../lib/service/web-view.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('InvoicesComponent', () => {
   let component: InvoicesComponent;
@@ -24,6 +25,7 @@ describe('InvoicesComponent', () => {
         InvoiceService,
         TransactionService,
         WebViewService,
+        ToastService
       ],
     });
 

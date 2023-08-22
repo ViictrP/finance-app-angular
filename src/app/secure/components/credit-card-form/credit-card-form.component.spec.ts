@@ -5,23 +5,29 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormModule} from '../../../form.module';
 import {CreditCardService} from '../../services/credit-card.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
+import { LoadingButtonComponent } from '../../../lib/components/buttons/loading-button.component';
 
 describe('AddCreditCard', () => {
   let component: CreditCardFormComponent;
   let fixture: ComponentFixture<CreditCardFormComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [CreditCardFormComponent],
+    TestBed.configureTestingModule({
+      declarations: [
+        CreditCardFormComponent,
+        LoadingButtonComponent
+      ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        FormModule
+        FormModule,
       ],
       providers: [
         UserService,
-        CreditCardService
-      ]
+        CreditCardService,
+        ToastService
+      ],
     });
 
     fixture = TestBed.createComponent(CreditCardFormComponent);

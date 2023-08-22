@@ -10,30 +10,32 @@ import {InputComponent} from '../../../lib/components/form/input/input.component
 import {IconButtonComponent} from '../../../lib/components/buttons/icon-button.component';
 import { PreferencesService } from '../../services/preferences.service';
 import { WebViewService } from '../../../lib/service/web-view.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         ProfileComponent,
         BottomSheetComponent,
         LoadingButtonComponent,
         ButtonComponent,
         InputComponent,
-        IconButtonComponent
+        IconButtonComponent,
       ],
       imports: [
         FormModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
       ],
       providers: [
         UserService,
         PreferencesService,
-        WebViewService
-      ]
+        WebViewService,
+        ToastService,
+      ],
     });
 
     fixture = TestBed.createComponent(ProfileComponent);

@@ -9,13 +9,14 @@ import {
   CommonTransactionFormComponent
 } from '../../../lib/components/form/transaction/common-transaction-form.component';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('TransactionForm', () => {
   let component: TransactionFormComponent;
   let fixture: ComponentFixture<TransactionFormComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         TransactionFormComponent,
         LoadingButtonComponent,
@@ -23,7 +24,11 @@ describe('TransactionForm', () => {
         ModalComponent
       ],
       imports: [FormModule, HttpClientTestingModule],
-      providers: [UserService, TransactionService]
+      providers: [
+        UserService,
+        TransactionService,
+        ToastService
+      ]
     });
 
     fixture = TestBed.createComponent(TransactionFormComponent);
