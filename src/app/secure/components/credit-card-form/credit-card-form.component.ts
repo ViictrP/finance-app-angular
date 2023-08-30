@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import CreditCardDto from '../../../dto/credit-card.dto';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditCardService} from '../../services/credit-card.service';
-import {BaseComponent} from '../BaseComponent';
+import {BaseComponent} from '../../../lib/components/BaseComponent';
 import {ModalComponent} from '../../../lib/components/modal/modal.component';
 
 @Component({
@@ -21,7 +21,6 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
   user?: UserDto;
   creditCard?: CreditCardDto;
   form: FormGroup;
-  loading = false;
   success = false;
   shouldUpdate = false;
   colorOptions = [
@@ -90,7 +89,6 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
   }
 
   saveCreditCard() {
-    this.loading = true;
     const {title, description, number, invoiceClosingDay, color} = this.form.value;
     const creditCard: CreditCardDto = {
       id: this.creditCard?.id ?? '',
@@ -106,7 +104,6 @@ export class CreditCardFormComponent extends BaseComponent implements OnInit {
       () => {
         this.success = true;
         this.modal?.show();
-        this.loading = false;
         this.success = false;
       });
   }

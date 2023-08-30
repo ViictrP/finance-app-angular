@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { BaseComponent } from '../BaseComponent';
+import { BaseComponent } from '../../../lib/components/BaseComponent';
 import { UserService } from '../../services/user.service';
 import { SelectOption } from '../../../lib/components/form/select/select.component';
 import TransactionService from '../../services/transaction.service';
@@ -18,7 +18,6 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
   @ViewChild('modal') modal?: ModalComponent;
 
   creditCards: SelectOption[] = [];
-  loading = false;
   success = false;
   user?: UserDto;
 
@@ -44,13 +43,10 @@ export class TransactionFormComponent extends BaseComponent implements OnInit {
   }
 
   save(transaction: TransactionDto) {
-    this.loading = true;
-
     this.subscribeAndRender(
       this.service.save(transaction),
       () => {
         this.success = true;
-        this.loading = false;
         this.modal?.show();
         this.success = false;
       }

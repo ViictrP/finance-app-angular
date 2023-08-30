@@ -12,6 +12,7 @@ import { ButtonComponent } from '../../../lib/components/buttons/button.componen
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { CreditCardService } from '../../services/credit-card.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -32,7 +33,8 @@ describe('CreditCardsComponent', () => {
       providers: [
         UserService,
         TransactionService,
-        CreditCardService
+        CreditCardService,
+        ToastService
       ]
     }).compileComponents();
 

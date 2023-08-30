@@ -3,6 +3,7 @@ import { RecurringExpensesFormComponent } from './recurring-expenses-form.compon
 import { UserService } from '../../services/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RecurringExpensesService } from '../../services/recurring-expenses.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('RecurringExpensesFormComponent', () => {
   let component: RecurringExpensesFormComponent;
@@ -15,7 +16,8 @@ describe('RecurringExpensesFormComponent', () => {
       imports: [HttpClientTestingModule],
       providers: [
         UserService,
-        RecurringExpensesService
+        RecurringExpensesService,
+        ToastService
       ]
     });
 

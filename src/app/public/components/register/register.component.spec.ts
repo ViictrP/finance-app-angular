@@ -7,23 +7,29 @@ import {RegisterService} from '../../services/register.service';
 import {IconButtonComponent} from '../../../lib/components/buttons/icon-button.component';
 import {LoadingButtonComponent} from '../../../lib/components/buttons/loading-button.component';
 import { WebViewService } from '../../../lib/service/web-view.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         RegisterComponent,
         IconButtonComponent,
-        LoadingButtonComponent
+        LoadingButtonComponent,
       ],
       imports: [
         FormModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
       ],
-      providers: [LoginService, RegisterService, WebViewService]
+      providers: [
+        LoginService,
+        RegisterService,
+        WebViewService,
+        ToastService
+      ],
     });
 
     fixture = TestBed.createComponent(RegisterComponent);

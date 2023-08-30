@@ -13,6 +13,7 @@ import TransactionService from '../../services/transaction.service';
 import { ModalComponent } from '../../../lib/components/modal/modal.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { RecurringExpensesService } from '../../services/recurring-expenses.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 describe('BalanceComponent', () => {
   let component: BalanceComponent;
@@ -26,7 +27,7 @@ describe('BalanceComponent', () => {
         CardComponent,
         InputComponent,
         ModalComponent,
-        IconButtonComponent
+        IconButtonComponent,
       ],
       imports: [
         HttpClientTestingModule,
@@ -37,7 +38,8 @@ describe('BalanceComponent', () => {
         UserService,
         BalanceService,
         TransactionService,
-        RecurringExpensesService
+        RecurringExpensesService,
+        ToastService
       ]
     }).compileComponents();
 

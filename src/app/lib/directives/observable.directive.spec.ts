@@ -14,6 +14,7 @@ import {DebugElement} from '@angular/core';
 import TransactionService from '../../secure/services/transaction.service';
 import { ModalComponent } from '../components/modal/modal.component';
 import { CreditCardService } from '../../secure/services/credit-card.service';
+import { ToastService } from '../components/toaster/toast.service';
 
 describe('ObservableDirective', () => {
   let component: CreditCardsComponent;
@@ -21,7 +22,7 @@ describe('ObservableDirective', () => {
   let observed: DebugElement[];
 
   beforeEach(async () => {
-    fixture = await TestBed.configureTestingModule({
+    fixture = TestBed.configureTestingModule({
       declarations: [
         ObservableDirective,
         CreditCardsComponent,
@@ -29,18 +30,19 @@ describe('ObservableDirective', () => {
         BottomSheetComponent,
         ButtonComponent,
         IconButtonComponent,
-        ModalComponent
+        ModalComponent,
       ],
       imports: [
         HttpClientTestingModule,
         NoopAnimationsModule,
-        FormModule
+        FormModule,
       ],
       providers: [
         UserService,
         TransactionService,
-        CreditCardService
-      ]
+        CreditCardService,
+        ToastService,
+      ],
     }).createComponent(CreditCardsComponent);
 
     component = fixture.componentInstance;

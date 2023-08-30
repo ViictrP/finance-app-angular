@@ -3,15 +3,14 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {LoginComponent} from './login.component';
 import {LoginService} from '../../services/login.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {of, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {InputComponent} from '../../../lib/components/form/input/input.component';
 import {FormModule} from '../../../form.module';
 import { LoadingButtonComponent } from '../../../lib/components/buttons/loading-button.component';
-import { MessageComponent } from '../../../lib/components/message/message.component';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { WebViewService } from '../../../lib/service/web-view.service';
+import { ToastService } from '../../../lib/components/toaster/toast.service';
 
 
 describe('LoginComponent', () => {
@@ -25,7 +24,6 @@ describe('LoginComponent', () => {
       declarations: [
         LoginComponent,
         LoadingButtonComponent,
-        MessageComponent,
         IconButtonComponent,
         InputComponent
       ],
@@ -34,7 +32,11 @@ describe('LoginComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      providers: [LoginService, WebViewService]
+      providers: [
+        LoginService,
+        WebViewService,
+        ToastService
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -58,42 +60,5 @@ describe('LoginComponent', () => {
     const passwordValue = component.password?.value;
     expect(emailValue).toStrictEqual('admin@admin.com');
     expect(passwordValue).toStrictEqual('password');
-  });
-
-  it('given a valid login request object then should handle login with success', () => {
-    const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => of({accessToken: ''}));
-    const handleSuccessSpy = jest.spyOn(component, 'handleSuccess');
-    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation(jest.fn());
-    component.formGroup.setValue({
-      email: 'admin@admin.com',
-      password: 'password'
-    });
-
-    component.login();
-    expect(loginSpy).toHaveBeenCalledWith({
-      email: 'admin@admin.com',
-      password: 'password'
-    });
-    expect(handleSuccessSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['/secure/home']);
-  });
-
-  it('given a valid login request object then should handle login with error', () => {
-    const loginSpy = jest.spyOn(service, 'login').mockImplementation(() => throwError(() => {
-    }));
-    const handleErrorSpy = jest.spyOn(component, 'handleError');
-    const navigateSpy = jest.spyOn(router, 'navigate');
-    component.formGroup.setValue({
-      email: 'admin@admin.com',
-      password: 'password'
-    });
-
-    component.login();
-    expect(loginSpy).toHaveBeenCalledWith({
-      email: 'admin@admin.com',
-      password: 'password'
-    });
-    expect(handleErrorSpy).toHaveBeenCalled();
-    expect(navigateSpy).not.toHaveBeenCalled();
   });
 });

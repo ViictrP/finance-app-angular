@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import UserDto from 'src/app/dto/user.dto';
-import { BaseComponent } from '../BaseComponent';
+import { BaseComponent } from '../../../lib/components/BaseComponent';
 import { UserService } from '../../services/user.service';
 import TransactionDto from '../../../dto/transaction.dto';
 import { Router } from '@angular/router';
@@ -31,7 +31,6 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   user?: UserDto;
   filteredTransactions: TransactionDto[] = [];
   expensesAmount = 0;
-  loading = false;
   selectedTransaction?: TransactionDto;
   creditCardsTotal: { [key: string]: number } = {};
 
@@ -85,7 +84,6 @@ export class BalanceComponent extends BaseComponent implements OnInit {
   }
 
   getBalance(date: Date) {
-    this.loading = true;
     const month = format(date, 'MMM', {locale: pt});
     this.subscribeAndRender(
       this.service.getBalance(month.toUpperCase(), date.getFullYear()),
@@ -98,7 +96,6 @@ export class BalanceComponent extends BaseComponent implements OnInit {
             return transaction;
           })
         );
-        this.loading = false;
       }
     );
   }
