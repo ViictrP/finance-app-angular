@@ -1,21 +1,8 @@
 import { AppComponent } from './components/app.component';
-import { LoginComponent } from './public/components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GuestGuard } from './guards/guest.guard';
-import { SecureComponent } from './secure/components/secure.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
-import { HomeComponent } from './secure/components/home/home.component';
 import { NgModule } from '@angular/core';
-import { CreditCardsComponent } from './secure/components/credit-cards/credit-cards.component';
-import { InvoicesComponent } from './secure/components/invoices/invoices.component';
-import { CreditCardFormComponent } from './secure/components/credit-card-form/credit-card-form.component';
-import { TransactionFormComponent } from './secure/components/transaction-form/transaction-form.component';
-import { RegisterComponent } from './public/components/register/register.component';
-import { ProfileComponent } from './secure/components/profile/profile.component';
-import { BalanceComponent } from './secure/components/balance/balance.component';
-import {
-  RecurringExpensesFormComponent
-} from './secure/components/recurring-expenses-form/recurring-expenses-form.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -24,78 +11,29 @@ export const APP_ROUTES: Routes = [{
     {
       path: '',
       redirectTo: '/secure/home',
-      pathMatch: 'full'
+      pathMatch: 'full',
     },
     {
       path: 'secure',
       redirectTo: '/secure/home',
-      pathMatch: 'full'
+      pathMatch: 'full',
     },
     {
-      path: 'login',
-      component: LoginComponent,
-      canActivate: [GuestGuard]
-    },
-    {
-      path: 'register',
-      component: RegisterComponent,
-      canActivate: [GuestGuard]
+      path: 'public',
+      loadChildren: () => import('./public/public.module').then(m => m.PublicModule),
+      canActivate: [GuestGuard],
     },
     {
       path: 'secure',
-      component: SecureComponent,
+      loadChildren: () => import('./secure/secure.module').then(m => m.SecureModule),
       canActivate: [LoggedInGuard],
-      children: [
-        {
-          path: 'home',
-          component: HomeComponent
-        },
-        {
-          path: 'credit-cards',
-          component: CreditCardsComponent
-        },
-        {
-          path: 'credit-cards/:id',
-          component: InvoicesComponent
-        },
-        {
-          path: 'credit-card-form',
-          component: CreditCardFormComponent
-        },
-        {
-          path: 'credit-card-form/:id',
-          component: CreditCardFormComponent
-        },
-        {
-          path: 'transaction-form',
-          component: TransactionFormComponent
-        },
-        {
-          path: 'transaction-form/:id',
-          component: TransactionFormComponent
-        },
-        {
-          path: 'profile',
-          component: ProfileComponent
-        },
-        {
-          path: 'balance',
-          component: BalanceComponent
-        },
-        {
-          path: 'recurring-expenses-form',
-          component: RecurringExpensesFormComponent
-        }
-      ]
-    }
-  ]
+    },
+  ],
 }];
 
-export const routing = RouterModule.forRoot(APP_ROUTES);
-
 @NgModule({
-  imports: [routing],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(APP_ROUTES)],
+  exports: [RouterModule],
 })
 export class RoutingModule {
 

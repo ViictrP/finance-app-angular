@@ -9,6 +9,7 @@ import {GuardsModule} from './guards/guards.module';
 import {registerLocaleData} from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { LibModule } from './lib/lib.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(ptBr);
 
@@ -18,6 +19,7 @@ registerLocaleData(ptBr);
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     PlatformModule,
     RoutingModule,
     GuardsModule,
