@@ -9,7 +9,6 @@ import { ChipComponent } from './components/chip/chip.component';
 import { ObservableDirective } from './directives/observable.directive';
 import { IconButtonComponent } from './components/buttons/icon-button.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectComponent } from './components/form/select/select.component';
 import { InputDateComponent } from './components/form/input/input-date.component';
 import { ModalComponent } from './components/modal/modal.component';
@@ -49,9 +48,9 @@ const services = [
 
 @NgModule({
   declarations: [...components],
-  imports: [FormModule, CommonModule, BrowserAnimationsModule],
+  imports: [FormModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [...components],
+  exports: [...components, CommonModule, FormModule],
   providers: [...services]
 })
 export class LibModule {
