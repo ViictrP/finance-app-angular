@@ -1,7 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastEventType } from './model/toast-event-type';
-import { fromEvent, take } from 'rxjs';
-import { Toast } from 'bootstrap';
 
 @Component({
   selector: 'app-toast',
@@ -37,33 +35,15 @@ export class ToastComponent implements OnInit {
   @Input()
   message!: string;
 
-  toast!: Toast;
-
   ngOnInit(): void {
     this.show();
   }
 
   show() {
-    this.toast = new Toast(
-      this.toastEl.nativeElement,
-      this.type === ToastEventType.ERROR
-        ? {
-          autohide: false,
-        }
-        : {
-          delay: 5000,
-        }
-    );
 
-    fromEvent(this.toastEl.nativeElement, 'hidden.bs.toast')
-      .pipe(take(1))
-      .subscribe(() => this.hide());
-
-    this.toast.show();
   }
 
   hide() {
-    this.toast.dispose();
     this.disposeEvent.emit();
   }
 }
