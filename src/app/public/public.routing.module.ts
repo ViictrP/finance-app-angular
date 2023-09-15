@@ -6,7 +6,12 @@ import { PublicComponent } from './components/public.component';
 
 const routing: Routes = [
   {
-    path: '',
+    path: 'public',
+    redirectTo: '/public/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'public',
     component: PublicComponent,
     children: [
       {

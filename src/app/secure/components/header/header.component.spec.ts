@@ -62,6 +62,6 @@ describe('HeaderComponent', () => {
     component.logOut();
 
     expect(logOutSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
+    expect(navigateSpy).toHaveBeenCalledWith(['/public/login']);
   });
 });

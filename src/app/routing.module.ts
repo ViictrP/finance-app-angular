@@ -1,8 +1,8 @@
 import { AppComponent } from './components/app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { GuestGuard } from './guards/guest.guard';
-import { LoggedInGuard } from './guards/logged-in.guard';
+import { guestGuard, loggedInGuard } from './guards';
 import { NgModule } from '@angular/core';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -14,19 +14,20 @@ export const APP_ROUTES: Routes = [{
       pathMatch: 'full',
     },
     {
-      path: 'secure',
-      redirectTo: '/secure/home',
-      pathMatch: 'full',
-    },
-    {
-      path: 'public',
+      path: '',
       loadChildren: () => import('./public/public.module').then(m => m.PublicModule),
-      canActivate: [GuestGuard],
+      canActivateChild: [guestGuard],
+      canActivate: [guestGuard],
     },
     {
-      path: 'secure',
+      path: '',
       loadChildren: () => import('./secure/secure.module').then(m => m.SecureModule),
-      canActivate: [LoggedInGuard],
+      canActivateChild: [loggedInGuard],
+      canActivate: [loggedInGuard],
+    },
+    {
+      path:'**',
+      component: NotFoundComponent
     },
   ],
 }];

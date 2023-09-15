@@ -1,20 +1,15 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 import { LoginService } from '../public/services/login.service';
 
-@Injectable()
-export class LoggedInGuard implements CanActivate {
+export const loggedInGuard = async () => {
+  const loginService = inject(LoginService);
+  const router = inject(Router);
 
-  constructor(private readonly loginService: LoginService,
-              private readonly router: Router) {
+  const isLoggedIn = await loginService.isLoggedIn();
+  if (!isLoggedIn) {
+    await router.navigate(['/public/login']);
+    return false;
   }
-
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const isLoggedIn = await this.loginService.isLoggedIn();
-    if (!isLoggedIn) {
-      await this.router.navigate(['/login']);
-      return false;
-    }
-    return true;
-  }
-}
+  return true;
+};

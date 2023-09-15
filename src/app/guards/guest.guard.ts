@@ -1,22 +1,15 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {LoginService} from '../public/services/login.service';
+import { inject } from '@angular/core';
+import { LoginService } from '../public/services/login.service';
+import { Router } from '@angular/router';
 
-@Injectable()
-export class GuestGuard implements CanActivate {
+export const guestGuard = async () => {
+  const loginService = inject(LoginService);
+  const router = inject(Router);
 
-  constructor(private readonly loginService: LoginService,
-              private readonly router: Router) {
+  const isLoggedIn = await loginService.isLoggedIn();
+  if (isLoggedIn) {
+    await router.navigate(['/secure/home']);
+    return false;
   }
-
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const isLoggedIn = await this.loginService.isLoggedIn();
-    if (isLoggedIn) {
-      await this.router.navigate(['/secure/home']);
-      return false;
-    }
-    return true;
-  }
-
-}
+  return true;
+};
