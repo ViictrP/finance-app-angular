@@ -26,6 +26,14 @@ export type ChartOptions = {
   colors: string[];
 };
 
+const categoryMap: Map<string, string> = new Map([
+  ['other', 'Outro'],
+  ['food', 'Restaurante'],
+  ['home', 'Casa'],
+  ['credit-card', 'Cartão'],
+  ['shop', 'Shop'],
+]);
+
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
@@ -79,13 +87,6 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
 
   private renderChart() {
     const map: Map<string, number> = new Map();
-    const categoryMap: Map<string, string> = new Map([
-      ['other', 'Outro'],
-      ['food', 'Restaurante'],
-      ['home', 'Casa'],
-      ['credit-card', 'Cartão'],
-      ['shop', 'Shop'],
-    ]);
     this.transactions.forEach(t => {
       const category = map.get(t.category);
       const amount = Number(t.amount);
@@ -155,9 +156,9 @@ export class InvoicesComponent extends BaseComponent implements OnInit {
       this.service.get(this.creditCard!.id, m, year),
       (invoice) => {
         this.transactions = invoice?.transactions ?? [];
-        this.renderChart();
         this.invoice = invoice;
         this.invoiceTotalAmount = this.transactions?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) ?? 0;
+        this.renderChart();
       });
   }
 
