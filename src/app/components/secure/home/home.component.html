@@ -1,0 +1,7 @@
+@if (!!user) {
+    <p>Olá {{user.name}}</p>
+    <img ngSrc="{{user.profilePictureUrl}}" alt="user's profile picture" width="100" height="100"/>
+} @else {
+    please log in!
+}
+<button (click)="logout()">logout</button>

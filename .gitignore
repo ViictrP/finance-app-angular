@@ -2,3 +2,9 @@ dist
 .vscode
 .idea
 node_modules
+.angular/cache
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
