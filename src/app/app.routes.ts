@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'secure',
     component: SecureComponent,
-    canActivateChild: [secureGuard],
+    canActivate: [secureGuard],
     children: [
       {
         path: `home`,
