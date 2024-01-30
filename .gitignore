@@ -2,7 +2,7 @@ dist
 .vscode
 .idea
 node_modules
-/.angular/
+/.angular/cache
 
 # Firebase
 .firebase
