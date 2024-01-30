@@ -1,9 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,ts}'],
+  darkMode: 'class',
+  content: [
+    "./src/**/*.{html,ts}",
+    "./node_modules/flowbite/**/*.js"
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Nunito", "sans-serif"]
+      }
+    },
   },
-  plugins: []
-};
-
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar')
+  ],
+}
