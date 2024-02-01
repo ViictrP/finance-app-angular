@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
