@@ -1,9 +1,9 @@
 import { Router, RouterModule } from '@angular/router';
-import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
+import { BottomSheetComponent } from '../../../lib/components/bottom-sheet/bottom-sheet.component';
 import { Component, ViewChild } from '@angular/core';
-import { IconButtonComponent } from '../buttons/icon-button.component';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../buttons/button.component';
+import { ButtonComponent } from '../../../lib/components/buttons/button.component';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -27,8 +27,9 @@ import { ButtonComponent } from '../buttons/button.component';
         routerLink="/secure/home" />
       <button
         (click)="showBottomSheet()"
-        class="flex m-auto h-14 w-14 text-5xl border-[0.5px] border-zinc-300 dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-700 rounded-full">
-        <i class="m-auto ph-plus-fill text-gray-500 dark:text-gray-300"></i>
+        [ngClass]="{'bg-zinc-200 border-zinc-300 text-sky-500': showingBottomSheet}"
+        class="text-gray-500 dark:text-gray-300 flex m-auto h-14 w-14 text-5xl border-[0.5px] border-zinc-200 dark:border-zinc-500 rounded-full transition-colors">
+        <i class="m-auto ph-plus-fill"></i>
       </button>
       <app-icon-button
         size="ultra-big"
@@ -37,7 +38,7 @@ import { ButtonComponent } from '../buttons/button.component';
         class="flex m-auto text-gray-500 dark:text-gray-300"
         routerLink="/secure/credit-cards" />
     </div>
-    <app-bottom-sheet title="Menu" #bottomSheet>
+    <app-bottom-sheet title="Menu" #bottomSheet (closed)="showingBottomSheet = false;">
       <div class="flex flex-col gap-2 justify-evenly text-neutral-50">
         <app-button
           (click)="addCreditCard()"
@@ -62,12 +63,14 @@ import { ButtonComponent } from '../buttons/button.component';
 })
 export class BottomNavComponent {
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
+  showingBottomSheet = false;
 
   constructor(private readonly router: Router) {
   }
 
   showBottomSheet() {
     this.bottomSheet?.show();
+    this.showingBottomSheet = true;
   }
 
   addCreditCard() {

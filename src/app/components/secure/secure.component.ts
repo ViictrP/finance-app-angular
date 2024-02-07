@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
-import { BottomNavComponent } from '../../lib/components/bottom-nav/bottom-nav.component';
-import { HeaderComponent } from '../../lib/components/header/header.component';
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-secure',

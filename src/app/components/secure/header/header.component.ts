@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { IconButtonComponent } from '../buttons/icon-button.component';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
