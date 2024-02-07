@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {JsonPipe, NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
+import UserDTO from '../../../dto/user.dto';
 
 @Component({
   selector: 'app-home',
@@ -15,17 +16,10 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent {
 
-  user = inject(AuthService).user;
+  user: UserDTO;
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
-
-  async logout() {
-    this.authService.logout()
-      .then(loggedOut => {
-        if (loggedOut) {
-          this.router.navigate(['login']);
-        }
-      });
+  constructor(private authService: AuthService,
+              private router: Router) {
+    this.user = authService.user;
   }
 }
