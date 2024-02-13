@@ -1,20 +1,22 @@
 FROM node:18
 WORKDIR /angular
 
-ENV FNC_APP_API_KEY=$apiUrl
-ENV FNC_APP_API_URL=$apiKey
-ENV FNC_APP_APP_ID=$authDomain
-ENV FNC_APP_AUTH_DOMAIN=$projectId
-ENV FNC_APP_MEASUREMENT_ID=$storageBucket
-ENV FNC_APP_MESSAGING_SENDER_ID=$MESSAGING_SENDER_ID
-ENV FNC_APP_PROJECT_ID=$appId
-ENV FNC_APP_STORAGE_BUCKET=$measurementId
+ARG apiKey
+ARG authDomain
+ARG projectId
+ARG storageBucket
+ARG messagingSenderId
+ARG appId
+ARG measurementId
+
+ENV PORT=$PORT
 
 EXPOSE $PORT
 ENTRYPOINT ["node", "./dist/finance-app-angular/server/server.mjs"]
 
 COPY package.json /angular
 COPY package-lock.json /angular
+COPY /scripts /angular/scripts
 RUN npm ci --loglevel=verbose --no-audit
 
 COPY . /angular

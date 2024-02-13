@@ -4,12 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
+    "prebuild": "./scripts/prebuild.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:finance-app-angular": "node dist/finance-app-angular/server/server.mjs",
     "prepare": "husky install",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "postinstall": "chmod +x ./scripts/*.js"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "autoprefixer": "^10.4.17",
+    "ejs": "^3.1.9",
     "eslint": "^8.56.0",
     "husky": "^9.0.7",
     "jasmine-core": "~5.1.0",
