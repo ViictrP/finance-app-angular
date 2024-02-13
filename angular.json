@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@ngx-env/builder:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/finance-app-angular",
             "index": "src/index.html",
@@ -37,33 +37,40 @@
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
-            },
-            "ngxEnv": {
-              "verbose": true,
-              "root": "../..",
-              "prefix": "^FNC_APP_"
             }
           },
           "configurations": {
             "production": {
-              "aot": true,
-              "extractLicenses": true,
-              "namedChunks": false,
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
             },
             "development": {
-              "extractLicenses": false,
-              "namedChunks": true,
               "optimization": false,
-              "sourceMap": true
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@ngx-env/builder:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "finance-app-angular:build:production"
@@ -75,13 +82,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@ngx-env/builder:extract-i18n",
+          "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "buildTarget": "finance-app-angular:build"
           }
         },
         "test": {
-          "builder": "@ngx-env/builder:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
               "zone.js",
