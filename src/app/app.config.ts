@@ -6,9 +6,12 @@ import {provideClientHydration} from '@angular/platform-browser';
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {environment} from "../environments/environment";
 import {getAuth, provideAuth} from "@angular/fire/auth";
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authorizationInterceptor } from './services/interceptors/authorization.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withFetch(), withInterceptors([authorizationInterceptor])),
     provideRouter(routes),
     provideClientHydration(),
     importProvidersFrom([

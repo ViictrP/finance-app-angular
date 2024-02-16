@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import UserDTO from '../../../dto/user.dto';
+import { ProfileService } from '../../../services/profile.service';
+import BaseComponent from '../base.component';
+import ProfileDTO from '../../../dto/profile.dto';
 
 @Component({
   selector: 'app-header',
@@ -59,13 +61,24 @@ import UserDTO from '../../../dto/user.dto';
     </ng-template>
   `,
 })
-export class HeaderComponent {
+export class HeaderComponent extends BaseComponent implements OnInit {
 
   user: UserDTO;
+  profile: ProfileDTO | undefined;
 
   constructor(private readonly router: Router,
-              private readonly authService: AuthService) {
+              private readonly authService: AuthService,
+              private readonly profileService: ProfileService,
+              readonly changeDetector: ChangeDetectorRef) {
+    super(changeDetector);
     this.user = this.authService.user;
+  }
+
+  ngOnInit(): void {
+    this.subscribeAndRender(
+      this.profileService.getProfile(),
+      (profile) => this.profile = profile
+    );
   }
 
   async editProfile() {

@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import ProfileDTO from '../dto/profile.dto';
@@ -6,11 +6,11 @@ import { environment } from '../../environments/environment';
 import CreditCardDTO from '../dto/credit-card.dto';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProfileService {
 
-  readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.apiUrl;
   _profile = signal<ProfileDTO | null>(null);
 
   constructor(private readonly httpClient: HttpClient) {
@@ -21,25 +21,29 @@ export class ProfileService {
       .pipe(
         tap(profile => {
           this.calculateCreditCardsTotalInvoiceAmount(profile.creditCards);
+          this.profile = profile;
         }),
-        tap(profile => this.profile = profile),
       );
   }
 
   private calculateCreditCardsTotalInvoiceAmount(creditCards: CreditCardDTO[]): void {
     creditCards
       .forEach(creditCard => {
-        creditCard.totalInvoiceAmount = creditCard.invoices[0].transactions
-          .reduce((sum, current) =>
-            sum + Number(current.amount), 0);
+        const invoice = creditCard.invoices[0];
+        if (invoice) {
+          creditCard.totalInvoiceAmount = creditCard.invoices[0].transactions
+            .reduce((sum, current) =>
+              sum + Number(current.amount), 0);
+        }
       });
   }
 
-  set profile(profile: ProfileDTO) {
+  private set profile(profile: ProfileDTO) {
+    console.log(profile);
     this._profile.set(profile)
   }
 
-  get profile(): ProfileDTO | null {
-    return this._profile();
+  get profile(): Signal<ProfileDTO | null> {
+    return this._profile;
   }
 }

@@ -1,5 +1,9 @@
 <div class="p-8">
-  <p class="text-xs text-gray-500">Salário</p>
-  <p class="text-lg">R$ 25.539,98</p>
+  @if(profile()) {
+    <p class="text-xs text-gray-500">Salário</p>
+    <p class="text-lg">R$ {{ profile()?.salary }}</p>
+  } @else {
+    <p class="text-xs text-gray-500">loading...</p>
+  }
 </div>
 

@@ -1,21 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { ACCESS_TOKEN } from '../../constants/keys';
 
-@Injectable()
-export default class AuthorizationInterceptor implements HttpInterceptor {
-  constructor(private readonly cookieService: CookieService) {
-  }
+export const authorizationInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  const cookieService = inject(CookieService);
+  const cloneRequest = req.clone({
+    setHeaders: {
+      'Authorization': `Bearer ${cookieService.get(ACCESS_TOKEN)}`
+    }
+  });
 
-  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const cloneRequest = req.clone({
-      setHeaders: {
-        'Authorization': `Bearer ${this.cookieService.get(ACCESS_TOKEN)}`
-      }
-    });
-
-    return next.handle(cloneRequest);
-  }
+  return next(cloneRequest);
 }
