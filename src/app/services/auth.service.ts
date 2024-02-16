@@ -1,10 +1,8 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {GoogleAuthProvider, Auth, signInWithPopup, signOut} from '@angular/fire/auth';
 import UserDTO from "../dto/user.dto";
 import {CookieService} from "ngx-cookie-service";
-
-const ACCESS_TOKEN = 'accessToken';
-const USER_INFO = 'userInfo';
+import { ACCESS_TOKEN, USER_INFO } from '../constants/keys';
 
 interface AuthUser {
   accessToken: string;
@@ -14,12 +12,10 @@ interface AuthUser {
   providedIn: 'root'
 })
 export class AuthService {
-
-  private readonly cookieService: CookieService;
   _user = signal<UserDTO | null>(null);
 
-  constructor(private readonly auth: Auth) {
-    this.cookieService = inject(CookieService);
+  constructor(private readonly auth: Auth,
+              private readonly cookieService: CookieService) {
   }
 
   get user(): UserDTO {
@@ -39,7 +35,7 @@ export class AuthService {
     try {
       const credentials = await signInWithPopup(this.auth, new GoogleAuthProvider());
       const { user } = credentials;
-      this.cookieService.set(ACCESS_TOKEN, (credentials.user as unknown as AuthUser).accessToken as string);
+      this.cookieService.set(ACCESS_TOKEN, (credentials.user as unknown as AuthUser).accessToken);
       const userInfo = {
         name: user.displayName as string,
         email: user.email as string,
