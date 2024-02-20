@@ -2,9 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 body {
-  @apply h-dvh;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  @apply h-dvh bg-zinc-50;
+  font-family: 'Heebo', sans-serif;
+  font-optical-sizing: auto;
 }
 
 .button {
