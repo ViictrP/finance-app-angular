@@ -1,27 +1,64 @@
-<div class="p-4">
+<div class="pb-20">
   @if(profile()) {
-    <div class="flex flex-col gap-20">
-      <div #balanceCard class="bg-green-50 border-green-100 border-[0.5px] p-4 rounded-2xl">
+    <div class="flex flex-col gap-12">
+      <div #balanceCard class="bg-sky-100 border-sky-50 border-[0.5px] p-4 m-4 rounded-2xl">
         <div class="flex flex-row justify-between">
           <p class="text-sm text-gray-500">gasto no <b>mês</b></p>
           <app-icon-button class="text-blue-600" size="small" icon="ph ph-calendar" [title]="'Fev'"/>
         </div>
         <div class="flex flex-col justify-start gap-2">
-          <p class="text-4xl align-baseline">{{ profile()?.salary | currency: 'BRL' }}</p>
+          <p class="text-4xl align-baseline font-black">{{ profile()?.salary | currency: 'BRL' }}</p>
           <div class="flex flex-row justify-start align-middle items-center">
             <img ngSrc="./assets/svg/up.svg" alt="up" width="30" height="30">
             <p class="text-lg text-green-700">+R$560,40</p>
           </div>
         </div>
       </div>
-      <div #cardChips class="flex flex-col overflow-auto gap-4">
-        <div>
-          <p class="text-xl align-baseline">Impacto nos gastos</p>
+      <div #cardChips class="flex flex-col gap-4">
+        <div class="p-4">
+          <p class="text-xl align-baseline font-black">Impacto nos gastos</p>
         </div>
-        <div class="flex flex-row overflow-auto">
+        <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3">
           @for(card of profile()?.creditCards; track card.id) {
-            <div class="bg-green-50 border-green-100 border-[0.5px] flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-black">
-              <div class="text-lg font-normal leading-none max-w-full flex-initial whitespace-nowrap">{{card.title}} 12%</div>
+            <div class="bg-sky-100 border-sky-50 border-[0.5px] flex justify-center items-center m-1 font-medium py-2 px-4 rounded-full text-black">
+              <div class="text-lg font-bold leading-none max-w-full flex-initial whitespace-nowrap">{{card.title}} <span class="font-normal">12%</span></div>
+            </div>
+          }
+        </div>
+      </div>
+      <div #transactions class="flex flex-col gap-4 p-4 ">
+        <div>
+          <p class="text-xl align-baseline font-black">Compras</p>
+        </div>
+        <div>
+          <p class="text-sm align-baseline text-gray-500">Contas fixas</p>
+        </div>
+        <div class="flex flex-col scrollbar-none gap-2">
+          @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
+            <div class="grid grid-cols-3 grid-rows-1 bg-amber-100 border-amber-50 border-[0.5px] pt-4 pb-4 pr-4 pl-1 rounded-2xl text-black">
+              <div class="grid grid-cols-4 grid-rows-1 col-span-2">
+                <div class="m-auto">
+                  <img ngSrc="./assets/svg/bill.svg" alt="bill icon" height="40" width="40">
+                </div>
+                <div class="grid grid-cols-1 grid-rows-2 col-span-3">
+                  <div class="text-left text-sm text-gray-500">{{recurringExpenses.category}}</div>
+                  <div class="text-left font-bold">{{recurringExpenses.description}}</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div>{{recurringExpenses.amount | currency: 'BRL'}}</div>
+              </div>
+            </div>
+          }
+        </div>
+        <div>
+          <p class="text-sm align-baseline text-gray-500">Demais compras</p>
+        </div>
+        <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none">
+          @for(transaction of profile()?.transactions; track transaction.id) {
+            <div class="bg-sky-100 border-sky-50 border-[0.5px] flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-black">
+              <div class="">{{transaction.category}}</div>
+              <div class="">{{transaction.description}}</div>
             </div>
           }
         </div>

@@ -29,3 +29,8 @@ body {
   bg-blue-600
   hover:bg-blue-500;
 }
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+}
