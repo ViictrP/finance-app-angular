@@ -20,10 +20,11 @@
         </div>
         <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3">
           @for(card of profile()?.creditCards; track card.id) {
-            <div class="gap-2 bg-white border-purple-50 border flex justify-center items-center m-1 font-medium py-2 px-4 rounded-full text-black">
-              <div [ngClass]="card.backgroundColor" class="w-2 h-full rounded-full"></div>
-              <div class="text-lg font-bold leading-none max-w-full flex-initial whitespace-nowrap">{{card.title}} <span class="font-normal">12%</span></div>
-            </div>
+            <app-chip
+              [title]="card.title"
+              percentage="12"
+              [lineColor]="card.backgroundColor"
+            />
           }
         </div>
       </div>
@@ -36,20 +37,11 @@
         </div>
         <div class="flex flex-col scrollbar-none gap-2">
           @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
-            <div class="grid grid-cols-3 grid-rows-1 bg-white border-amber-50 border pt-4 pb-4 pr-4 pl-1 rounded-2xl text-black">
-              <div class="grid grid-cols-4 grid-rows-1 col-span-2">
-                <div class="m-auto">
-                  <img ngSrc="./assets/svg/bill.svg" alt="bill icon" height="40" width="40">
-                </div>
-                <div class="grid grid-cols-1 grid-rows-2 col-span-3">
-                  <div class="text-left text-sm text-gray-500">{{recurringExpenses.category}}</div>
-                  <div class="text-left font-bold">{{recurringExpenses.description}}</div>
-                </div>
-              </div>
-              <div class="text-right mt-auto mb-auto">
-                <p>{{recurringExpenses.amount | currency: 'BRL'}}</p>
-              </div>
-            </div>
+            <app-transaction-card
+              [title]="recurringExpenses.category"
+              [description]="recurringExpenses.description"
+              [value]="recurringExpenses.amount.toString()"
+            />
           }
         </div>
         <div>
@@ -57,10 +49,11 @@
         </div>
         <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none">
           @for(transaction of profile()?.transactions; track transaction.id) {
-            <div class="bg-sky-100 border-sky-50 border-[0.5px] flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-black">
-              <div class="">{{transaction.category}}</div>
-              <div class="">{{transaction.description}}</div>
-            </div>
+            <app-transaction-card
+              [title]="transaction.category"
+              [description]="transaction.description"
+              [value]="transaction.amount.toString()"
+            />
           }
         </div>
       </div>

@@ -1,9 +1,10 @@
-import { Injectable, Signal, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { inject, Injectable, Signal, signal } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, of, tap } from 'rxjs';
 import ProfileDTO from '../dto/profile.dto';
 import { environment } from '../../environments/environment';
 import CreditCardDTO from '../dto/credit-card.dto';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ProfileService {
 
   private readonly apiUrl = environment.apiUrl;
   _profile = signal<ProfileDTO | null>(null);
+  router = inject(Router);
 
   constructor(private readonly httpClient: HttpClient) {
   }
@@ -23,7 +25,17 @@ export class ProfileService {
           this.calculateCreditCardsTotalInvoiceAmount(profile.creditCards);
           this.profile = profile;
         }),
+        catchError(this.handleError())
       );
+  }
+
+  private handleError() {
+    return (err: unknown) => {
+      if(err instanceof HttpErrorResponse && err.status === 404) {
+        this.router.navigate(['secure/create-profile']);
+      }
+      return of();
+    }
   }
 
   private calculateCreditCardsTotalInvoiceAmount(creditCards: CreditCardDTO[]): void {
@@ -39,7 +51,6 @@ export class ProfileService {
   }
 
   private set profile(profile: ProfileDTO) {
-    console.log(profile);
     this._profile.set(profile)
   }
 

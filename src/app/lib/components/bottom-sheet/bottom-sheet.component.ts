@@ -12,7 +12,7 @@ import { IconButtonComponent } from '../buttons/icon-button.component';
       (click)="close($event)"
       [ngClass]="{'hidden' : !isShowing}"
       style="backdrop-filter: blur(2px)"
-      class="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-80 transition-all ease-in-out duration-75">
+      class="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-80 transition-all ease-in duration-75">
     </div>
     <div
       #bottomSheet

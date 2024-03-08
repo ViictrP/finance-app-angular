@@ -5,6 +5,7 @@ import {NotFoundComponent} from "./components/public/not-found/not-found.compone
 import {SecureComponent} from "./components/secure/secure.component";
 import {secureGuard} from "./guards/secure.guard";
 import {publicGuard} from "./guards/public.guard";
+import { CreateProfileComponent } from './components/secure/create-profile/create-profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -22,7 +23,12 @@ export const routes: Routes = [
         path: `home`,
         title: 'Início',
         component: HomeComponent
-      }
+      },
+      {
+        path: 'create-profile',
+        title: 'Criar Perfíl',
+        component: CreateProfileComponent
+      },
     ]
   },
   {

@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import { AsyncPipe, CurrencyPipe, JsonPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import {Router} from "@angular/router";
@@ -6,6 +6,8 @@ import UserDTO from '../../../dto/user.dto';
 import ProfileDTO from '../../../dto/profile.dto';
 import { ProfileService } from '../../../services/profile.service';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
+import TransactionCardComponent from '../../../lib/components/transaction-card/transactionCardComponent';
+import ChipComponent from '../../../lib/components/chip/chip.component';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,8 @@ import { IconButtonComponent } from '../../../lib/components/buttons/icon-button
     CurrencyPipe,
     IconButtonComponent,
     NgClass,
+    TransactionCardComponent,
+    ChipComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
