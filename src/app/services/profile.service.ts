@@ -31,8 +31,12 @@ export class ProfileService {
 
   private handleError() {
     return (err: unknown) => {
-      if(err instanceof HttpErrorResponse && err.status === 404) {
-        this.router.navigate(['secure/create-profile']);
+      if (err instanceof HttpErrorResponse) {
+        if(err.status === 404) {
+          this.router.navigate(['secure/create-profile']);
+        } else if (err.status === 401) {
+          this.router.navigate(['login']);
+        }
       }
       return of();
     }
@@ -48,6 +52,14 @@ export class ProfileService {
               sum + Number(current.amount), 0);
         }
       });
+  }
+
+  createProfile(profile: ProfileDTO) {
+    return this.httpClient.post<ProfileDTO>(`${this.apiUrl}/users`, profile)
+      .pipe(tap(newProfile => {
+        this.calculateCreditCardsTotalInvoiceAmount(newProfile.creditCards);
+        this.profile = newProfile;
+      }));
   }
 
   private set profile(profile: ProfileDTO) {

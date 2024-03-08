@@ -1,20 +1,30 @@
 <div class="pb-20">
-  <div class="flex flex-col gap-4 p-4">
+  <div class="flex flex-col gap-8 p-4">
     <h1 class="text-2xl font-bold">Finalizar Perfil!</h1>
-    <form class="flex flex-col gap-8">
+    <p class="text-sm">
+      Para finalizar seu perfil precisamos de algumas informações adicionais.
+      Campos sinalizados com * (asterísco) são obrigatórios.
+    </p>
+    <form [formGroup]="form" (submit)="finishProfile()" class="flex flex-col gap-8">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-2/3">
-          <input
-            placeholder="Salário..."
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="inline-full-name"
-            type="text"
-          />
+          <app-input
+            id="salary"
+            name="salary"
+            formControlName="salary"
+            type="currency"
+            [required]="true"
+            [errorMessage]="'Este campo é obrigatório!'"
+            placeholder="*salário ...">
+          </app-input>
         </div>
       </div>
-      <button type="submit"
-              class="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
-        <span class="mx-2 sm:inline">Finalizar</span>
+      <button
+        [disabled]="validateSalaryField()"
+        type="submit"
+        [ngClass]="{'bg-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none' : validateSalaryField()}"
+        class="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
+        <span class="mx-2 sm:inline">{{ loading ? 'loading...' : 'Finalizar' }}</span>
       </button>
     </form>
   </div>

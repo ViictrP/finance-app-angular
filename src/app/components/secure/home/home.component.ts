@@ -30,9 +30,9 @@ export class HomeComponent {
   user: UserDTO;
   profile: Signal<ProfileDTO | null>;
 
-  constructor(private readonly authService: AuthService,
-              private readonly router: Router,
-              private readonly profileService: ProfileService) {
+  constructor(readonly authService: AuthService,
+              readonly router: Router,
+              readonly profileService: ProfileService) {
     this.user = authService.user;
     this.profile = profileService.profile;
   }
