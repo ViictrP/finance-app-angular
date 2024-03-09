@@ -74,7 +74,7 @@ export class BottomNavComponent {
   }
 
   addCreditCard() {
-    this.router.navigate(['/secure/credit-card-form']);
+    this.router.navigate(['secure/create-credit-card']);
     this.bottomSheet?.close();
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, effect } from '@angular/core';
 import InputComponent from '../../../lib/components/form/input.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   templateUrl: './create-profile.component.html',
   styleUrl: './create-profile.component.scss'
 })
-export class CreateProfileComponent extends BaseComponent{
+export class CreateProfileComponent extends BaseComponent {
 
   user: UserDTO;
   form: FormGroup;
@@ -28,13 +28,19 @@ export class CreateProfileComponent extends BaseComponent{
   constructor(readonly formBuilder: FormBuilder,
               readonly authService: AuthService,
               readonly changeDetector: ChangeDetectorRef,
-              private readonly profileService: ProfileService,
+              protected readonly profileService: ProfileService,
               private readonly router: Router) {
     super(changeDetector);
     this.user = authService.user;
     this.form = formBuilder.group({
       salary: [null, [Validators.required]]
-    })
+    });
+
+    effect(() => {
+      if (this.profileService.profile()) {
+        this.router.navigate(['secure/home']);
+      }
+    });
   }
 
   get salaryFormControlStatus() {
@@ -51,18 +57,15 @@ export class CreateProfileComponent extends BaseComponent{
 
   async finishProfile() {
     const [name, lastname] = this.user.name.split(' ');
-    const profile: ProfileDTO = {
+    const profile: Partial<ProfileDTO> = {
       name: name,
       lastname: lastname,
       email: this.user.email,
       password: this.user.profilePictureUrl,
-      salary: this.salaryFormControlValue,
-      creditCards: [],
-      transactions: [],
-      recurringExpenses: []
+      salary: this.salaryFormControlValue
     };
 
-    this.subscribeAndRender(this.profileService.createProfile(profile),
+    this.subscribeAndRender(this.profileService.createProfile(profile as ProfileDTO),
       profile => {
         console.log(profile);
         this.router.navigate(['secure/home']);

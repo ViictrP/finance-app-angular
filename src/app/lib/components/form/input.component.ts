@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import currencyMasker from '../../helpers/currency.masker';
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 
 type InputType = 'text' | 'password' | 'currency';
 type OnChangedFn = (_: unknown) => void;
@@ -13,26 +13,39 @@ type OnTouchedFn = () => void;
   imports: [
     FormsModule,
     NgClass,
+    NgOptimizedImage,
   ],
   template: `
-    <input
-      [id]="id"
-      [name]="name ?? ''"
-      [placeholder]="placeholder ?? ''"
-      [(ngModel)]="value"
-      [disabled]="disabled"
-      (input)="valueChanged()"
-      [ngClass]="{
+    <div class="h-14 mb-10">
+      <div
+        [ngClass]="{
         'text-zinc-900 dark:text-white' : disabled,
         'border-2 border-red-500 bg-white': required && touched && !value
       }"
-      class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-      id="inline-full-name"
-      type="text"
-    />
-    @if (required && touched && !value) {
-      <p class="text-sm mt-2 text-red-500">{{ errorMessage ?? '' }}</p>
-    }
+        class="flex flex-row justify-center bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-700 leading-tight focus-within:outline-none focus-within:bg-white focus-within:border-transparent">
+        <img
+          [ngSrc]="iconSrc"
+          alt="Money"
+          width="20"
+          height="20"
+          class="opacity-40"
+        />
+        <input
+          [id]="id"
+          [name]="name ?? ''"
+          [placeholder]="placeholder ?? ''"
+          [(ngModel)]="value"
+          [disabled]="disabled"
+          (input)="valueChanged()"
+          id="inline-full-name"
+          type="text"
+          class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
+        />
+      </div>
+      @if (required && touched && !value) {
+        <p class="text-xs mt-2 text-red-500">{{ errorMessage ?? '' }}</p>
+      }
+    </div>
   `,
   providers: [
     {
@@ -52,6 +65,7 @@ export default class InputComponent implements ControlValueAccessor {
   @Input() errorMessage?: string;
   @Input() type: InputType = "text";
   @Input() required = false;
+  @Input() iconSrc = '../../../../assets/svg/card.svg';
   @Output() changed = new EventEmitter<string>();
 
   touched = false;

@@ -6,6 +6,7 @@ import {SecureComponent} from "./components/secure/secure.component";
 import {secureGuard} from "./guards/secure.guard";
 import {publicGuard} from "./guards/public.guard";
 import { CreateProfileComponent } from './components/secure/create-profile/create-profile.component';
+import { CreditCardFormComponent } from './components/secure/credit-card-form/credit-card-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -29,6 +30,11 @@ export const routes: Routes = [
         title: 'Criar Perfíl',
         component: CreateProfileComponent
       },
+      {
+        path: 'create-credit-card',
+        title: 'Adicionar Cartão',
+        component: CreditCardFormComponent
+      }
     ]
   },
   {

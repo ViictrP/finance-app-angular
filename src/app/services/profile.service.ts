@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileService {
 
+  loading = false;
   private readonly apiUrl = environment.apiUrl;
   _profile = signal<ProfileDTO | null>(null);
   router = inject(Router);
@@ -19,9 +20,11 @@ export class ProfileService {
   }
 
   getProfile(): Observable<ProfileDTO> {
+    this.loading = true;
     return this.httpClient.get<ProfileDTO>(`${this.apiUrl}/me`)
       .pipe(
         tap(profile => {
+          this.loading = false;
           this.calculateCreditCardsTotalInvoiceAmount(profile.creditCards);
           this.profile = profile;
         }),
@@ -31,6 +34,7 @@ export class ProfileService {
 
   private handleError() {
     return (err: unknown) => {
+      this.loading = false;
       if (err instanceof HttpErrorResponse) {
         if(err.status === 404) {
           this.router.navigate(['secure/create-profile']);

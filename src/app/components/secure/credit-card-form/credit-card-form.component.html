@@ -1,0 +1,79 @@
+<div class="pb-20">
+  <div class="flex flex-col gap-8 p-4">
+    <h1 class="text-2xl font-bold">Adicionar Cartão de Crédito.</h1>
+    <p class="text-sm">
+      Para adicionar um cartão de crédito, preencha todas as informações
+      obrigatórias marcadas com * (asterísco).
+    </p>
+
+    <form [formGroup]="formGroup" (submit)="createCreditCard()">
+      <div class="mb-6">
+        <app-input
+          id="title"
+          name="title"
+          formControlName="title"
+          iconSrc="../../../../assets/svg/card.svg"
+          [required]="true"
+          [errorMessage]="'Este campo é obrigatório!'"
+          placeholder="*Título ...">
+        </app-input>
+      </div>
+
+      <div class="mb-6">
+        <app-input
+          id="description"
+          name="description"
+          formControlName="description"
+          iconSrc="../../../../assets/svg/card.svg"
+          [required]="true"
+          [errorMessage]="'Este campo é obrigatório!'"
+          placeholder="*Descrição ...">
+        </app-input>
+      </div>
+
+      <div class="mb-6">
+        <app-input
+          id="number"
+          name="number"
+          formControlName="number"
+          iconSrc="../../../../assets/svg/number.svg"
+          [required]="true"
+          [errorMessage]="'Este campo é obrigatório!'"
+          placeholder="*Número ...">
+        </app-input>
+      </div>
+
+      <div class="mb-6">
+        <app-input
+          id="invoiceClosingDay"
+          name="invoiceClosingDay"
+          formControlName="invoiceClosingDay"
+          iconSrc="../../../../assets/svg/calendar.svg"
+          [required]="true"
+          [errorMessage]="'Este campo é obrigatório!'"
+          placeholder="*Dia de fechamento da fatura ...">
+        </app-input>
+      </div>
+
+      <div class="mb-6">
+        <app-input
+          id="color"
+          name="color"
+          formControlName="color"
+          iconSrc="../../../../assets/svg/color.svg"
+          placeholder="Cor do cartão ...">
+        </app-input>
+      </div>
+
+      <div class="mb-6">
+        <button
+          [disabled]="formGroup.invalid"
+          type="submit"
+          [ngClass]="{'bg-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none' : formGroup.invalid}"
+          class="flex items-center justify-center w-full px-6 py-3 text-md font-medium text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
+          <span class="mx-2 sm:inline">{{ false ? 'loading...' : 'Criar' }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
