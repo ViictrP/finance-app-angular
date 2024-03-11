@@ -12,7 +12,7 @@
           id="title"
           name="title"
           formControlName="title"
-          iconSrc="../../../../assets/svg/card.svg"
+          icon="ph-credit-card"
           [required]="true"
           [errorMessage]="'Este campo é obrigatório!'"
           placeholder="*Título ...">
@@ -24,7 +24,7 @@
           id="description"
           name="description"
           formControlName="description"
-          iconSrc="../../../../assets/svg/card.svg"
+          icon="ph-credit-card"
           [required]="true"
           [errorMessage]="'Este campo é obrigatório!'"
           placeholder="*Descrição ...">
@@ -35,8 +35,9 @@
         <app-input
           id="number"
           name="number"
+          type="numeric"
           formControlName="number"
-          iconSrc="../../../../assets/svg/number.svg"
+          icon="ph-hash"
           [required]="true"
           [errorMessage]="'Este campo é obrigatório!'"
           placeholder="*Número ...">
@@ -48,7 +49,8 @@
           id="invoiceClosingDay"
           name="invoiceClosingDay"
           formControlName="invoiceClosingDay"
-          iconSrc="../../../../assets/svg/calendar.svg"
+          type="numeric"
+          icon="ph-calendar"
           [required]="true"
           [errorMessage]="'Este campo é obrigatório!'"
           placeholder="*Dia de fechamento da fatura ...">
@@ -56,13 +58,13 @@
       </div>
 
       <div class="mb-6">
-        <app-input
+        <app-botton-nav-input
           id="color"
           name="color"
-          formControlName="color"
-          iconSrc="../../../../assets/svg/color.svg"
-          placeholder="Cor do cartão ...">
-        </app-input>
+          icon="ph-palette"
+          placeholder="Cor do cartão ..."
+          formControlName="color">
+        </app-botton-nav-input>
       </div>
 
       <div class="mb-6">
@@ -71,7 +73,7 @@
           type="submit"
           [ngClass]="{'bg-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none' : formGroup.invalid}"
           class="flex items-center justify-center w-full px-6 py-3 text-md font-medium text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
-          <span class="mx-2 sm:inline">{{ false ? 'loading...' : 'Criar' }}</span>
+          <span class="mx-2 sm:inline">{{ loading ? 'loading...' : 'Criar' }}</span>
         </button>
       </div>
     </form>

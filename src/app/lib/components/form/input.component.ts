@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import currencyMasker from '../../helpers/currency.masker';
 import { NgClass, NgOptimizedImage } from '@angular/common';
 
-type InputType = 'text' | 'password' | 'currency';
+type InputType = 'text' | 'password' | 'currency' | 'numeric';
 type OnChangedFn = (_: unknown) => void;
 type OnTouchedFn = () => void;
 
@@ -16,28 +16,22 @@ type OnTouchedFn = () => void;
     NgOptimizedImage,
   ],
   template: `
-    <div class="h-14 mb-10">
+    <div class="mb-10">
       <div
         [ngClass]="{
         'text-zinc-900 dark:text-white' : disabled,
-        'border-2 border-red-500 bg-white': required && touched && !value
+        'border-red-500 bg-white': required && touched && !value
       }"
-        class="flex flex-row justify-center bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-700 leading-tight focus-within:outline-none focus-within:bg-white focus-within:border-transparent">
-        <img
-          [ngSrc]="iconSrc"
-          alt="Money"
-          width="20"
-          height="20"
-          class="opacity-40"
-        />
+        class="flex flex-row items-center justify-center bg-gray-200 appearance-none border-2 rounded w-full py-2 px-2 text-gray-700 leading-tight focus-within:outline-none focus-within:bg-white focus-within:border-transparent">
+        <i class="text-gray-500 text-2xl {{icon}}"></i>
         <input
           [id]="id"
           [name]="name ?? ''"
           [placeholder]="placeholder ?? ''"
           [(ngModel)]="value"
+          (keydown)="keydown($event)"
+          (ngModelChange)="valueChanged($event)"
           [disabled]="disabled"
-          (input)="valueChanged()"
-          id="inline-full-name"
           type="text"
           class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
         />
@@ -65,7 +59,7 @@ export default class InputComponent implements ControlValueAccessor {
   @Input() errorMessage?: string;
   @Input() type: InputType = "text";
   @Input() required = false;
-  @Input() iconSrc = '../../../../assets/svg/card.svg';
+  @Input() icon = 'ph-credit-card';
   @Output() changed = new EventEmitter<string>();
 
   touched = false;
@@ -101,13 +95,19 @@ export default class InputComponent implements ControlValueAccessor {
     this.changed.emit(String(val));
   }
 
-  protected valueChanged() {
+  keydown(event: KeyboardEvent) {
+    if ((this.type === 'currency' || this.type === 'numeric') && isNaN(Number(event.key)) && event.key !== 'Backspace' && event.key !== 'Enter') {
+      event.preventDefault();
+    }
+  }
+
+  protected valueChanged(newValue: string) {
     if (this.type === 'currency') {
-      const [masked, value] = currencyMasker(this.value!);
+      const [masked, value] = currencyMasker(newValue);
       this.value = masked;
       this.emitNewValue(String(value));
     } else {
-      this.emitNewValue(this.value!);
+      this.emitNewValue(newValue);
     }
   }
 }
