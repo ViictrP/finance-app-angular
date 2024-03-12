@@ -11,7 +11,7 @@ import { IconButtonComponent } from '../buttons/icon-button.component';
       (keydown)="close($event)"
       (click)="close($event)"
       [ngClass]="{'hidden' : !isShowing}"
-      style="backdrop-filter: blur(2px)"
+      style="backdrop-filter: blur(2px) contrast(100%); -webkit-backdrop-filter: blur(2px) contrast(60%);"
       class="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-80 transition-all ease-in duration-75">
     </div>
     <div
