@@ -38,9 +38,13 @@ export class CreditCardFormComponent extends BaseComponent{
 
   createCreditCard() {
     this.subscribeAndRender(
-      this.creditCardService.createCreditCard(this.formGroup.value),
+      this.creditCardService.createCreditCard({
+        ...this.formGroup.value,
+        backgroundColor: this.formGroup.value.color
+      }),
       creditCard => {
         console.log(creditCard);
+        alert('Credit card created');
       }
     )
   }
