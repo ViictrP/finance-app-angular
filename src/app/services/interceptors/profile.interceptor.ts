@@ -1,27 +1,20 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { ProfileService } from '../profile.service';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
+import { tap } from 'rxjs';
 
-@Injectable()
-export default class ProfileInterceptor implements HttpInterceptor {
+export const profileInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  const profileService = inject(ProfileService);
 
-  constructor(private readonly profileService: ProfileService) {
-  }
-
-  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(req)
-      .pipe(tap(response => {
-        if (response instanceof HttpResponse) {
-          const { method, url } = req;
-          const shouldFetchUsersProfile = method !== 'GET' && !url.includes('login');
-          if (shouldFetchUsersProfile) {
-            this.profileService.getProfile()
-              .subscribe(() => console.log('fetching user\'s updated profile...'))
-          }
+  return next(req)
+    .pipe(tap(response => {
+      if (response instanceof HttpResponse) {
+        const { method, url } = req;
+        const shouldFetchUsersProfile = method !== 'GET' && !url.includes('login');
+        if (shouldFetchUsersProfile) {
+          profileService.getProfile()
+            .subscribe(() => console.log('fetching user\'s updated profile...'))
         }
-      }))
-  }
-
-
-}
+      }
+    }))
+};
