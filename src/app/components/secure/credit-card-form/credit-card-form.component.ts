@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import InputComponent from '../../../lib/components/form/input.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
@@ -6,6 +6,7 @@ import BottonNavInputComponent from '../../../lib/components/form/botton-nav.inp
 import BaseComponent from '../base.component';
 import CreditCardService from '../../../services/credit-card.service';
 import { create } from 'node:domain';
+import { ModalComponent } from '../../../lib/components/modals/modal.component';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -15,11 +16,14 @@ import { create } from 'node:domain';
     ReactiveFormsModule,
     NgClass,
     BottonNavInputComponent,
+    ModalComponent,
   ],
   templateUrl: './credit-card-form.component.html',
   styleUrl: './credit-card-form.component.scss'
 })
 export class CreditCardFormComponent extends BaseComponent{
+
+  @ViewChild('modal') modal?: ModalComponent;
 
   formGroup: FormGroup;
 
@@ -42,9 +46,8 @@ export class CreditCardFormComponent extends BaseComponent{
         ...this.formGroup.value,
         backgroundColor: this.formGroup.value.color
       }),
-      creditCard => {
-        console.log(creditCard);
-        alert('Credit card created');
+      () => {
+        this.modal?.show();
       }
     )
   }
