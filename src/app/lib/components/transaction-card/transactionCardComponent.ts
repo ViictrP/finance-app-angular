@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
+import TransactionDTO from '../../../dto/transaction.dto';
 
 @Component({
   selector: 'app-transaction-card',
@@ -9,26 +10,46 @@ import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
     NgOptimizedImage,
   ],
   template: `
-    <div
-      class="grid grid-cols-3 grid-rows-1 bg-white border-amber-50 border pt-4 pb-4 pr-4 pl-1 rounded-2xl text-black">
-      <div class="grid grid-cols-4 grid-rows-1 col-span-2">
-        <div class="m-auto">
-          <img ngSrc="./assets/svg/bill.svg" alt="bill icon" height="40" width="40">
-        </div>
-        <div class="grid grid-cols-1 grid-rows-2 col-span-3">
-          <div class="text-left text-sm text-gray-500">{{ title }}</div>
-          <div class="text-left font-bold">{{ description }}</div>
+    <div class="flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
+      <div>
+        <div class="flex flex-row gap-5 items-center">
+          <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
+          <div>
+            <p class="text-sm text-zinc-500">{{ getCategoryTranslation(transaction.category) }}</p>
+            <p class="text-md">{{ transaction.description }}</p>
+          </div>
         </div>
       </div>
-      <div class="text-right mt-auto mb-auto">
-        <p>{{ value | currency: 'BRL' }}</p>
-      </div>
+      <p class="text-lg font-bold">{{ transaction.amount | currency: 'BRL' }}</p>
     </div>
   `,
 })
 export default class TransactionCardComponent {
 
-  @Input( { required: true }) title!: string;
-  @Input({ required: true }) description!: string;
-  @Input({ required: true }) value!: string
+  @Input( { required: true }) transaction!: TransactionDTO;
+
+  categoryIconMap = new Map<string, string>();
+  categoryTranslationMap = new Map<string, string>();
+
+  constructor() {
+    this.categoryIconMap.set('home', 'ph-house-simple');
+    this.categoryIconMap.set('food', 'ph-hamburger');
+    this.categoryIconMap.set('credit-card', 'ph-cards');
+    this.categoryIconMap.set('shop', 'ph-shopping-bag-open');
+    this.categoryIconMap.set('other', 'ph-barcode');
+
+    this.categoryTranslationMap.set('home', 'Casa');
+    this.categoryTranslationMap.set('food', 'Restaurante');
+    this.categoryTranslationMap.set('credit-card', 'Cartão de Crédito');
+    this.categoryTranslationMap.set('shop', 'Shop');
+    this.categoryTranslationMap.set('other', 'Outros');
+  }
+
+  getCategoryIcon(category: string): string {
+    return this.categoryIconMap.get(category)!;
+  }
+
+  getCategoryTranslation(category: string): string {
+    return this.categoryTranslationMap.get(category)!;
+  }
 }

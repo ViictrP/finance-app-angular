@@ -9,9 +9,10 @@ import { ModalComponent } from '../../../../lib/components/modals/modal.componen
 import { ActivatedRoute } from '@angular/router';
 import CreditCardDTO from '../../../../dto/credit-card.dto';
 import { ProfileService } from '../../../../services/profile.service';
+import LoadingComponent from '../../../../lib/components/loading/loading.component';
 
 @Component({
-  selector: 'app-credit-card-form',
+  selector: 'app-credit-cards-form',
   standalone: true,
   imports: [
     InputComponent,
@@ -19,6 +20,7 @@ import { ProfileService } from '../../../../services/profile.service';
     NgClass,
     BottonNavInputComponent,
     ModalComponent,
+    LoadingComponent,
   ],
   templateUrl: './credit-card-form.component.html',
   styleUrl: './credit-card-form.component.scss'

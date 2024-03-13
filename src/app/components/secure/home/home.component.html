@@ -45,11 +45,7 @@
             </div>
             <div class="flex flex-col scrollbar-none gap-2">
               @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
-                <app-transaction-card
-                  [title]="recurringExpenses.category"
-                  [description]="recurringExpenses.description"
-                  [value]="recurringExpenses.amount.toString()"
-                />
+                <app-transaction-card [transaction]="recurringExpenses" />
               }
             </div>
             <div>
@@ -57,32 +53,17 @@
             </div>
             <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none">
               @for(transaction of profile()?.transactions; track transaction.id) {
-                <app-transaction-card
-                  [title]="transaction.category"
-                  [description]="transaction.description"
-                  [value]="transaction.amount.toString()"
-                />
+                <app-transaction-card [transaction]="transaction" />
               }
             </div>
           </div>
         }
       } @else {
-        <div class="flex flex-col items-center gap-4 mt-20">
-          <img
-            class="opacity-40"
-            ngSrc="./assets/svg/empty.svg"
-            alt="Empty List"
-            width="60"
-            height="60"
-          />
-          <p class="text-sm text-gray-500">nada a mostrar.</p>
-        </div>
+        <app-no-data />
       }
     </div>
   } @else {
-    <div class="p-4 m-4">
-      <p class="text-xs text-gray-500">loading...</p>
-    </div>
+    <app-loading />
   }
 </div>
 

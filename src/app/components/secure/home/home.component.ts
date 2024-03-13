@@ -8,6 +8,8 @@ import { ProfileService } from '../../../services/profile.service';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 import TransactionCardComponent from '../../../lib/components/transaction-card/transactionCardComponent';
 import ChipComponent from '../../../lib/components/chip/chip.component';
+import NoDataComponent from '../../../lib/components/no-data/no-data.component';
+import LoadingComponent from '../../../lib/components/loading/loading.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,8 @@ import ChipComponent from '../../../lib/components/chip/chip.component';
     NgClass,
     TransactionCardComponent,
     ChipComponent,
+    NoDataComponent,
+    LoadingComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

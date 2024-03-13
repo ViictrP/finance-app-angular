@@ -59,7 +59,7 @@ export default class InputComponent implements ControlValueAccessor {
   @Input() errorMessage?: string;
   @Input() type: InputType = "text";
   @Input() required = false;
-  @Input() icon = 'ph-credit-card';
+  @Input() icon = 'ph-credit-cards';
   @Output() changed = new EventEmitter<string>();
 
   touched = false;
