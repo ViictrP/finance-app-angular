@@ -16,7 +16,7 @@ interface CarouselItem {
   template: `
     <div class="card-carousel-container">
       @for (item of items; track item.id) {
-        <app-card>
+        <app-card [backgroundColor]="item.backgroundColor">
           <div
             [id]="item.id"
             style="scroll-snap-align: start; flex: 0 0 100%"
@@ -26,14 +26,16 @@ interface CarouselItem {
             (isIntersecting)="selectItem($event)"
             class="card-carousel-item">
             <div class="flex flex-row justify-between items-center">
-              <p>{{ item.title }}</p>
+              <p class="text-white">{{ item.title }}</p>
               <div class="flex flex-row justify-evenly gap-4">
                 <app-icon-button
+                  class="text-white"
                   icon="ph-pencil-simple-line"
                   size="big"
                   (clicked)="editClicked.emit(item.id)"
                 />
                 <app-icon-button
+                  class="text-white"
                   icon="ph-trash-simple"
                   size="big"
                   (clicked)="deleteClicked.emit(item.id)"
