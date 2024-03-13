@@ -15,7 +15,11 @@ export default class CreditCardService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  createCreditCard(creditCard: CreditCardDTO): Observable<CreditCardDTO> {
+  create(creditCard: CreditCardDTO): Observable<CreditCardDTO> {
     return this.httpClient.post<CreditCardDTO>(`${this.apiUrl}/credit-cards`, creditCard);
+  }
+
+  update(creditCard: CreditCardDTO): Observable<CreditCardDTO> {
+    return this.httpClient.put<CreditCardDTO>(`${this.apiUrl}/credit-cards/${creditCard.id}`, creditCard);
   }
 }

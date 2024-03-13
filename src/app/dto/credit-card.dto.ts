@@ -7,4 +7,6 @@ export default interface CreditCardDTO {
   totalInvoiceAmount: number;
   invoices: InvoiceDTO[];
   backgroundColor: string;
+  number: string;
+  invoiceClosingDay: number;
 }
