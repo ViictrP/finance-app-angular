@@ -1,7 +1,7 @@
 <div class="pb-20">
   @if (!profileLoading) {
     @if (creditCards.length > 0) {
-      <div class="p-4">
+      <div class="px-4">
         <h1 class="text-2xl font-bold">Seus Cartões</h1>
       </div>
       <app-card-carousel
@@ -11,9 +11,12 @@
         (deleteClicked)="modal.show()"
       />
       <div class="flex flex-col gap-8 p-4">
-        <div>
-          <h1 class="text-2xl font-bold">{{ selectedCreditCard?.title }}</h1>
-          <p class="text-sm">Lançamentos fatura de <span class="font-bold">Fev</span></p>
+        <div class="flex flex-row justify-between items-end">
+          <div>
+            <h1 class="text-2xl font-bold">{{ selectedCreditCard?.title }}</h1>
+            <p class="text-sm">Lançamentos fatura de <span class="font-bold">{{ today | date: 'MMM' }}</span></p>
+          </div>
+          <p class="text-xl font-bold">{{calculateInvoiceTotal()}}</p>
         </div>
         <div #txs>
           @if(transactions.length > 0) {

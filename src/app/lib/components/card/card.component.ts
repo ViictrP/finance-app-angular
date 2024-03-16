@@ -8,7 +8,7 @@ import { NgClass } from '@angular/common';
     NgClass,
   ],
   template: `
-    <div class="w-full h-auto {{backgroundColor ?? 'bg-white'}} rounded-xl shadow-sm">
+    <div class="w-full h-auto {{backgroundColor ?? 'bg-white'}} rounded-xl shadow-xl border-[0.5px] border-white">
       <ng-content></ng-content>
     </div>
   `,

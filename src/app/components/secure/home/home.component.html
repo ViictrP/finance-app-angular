@@ -24,7 +24,7 @@
             <div class="p-4">
               <p class="text-xl align-baseline font-bold">Impacto nos gastos</p>
             </div>
-            <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3">
+            <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3 pb-8">
               @for (card of profile()?.creditCards; track card.id) {
                 <app-chip
                   [title]="card.title"
@@ -36,7 +36,7 @@
           </div>
         }
         @if(!!profile()?.transactions?.length || !!profile()?.recurringExpenses?.length) {
-          <div #transactions class="flex flex-col gap-4 p-4 ">
+          <div #transactions class="flex flex-col gap-4 px-4 ">
             <div>
               <p class="text-xl align-baseline font-bold">Compras</p>
             </div>

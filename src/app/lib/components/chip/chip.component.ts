@@ -9,8 +9,7 @@ import { NgClass } from '@angular/common';
   ],
   template: `
     <div
-      class="gap-2 bg-white border-purple-50 border flex justify-center items-center m-1 font-medium py-2 px-4 rounded-full text-black">
-      <div class="{{ getLineColor(lineColor) }} w-2 h-4 rounded-full"></div>
+      class="gap-2 {{ getLineColor(lineColor) }} border-purple-50 border-[0.5px] flex justify-center items-center m-1 font-medium p-4 rounded-xl text-white shadow-lg">
       <div class="text-lg font-bold leading-none max-w-full flex-initial whitespace-nowrap">{{ title }} <span
         class="font-normal">{{ percentage }}%</span></div>
     </div>
