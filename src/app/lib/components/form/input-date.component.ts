@@ -1,19 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import currencyMasker from '../../helpers/currency.masker';
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { NgClass } from '@angular/common';
 
-type InputType = 'text' | 'password' | 'currency' | 'numeric';
 type OnChangedFn = (_: unknown) => void;
 type OnTouchedFn = () => void;
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-input-date',
   standalone: true,
   imports: [
     FormsModule,
     NgClass,
-    NgOptimizedImage,
   ],
   template: `
     <div class="mb-10">
@@ -29,10 +26,9 @@ type OnTouchedFn = () => void;
           [name]="name ?? ''"
           [placeholder]="placeholder ?? ''"
           [(ngModel)]="value"
-          (keydown)="keydown($event)"
           (ngModelChange)="valueChanged($event)"
           [disabled]="disabled"
-          type="text"
+          type="date"
           class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
         />
       </div>
@@ -45,11 +41,11 @@ type OnTouchedFn = () => void;
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: InputComponent
+      useExisting: InputDateComponent
     }
   ]
 })
-export default class InputComponent implements ControlValueAccessor {
+export class InputDateComponent implements ControlValueAccessor {
 
   @Input({ required: true }) id!: string;
   @Input() name?: string;
@@ -57,7 +53,6 @@ export default class InputComponent implements ControlValueAccessor {
   @Input() value?: string;
   @Input() disabled = false;
   @Input() errorMessage?: string;
-  @Input() type: InputType = "text";
   @Input() required = false;
   @Input() icon = 'ph-credit-cards';
   @Output() changed = new EventEmitter<string>();
@@ -95,19 +90,7 @@ export default class InputComponent implements ControlValueAccessor {
     this.changed.emit(String(val));
   }
 
-  keydown(event: KeyboardEvent) {
-    if ((this.type === 'currency' || this.type === 'numeric') && isNaN(Number(event.key)) && event.key !== 'Backspace' && event.key !== 'Enter') {
-      event.preventDefault();
-    }
-  }
-
   protected valueChanged(newValue: string) {
-    if (this.type === 'currency') {
-      const [masked, value] = currencyMasker(newValue);
-      this.value = masked;
-      this.emitNewValue(String(value));
-    } else {
-      this.emitNewValue(newValue);
-    }
+    this.emitNewValue(String(newValue));
   }
 }

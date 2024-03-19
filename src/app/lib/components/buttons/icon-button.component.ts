@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="flex justify-end">
       <button
+        type="button"
         [ngClass]="{'gap-2': !!title}"
         (click)="clicked.emit()"
         class="inline-flex">

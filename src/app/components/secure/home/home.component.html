@@ -40,18 +40,20 @@
             <div>
               <p class="text-xl align-baseline font-bold">Compras</p>
             </div>
-            <div>
-              <p class="text-sm align-baseline text-gray-500">Contas fixas</p>
-            </div>
-            <div class="flex flex-col scrollbar-none gap-2">
-              @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
-                <app-transaction-card [transaction]="recurringExpenses" />
-              }
-            </div>
+            @if (!!profile()?.recurringExpenses?.length) {
+              <div>
+                <p class="text-sm align-baseline text-gray-500">Contas fixas</p>
+              </div>
+              <div class="flex flex-col scrollbar-none gap-2">
+                @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
+                  <app-transaction-card [transaction]="recurringExpenses" />
+                }
+              </div>
+            }
             <div>
               <p class="text-sm align-baseline text-gray-500">Demais compras</p>
             </div>
-            <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none">
+            <div class="flex flex-col overflow-auto overflow-y-hidden scrollbar-none">
               @for(transaction of profile()?.transactions; track transaction.id) {
                 <app-transaction-card [transaction]="transaction" />
               }

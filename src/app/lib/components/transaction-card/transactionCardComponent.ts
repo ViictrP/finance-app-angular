@@ -10,7 +10,7 @@ import TransactionDTO from '../../../dto/transaction.dto';
     NgOptimizedImage,
   ],
   template: `
-    <div class="flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
+    <div class="w-full flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
       <div>
         <div class="flex flex-row gap-5 items-center">
           <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>

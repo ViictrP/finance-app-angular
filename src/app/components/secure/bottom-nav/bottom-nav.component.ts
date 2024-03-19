@@ -74,12 +74,12 @@ export class BottomNavComponent {
   }
 
   addCreditCard() {
-    this.router.navigate(['secure/create-credit-card']);
+    this.router.navigate(['secure/create-credit-cards']);
     this.bottomSheet?.close();
   }
 
   addTransaction() {
-    this.router.navigate(['/secure/transaction-form']);
+    this.router.navigate(['/secure/create-transactions']);
     this.bottomSheet?.close();
   }
 }

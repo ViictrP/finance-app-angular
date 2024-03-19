@@ -61,7 +61,7 @@ export class CreditCardFormComponent extends BaseComponent {
             description: this.creditCard.description,
             number: this.creditCard.number,
             invoiceClosingDay: this.creditCard.invoiceClosingDay,
-            color: this.creditCard.backgroundColor
+            color: { id: this.creditCard.backgroundColor, value: this.creditCard.backgroundColor}
           });
         }
 
@@ -73,13 +73,13 @@ export class CreditCardFormComponent extends BaseComponent {
   save() {
     const create = this.creditCardService.create({
       ...this.formGroup.value,
-      backgroundColor: this.formGroup.value.color
+      backgroundColor: this.formGroup.value.color.value
     });
 
     const update = this.creditCardService.update({
       id: this.creditCard?.id,
       ...this.formGroup.value,
-      backgroundColor: this.formGroup.value.color
+      backgroundColor: this.formGroup.value.color.value
     });
 
     this.subscribeAndRender(

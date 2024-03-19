@@ -8,6 +8,9 @@ import {publicGuard} from "./guards/public.guard";
 import { CreateProfileComponent } from './components/secure/create-profile/create-profile.component';
 import { CreditCardFormComponent } from './components/secure/credit-cards/credit-card-form/credit-card-form.component';
 import { CreditCardsComponent } from './components/secure/credit-cards/credit-cards.component';
+import {
+  TransactionsFormComponent
+} from './components/secure/transactions/transactions-form/transactions-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -45,6 +48,11 @@ export const routes: Routes = [
         path: 'edit-credit-cards/:id',
         title: 'Editar Cartão',
         component: CreditCardFormComponent
+      },
+      {
+        path: 'create-transactions',
+        title: 'Adicionar Transação',
+        component: TransactionsFormComponent
       }
     ]
   },
