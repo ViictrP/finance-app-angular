@@ -5,9 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 body {
+  @apply h-dvh bg-zinc-50 scrollbar-none scrollbar-hidden;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  @apply h-dvh bg-zinc-50;
   font-family: 'Heebo', sans-serif;
   font-optical-sizing: auto;
 }
@@ -38,4 +38,11 @@ body {
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
   scrollbar-width: none;
+}
+
+[type=month] {
+  background-color: transparent;
+  border-width: 0;
+  padding-right: 0;
+  padding-left: 0;
 }

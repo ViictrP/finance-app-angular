@@ -16,7 +16,7 @@ type OnTouchedFn = () => void;
     NgOptimizedImage,
   ],
   template: `
-    <div class="mb-10">
+    <div class="min-h-20">
       <div
         [ngClass]="{
         'text-zinc-900 dark:text-white' : disabled,

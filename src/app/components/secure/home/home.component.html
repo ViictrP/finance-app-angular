@@ -1,16 +1,22 @@
 <div class="pb-20">
-  @if(profile()) {
+  @if(!isProfileLoading) {
     <div class="flex flex-col gap-4">
       <div #balanceCard class="flex flex-col gap-2 bg-white border-sky-50 border p-4 m-4 rounded-2xl">
         <div class="flex flex-row justify-between">
           <p class="text-sm text-gray-500 my-auto">gasto no <b>mês</b></p>
-          @if(!!profile()?.creditCards?.length || !!profile()?.transactions?.length || !!profile()?.recurringExpenses?.length) {
-            <app-icon-button class="text-blue-600" size="small" icon="ph ph-calendar" [title]="'Fev'"/>
+          @if(!!profile?.creditCards?.length || !!profile?.transactions?.length || !!profile?.recurringExpenses?.length) {
+            <app-icon-button
+              class="text-blue-600"
+              size="small"
+              icon="ph ph-calendar"
+              title="{{ today | date: 'MMM'}}"
+              (clicked)="goToBalance()"
+            />
           }
         </div>
         <div class="flex flex-col justify-start gap-2">
-          <p class="text-4xl align-baseline font-bold">{{ profile()?.salary | currency: 'BRL' }}</p>
-          @if(!!profile()?.monthClosures?.length) {
+          <p class="text-4xl align-baseline font-bold">{{ profile?.salary | currency: 'BRL' }}</p>
+          @if(!!profile?.monthClosures?.length) {
             <div class="flex flex-row justify-start align-middle items-center">
               <img ngSrc="./assets/svg/up.svg" alt="up" width="30" height="30">
               <p class="text-lg text-green-700">+R$560,40</p>
@@ -18,34 +24,34 @@
           }
         </div>
       </div>
-      @if(!!profile()?.creditCards?.length || !!profile()?.transactions?.length || !!profile()?.recurringExpenses?.length) {
-        @if(!!profile()?.creditCards?.length) {
+      @if(!!profile?.creditCards?.length || !!profile?.transactions?.length || !!profile?.recurringExpenses?.length) {
+        @if(!!profile?.creditCards?.length) {
           <div #cardChips class="flex flex-col gap-4">
             <div class="p-4">
               <p class="text-xl align-baseline font-bold">Impacto nos gastos</p>
             </div>
             <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3 pb-8">
-              @for (card of profile()?.creditCards; track card.id) {
+              @for (card of profile?.creditCards; track card.id) {
                 <app-chip
                   [title]="card.title"
-                  percentage="12"
+                  [percentage]="calculatePercentage(card.id)"
                   [lineColor]="card.backgroundColor"
                 />
               }
             </div>
           </div>
         }
-        @if(!!profile()?.transactions?.length || !!profile()?.recurringExpenses?.length) {
+        @if(!!profile?.transactions?.length || !!profile?.recurringExpenses?.length) {
           <div #transactions class="flex flex-col gap-4 px-4 ">
             <div>
               <p class="text-xl align-baseline font-bold">Compras</p>
             </div>
-            @if (!!profile()?.recurringExpenses?.length) {
+            @if (!!profile?.recurringExpenses?.length) {
               <div>
                 <p class="text-sm align-baseline text-gray-500">Contas fixas</p>
               </div>
               <div class="flex flex-col scrollbar-none gap-2">
-                @for(recurringExpenses of profile()?.recurringExpenses; track recurringExpenses.id) {
+                @for(recurringExpenses of profile?.recurringExpenses; track recurringExpenses.id) {
                   <app-transaction-card [transaction]="recurringExpenses" />
                 }
               </div>
@@ -54,7 +60,7 @@
               <p class="text-sm align-baseline text-gray-500">Demais compras</p>
             </div>
             <div class="flex flex-col overflow-auto overflow-y-hidden scrollbar-none">
-              @for(transaction of profile()?.transactions; track transaction.id) {
+              @for(transaction of profile?.transactions; track transaction.id) {
                 <app-transaction-card [transaction]="transaction" />
               }
             </div>

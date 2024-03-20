@@ -13,7 +13,7 @@ type OnTouchedFn = () => void;
     NgClass,
   ],
   template: `
-    <div class="mb-10">
+    <div [ngClass]="{'mb-10' : required}">
       <div
         [ngClass]="{
         'text-zinc-900 dark:text-white' : disabled,
@@ -28,7 +28,7 @@ type OnTouchedFn = () => void;
           [(ngModel)]="value"
           (ngModelChange)="valueChanged($event)"
           [disabled]="disabled"
-          type="date"
+          [type]="type"
           class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
         />
       </div>
@@ -55,6 +55,7 @@ export class InputDateComponent implements ControlValueAccessor {
   @Input() errorMessage?: string;
   @Input() required = false;
   @Input() icon = 'ph-credit-cards';
+  @Input() type: 'date' | 'month' = 'date';
   @Output() changed = new EventEmitter<string>();
 
   touched = false;

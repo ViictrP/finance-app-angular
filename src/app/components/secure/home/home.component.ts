@@ -1,6 +1,6 @@
-import { Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect } from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
-import { AsyncPipe, CurrencyPipe, JsonPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import {Router} from "@angular/router";
 import UserDTO from '../../../dto/user.dto';
 import ProfileDTO from '../../../dto/profile.dto';
@@ -10,6 +10,10 @@ import TransactionCardComponent from '../../../lib/components/transaction-card/t
 import ChipComponent from '../../../lib/components/chip/chip.component';
 import NoDataComponent from '../../../lib/components/no-data/no-data.component';
 import LoadingComponent from '../../../lib/components/loading/loading.component';
+import BaseComponent from '../base.component';
+import { BalanceService } from '../../../services/balance.service';
+import BalanceDTO from '../../../dto/balance.dto';
+import { calculateExpensesHelper } from '../../../helper/calculate-expenses.helper';
 
 @Component({
   selector: 'app-home',
@@ -25,19 +29,52 @@ import LoadingComponent from '../../../lib/components/loading/loading.component'
     ChipComponent,
     NoDataComponent,
     LoadingComponent,
+    DatePipe,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class HomeComponent extends BaseComponent {
 
+  isProfileLoading = false;
   user: UserDTO;
-  profile: Signal<ProfileDTO | null>;
+  profile: ProfileDTO | null = null;
+  today = new Date();
+  balance?: BalanceDTO;
+  recurringExpenseAmount?: number;
+  expensesAmount?: number;
+  creditCardsTotal: { [key: string]: number } = {};
 
   constructor(readonly authService: AuthService,
-              readonly router: Router,
-              readonly profileService: ProfileService) {
+              private readonly router: Router,
+              private readonly balanceService: BalanceService,
+              readonly profileService: ProfileService,
+              changeDetection: ChangeDetectorRef) {
+    super(changeDetection);
     this.user = authService.user;
-    this.profile = profileService.profile;
+
+    this.isProfileLoading = profileService.loading;
+    effect(() => {
+      this.profile = profileService.profile();
+      this.calculateExpensesAmout();
+      this.isProfileLoading = profileService.loading;
+      changeDetection.detectChanges();
+    });
+  }
+
+  private calculateExpensesAmout() {
+    const [total, creditCardsTotal] = calculateExpensesHelper((this.profile?.transactions ?? []), this.profile?.creditCards ?? []);
+    this.recurringExpenseAmount = this.profile?.recurringExpenses?.reduce((sum, current) => sum + Number(current.amount), 0);
+    this.expensesAmount = total + Number(this.recurringExpenseAmount ?? 0);
+    this.creditCardsTotal = creditCardsTotal;
+  }
+
+  calculatePercentage(creditCardId: string) {
+    return parseFloat(String((this.creditCardsTotal[creditCardId] / this.expensesAmount!) * 100)).toFixed(2);
+  }
+
+  async goToBalance() {
+    return this.router.navigate(['secure/balance']);
   }
 }

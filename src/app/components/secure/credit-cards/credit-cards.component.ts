@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
 import BaseComponent from '../base.component';
 import { ProfileService } from '../../../services/profile.service';
 import CreditCardDTO from '../../../dto/credit-card.dto';
@@ -33,10 +33,11 @@ import currencyMasker from '../../../lib/helpers/currency.masker';
   ],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreditCardsComponent extends BaseComponent {
 
-  profileLoading = false;
+  isProfileLoading = false;
   creditCards: CreditCardDTO[] = [];
   selectedCreditCard?: CreditCardDTO;
   today = new Date();
@@ -50,11 +51,12 @@ export class CreditCardsComponent extends BaseComponent {
               private readonly router: Router) {
     super(changeDetectorRef);
 
-    this.profileLoading = profileService.loading;
+    this.isProfileLoading = profileService.loading;
     effect(() => {
       this.creditCards = profileService.profile()?.creditCards ?? [];
       this.selectedCreditCard = this.creditCards[0];
-      this.profileLoading = profileService.loading;
+      this.isProfileLoading = profileService.loading;
+      changeDetectorRef.detectChanges();
     });
   }
 

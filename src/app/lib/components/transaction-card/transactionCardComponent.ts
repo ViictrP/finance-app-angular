@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import TransactionDTO from '../../../dto/transaction.dto';
+import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
 
 @Component({
   selector: 'app-transaction-card',
@@ -26,7 +27,7 @@ import TransactionDTO from '../../../dto/transaction.dto';
 })
 export default class TransactionCardComponent {
 
-  @Input( { required: true }) transaction!: TransactionDTO;
+  @Input( { required: true }) transaction!: TransactionDTO | RecurringExpenseDTO;
 
   categoryIconMap = new Map<string, string>();
   categoryTranslationMap = new Map<string, string>();

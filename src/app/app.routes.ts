@@ -11,6 +11,7 @@ import { CreditCardsComponent } from './components/secure/credit-cards/credit-ca
 import {
   TransactionsFormComponent
 } from './components/secure/transactions/transactions-form/transactions-form.component';
+import { BalanceComponent } from './components/secure/balance/balance.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -53,6 +54,11 @@ export const routes: Routes = [
         path: 'create-transactions',
         title: 'Adicionar Transação',
         component: TransactionsFormComponent
+      },
+      {
+        path: 'balance',
+        title: 'Extrato do mês',
+        component: BalanceComponent
       }
     ]
   },

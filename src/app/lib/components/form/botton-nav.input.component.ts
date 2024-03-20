@@ -51,6 +51,7 @@ interface Option {
           class="text-left bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-500 leading-tight focus:outline-none focus:ring-0">
           {{ value ? getOptionColor(value) : placeholder }}
         </button>
+        <i class="text-gray-500 text-xl ph-caret-down"></i>
       </div>
       @if (required && touched && !value) {
         <p class="text-xs mt-2 text-red-500">{{ errorMessage ?? '' }}</p>

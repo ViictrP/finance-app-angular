@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect } from '@angular/core';
 import InputComponent from '../../../lib/components/form/input.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
@@ -18,7 +18,8 @@ import { Router } from '@angular/router';
     NgClass,
   ],
   templateUrl: './create-profile.component.html',
-  styleUrl: './create-profile.component.scss'
+  styleUrl: './create-profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateProfileComponent extends BaseComponent {
 

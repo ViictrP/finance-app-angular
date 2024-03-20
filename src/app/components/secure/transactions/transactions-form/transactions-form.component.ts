@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../../../lib/components/modals/modal.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import BaseComponent from '../../base.component';
@@ -32,6 +32,7 @@ import { RecurringExpenseService } from '../../../../services/recurring-expense.
   ],
   templateUrl: './transactions-form.component.html',
   styleUrl: './transactions-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionsFormComponent extends BaseComponent {
 
@@ -59,6 +60,7 @@ export class TransactionsFormComponent extends BaseComponent {
     effect(() => {
       this.creditCards = profileService.profile()?.creditCards ?? [];
       this.loadingProfile = profileService.loading;
+      changeDetectorRef.detectChanges();
     });
   }
 
