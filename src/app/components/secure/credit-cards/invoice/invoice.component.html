@@ -1,0 +1,35 @@
+<div class="pb-20">
+  @if (!isProfileLoading) {
+    <div class="flex flex-col gap-8 p-4">
+      <div class="flex flex-row justify-between items-end">
+        <div>
+          <h1 class="text-2xl font-bold">{{ creditCard?.title }}</h1>
+          <p class="text-sm">Lançamentos fatura de <span class="font-bold">{{ today | date: 'MMM' }}</span></p>
+        </div>
+        <p class="text-xl font-bold">{{calculateInvoiceTotal()}}</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <app-input-date
+          id="date"
+          name="date"
+          icon="ph-calendar"
+          type="month"
+          placeholder="Mês ..."
+          [value]="initialValue"
+          (changed)="monthChanged($event)">
+        </app-input-date>
+      </div>
+      <div #txs>
+        @if(transactions.length > 0) {
+          @for (transaction of transactions; track transaction.id) {
+            <app-transaction-card [transaction]="transaction" />
+          }
+        } @else {
+          <app-no-data />
+        }
+      </div>
+    </div>
+  } @else {
+    <app-loading />
+  }
+</div>

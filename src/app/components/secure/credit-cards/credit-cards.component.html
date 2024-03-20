@@ -16,7 +16,16 @@
             <h1 class="text-2xl font-bold">{{ selectedCreditCard?.title }}</h1>
             <p class="text-sm">Lançamentos fatura de <span class="font-bold">{{ today | date: 'MMM' }}</span></p>
           </div>
-          <p class="text-xl font-bold">{{calculateInvoiceTotal()}}</p>
+          <div class="flex flex-col items-end">
+            <app-icon-button
+              size="small"
+              [title]="'Ver faturas'"
+              [icon]="'ph-cards'"
+              class="text-sky-600"
+              (clicked)="goToInvoices(selectedCreditCard!.id)"
+            />
+            <p class="text-xl font-bold">{{calculateInvoiceTotal()}}</p>
+          </div>
         </div>
         <div #txs>
           @if(transactions.length > 0) {

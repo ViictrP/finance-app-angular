@@ -14,6 +14,7 @@ import { ModalComponent } from '../../../lib/components/modals/modal.component';
 import { Router } from '@angular/router';
 import CreditCardService from '../../../services/credit-card.service';
 import currencyMasker from '../../../lib/helpers/currency.masker';
+import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
 
 @Component({
   selector: 'app-credit-cards',
@@ -30,6 +31,7 @@ import currencyMasker from '../../../lib/helpers/currency.masker';
     TransactionCardComponent,
     ModalComponent,
     DatePipe,
+    IconButtonComponent,
   ],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
@@ -89,5 +91,9 @@ export class CreditCardsComponent extends BaseComponent {
         this.deletedModal?.show();
       }
     );
+  }
+
+  async goToInvoices(creditCardId: string) {
+    return this.router.navigate([`secure/credit-cards/${creditCardId}/invoices`]);
   }
 }

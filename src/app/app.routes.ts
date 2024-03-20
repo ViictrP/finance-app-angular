@@ -12,6 +12,7 @@ import {
   TransactionsFormComponent
 } from './components/secure/transactions/transactions-form/transactions-form.component';
 import { BalanceComponent } from './components/secure/balance/balance.component';
+import { InvoiceComponent } from './components/secure/credit-cards/invoice/invoice.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -49,6 +50,11 @@ export const routes: Routes = [
         path: 'edit-credit-cards/:id',
         title: 'Editar Cartão',
         component: CreditCardFormComponent
+      },
+      {
+        path: 'credit-cards/:id/invoices',
+        title: 'Fatura do cartão',
+        component: InvoiceComponent
       },
       {
         path: 'create-transactions',
