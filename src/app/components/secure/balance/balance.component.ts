@@ -49,10 +49,6 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
     });
   }
 
-  get initialValue(): string {
-    return format(this.today, 'yyyy-MM', { locale: ptBR }).toUpperCase();
-  }
-
   ngOnInit() {
     const month = format(this.today, 'MMM', { locale: ptBR }).toUpperCase();
     this.subscribeAndRender(
@@ -67,12 +63,11 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
     return parseFloat(String((this.balance!.creditCardExpenses[creditCardId] / this.balance!.expenses) * 100)).toFixed(2);
   }
 
-  monthChanged(monthAndYear: string) {
-    const [year, month] = monthAndYear.split(/-/);
-    const formattedMonth = format(`${month}`, 'MMM', { locale: ptBR }).toUpperCase();
+  monthChanged(monthAndYear: Date) {
+    const formattedMonth = format(monthAndYear, 'MMM', { locale: ptBR }).toUpperCase();
 
     this.subscribeAndRender(
-      this.balanceService.getBalance(formattedMonth, year),
+      this.balanceService.getBalance(formattedMonth, monthAndYear.getFullYear()),
       (balance) => {
         this.balance = balance;
       }

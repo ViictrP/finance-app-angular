@@ -59,21 +59,16 @@ export class InvoiceComponent extends BaseComponent {
     return this.invoice?.transactions ?? [];
   }
 
-  get initialValue(): string {
-    return format(this.today, 'yyyy-MM', { locale: ptBR }).toUpperCase();
-  }
-
   calculateInvoiceTotal() {
     const reduced = this.transactions.reduce((sum, transaction) => sum + Number(transaction.amount), 0);
     return `R$${currencyMasker(reduced.toFixed(2).toString())[0]}`;
   }
 
-  monthChanged(monthAndYear: string) {
-    const [year, month] = monthAndYear.split(/-/);
-    const formattedMonth = format(`${month}`, 'MMM', { locale: ptBR }).toUpperCase();
+  monthChanged(monthAndYear: Date) {
+    const formattedMonth = format(monthAndYear, 'MMM', { locale: ptBR }).toUpperCase();
 
     this.subscribeAndRender(
-      this.invoiceService.getInvoices(this.creditCard!.id, formattedMonth, year),
+      this.invoiceService.getInvoices(this.creditCard!.id, formattedMonth, monthAndYear.getFullYear()),
       invoice => {
         this.invoice = invoice;
       }

@@ -13,7 +13,7 @@ export class InvoiceService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  getInvoices(creditCardId: string, month: string, year: string): Observable<InvoiceDTO> {
+  getInvoices(creditCardId: string, month: string, year: string | number): Observable<InvoiceDTO> {
     return this.httpClient.get<InvoiceDTO>(`${this.apiUrl}/credit-cards/${creditCardId}/invoices?month=${month}&year=${year}`);
   }
 }

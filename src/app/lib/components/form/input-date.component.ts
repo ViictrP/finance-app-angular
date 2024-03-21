@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { format, parseISO } from 'date-fns';
+import { pt } from 'date-fns/locale';
 
 type OnChangedFn = (_: unknown) => void;
 type OnTouchedFn = () => void;
@@ -25,8 +27,8 @@ type OnTouchedFn = () => void;
           [id]="id"
           [name]="name ?? ''"
           [placeholder]="placeholder ?? ''"
-          [(ngModel)]="value"
-          (ngModelChange)="valueChanged($event)"
+          [(ngModel)]="formattedValue"
+          (ngModelChange)="valueChanged()"
           [disabled]="disabled"
           [type]="type"
           class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
@@ -45,20 +47,21 @@ type OnTouchedFn = () => void;
     }
   ]
 })
-export class InputDateComponent implements ControlValueAccessor {
+export class InputDateComponent implements ControlValueAccessor, OnInit{
 
   @Input({ required: true }) id!: string;
   @Input() name?: string;
   @Input() placeholder?: string;
-  @Input() value?: string;
+  @Input() value?: Date;
   @Input() disabled = false;
   @Input() errorMessage?: string;
   @Input() required = false;
   @Input() icon = 'ph-credit-cards';
   @Input() type: 'date' | 'month' = 'date';
-  @Output() changed = new EventEmitter<string>();
+  @Output() changed = new EventEmitter<Date>();
 
   touched = false;
+  formattedValue = ''
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange: OnChangedFn = (_: unknown) => {
@@ -67,8 +70,16 @@ export class InputDateComponent implements ControlValueAccessor {
   onTouched: OnTouchedFn = () => {
   };
 
-  writeValue(value: string): void {
+  ngOnInit(): void {
+    if (this.value) {
+      this.formattedValue = format(this.value, 'yyyy-MM', {locale: pt});
+    }
+  }
+
+  writeValue(value: Date): void {
     this.value = value;
+    const dateFormat = this.type === 'month' ? 'yyyy-MM' : 'yyyy-MM-dd';
+    this.formattedValue = format(value, dateFormat, {locale: pt});
   }
   registerOnChange(fn: OnChangedFn): void {
     this.onChange = fn;
@@ -85,13 +96,15 @@ export class InputDateComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  private emitNewValue(val: string) {
+  private emitNewValue(val: Date) {
+    this.value = val;
     this.markAsTouched();
     this.onChange(val);
-    this.changed.emit(String(val));
+    this.changed.emit(val);
   }
 
-  protected valueChanged(newValue: string) {
-    this.emitNewValue(String(newValue));
+  protected valueChanged() {
+   const value = parseISO(this.formattedValue);
+    this.emitNewValue(value);
   }
 }

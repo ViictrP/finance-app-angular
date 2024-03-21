@@ -12,14 +12,14 @@
         icon="ph-calendar"
         type="month"
         placeholder="Mês ..."
-        [value]="initialValue"
+        [value]="today"
         (changed)="monthChanged($event)">
       </app-input-date>
       @if(balance && !loading) {
         <div>
-          <p>Salário: {{balance?.salary | currency: 'BRL'}}</p>
-          <p>Gastos: {{balance?.expenses | currency: 'BRL'}}</p>
-          <p>Disponível: {{balance?.available | currency: 'BRL'}}</p>
+          <p>Salário: {{balance.salary | currency: 'BRL'}}</p>
+          <p>Gastos: {{balance.expenses | currency: 'BRL'}}</p>
+          <p>Disponível: {{balance.available | currency: 'BRL'}}</p>
         </div>
       }
     </div>
