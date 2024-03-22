@@ -4,7 +4,8 @@ export default interface TransactionDTO {
   id: string;
   amount: number;
   description: string;
-  installmentNumber: number;
+  installmentNumber?: number;
+  installmentAmount: number;
   isInstallment: boolean;
   category: string;
   date: string;

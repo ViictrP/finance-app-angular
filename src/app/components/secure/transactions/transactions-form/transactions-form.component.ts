@@ -41,6 +41,7 @@ export class TransactionsFormComponent extends BaseComponent {
   formGroup: FormGroup;
   creditCards: CreditCardDTO[] = [];
   isRecurringExpense = false;
+  today = new Date();
 
   constructor(readonly formBuilder: FormBuilder,
               changeDetectorRef: ChangeDetectorRef,
@@ -53,7 +54,7 @@ export class TransactionsFormComponent extends BaseComponent {
       amount: [null, [Validators.required]],
       category: [null, [Validators.required]],
       date: [null, [Validators.required]],
-      installmentNumber: [null, []],
+      installmentAmount: [null, []],
       creditCard: [null, []],
     });
 
@@ -93,6 +94,7 @@ export class TransactionsFormComponent extends BaseComponent {
         amount: this.formGroup.value.amount,
         description: this.formGroup.value.description,
         category: this.formGroup.value.category.id,
+        date: this.formGroup.value.date
       };
       $create = this.recurringExpenseService.create(payload as RecurringExpenseDTO);
     } else {
@@ -112,7 +114,8 @@ export class TransactionsFormComponent extends BaseComponent {
       amount: this.formGroup.value.amount,
       description: this.formGroup.value.description,
       category: this.formGroup.value.category.id,
-      installmentNumber: this.formGroup.value.installmentNumber ?? 1,
+      installmentAmount: this.formGroup.value.installmentAmount ?? 1,
+      isInstallment: this.formGroup.value.installmentAmount > 1
     };
 
     if (this.formGroup.value.creditCard && !this.isRecurringExpense) {

@@ -61,10 +61,10 @@
 
         <div class="mb-6">
           <app-input
-            id="installmentNumber"
-            name="installmentNumber"
+            id="installmentAmount"
+            name="installmentAmount"
             type="numeric"
-            formControlName="installmentNumber"
+            formControlName="installmentAmount"
             icon="ph-money"
             placeholder="Parcelas ...">
           </app-input>
@@ -76,6 +76,7 @@
             name="date"
             formControlName="date"
             icon="ph-calendar"
+            [value]="today"
             [required]="true"
             [errorMessage]="'Este campo é obrigatório!'"
             placeholder="*Dia da transação ...">

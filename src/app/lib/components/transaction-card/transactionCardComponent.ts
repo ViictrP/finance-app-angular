@@ -17,7 +17,10 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
           <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
           <div>
             <p class="text-sm text-zinc-500">{{ getCategoryTranslation(transaction.category) }}</p>
-            <p class="text-md">{{ transaction.description }}</p>
+            <p class="text-md">
+              {{ transaction.description }}&nbsp;
+              <small class="text-gray-500">{{ getInstallmentLabel(transaction) }}</small>
+            </p>
           </div>
         </div>
       </div>
@@ -52,5 +55,13 @@ export default class TransactionCardComponent {
 
   getCategoryTranslation(category: string): string {
     return this.categoryTranslationMap.get(category)!;
+  }
+
+  getInstallmentLabel(transaction: TransactionDTO | RecurringExpenseDTO): string {
+    const t = transaction as TransactionDTO;
+    if (t.isInstallment) {
+      return `(${t.installmentNumber}/${t.installmentAmount})`;
+    }
+    return '';
   }
 }

@@ -78,8 +78,10 @@ export class InputDateComponent implements ControlValueAccessor, OnInit{
 
   writeValue(value: Date): void {
     this.value = value;
-    const dateFormat = this.type === 'month' ? 'yyyy-MM' : 'yyyy-MM-dd';
-    this.formattedValue = format(value, dateFormat, {locale: pt});
+    if (value !== null) {
+      const dateFormat = this.type === 'month' ? 'yyyy-MM' : 'yyyy-MM-dd';
+      this.formattedValue = format(value, dateFormat, {locale: pt});
+    }
   }
   registerOnChange(fn: OnChangedFn): void {
     this.onChange = fn;
