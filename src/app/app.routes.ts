@@ -13,6 +13,7 @@ import {
 } from './components/secure/transactions/transactions-form/transactions-form.component';
 import { BalanceComponent } from './components/secure/balance/balance.component';
 import { InvoiceComponent } from './components/secure/credit-cards/invoice/invoice.component';
+import { ConfigComponent } from './components/secure/config/config.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/secure', pathMatch: 'full'},
@@ -65,6 +66,11 @@ export const routes: Routes = [
         path: 'balance',
         title: 'Extrato do mês',
         component: BalanceComponent
+      },
+      {
+        path: 'profile',
+        title: 'Configuração',
+        component: ConfigComponent
       }
     ]
   },

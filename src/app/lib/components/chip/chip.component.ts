@@ -9,9 +9,13 @@ import { NgClass } from '@angular/common';
   ],
   template: `
     <div
-      class="gap-2 {{ getLineColor(lineColor) }} border-purple-50 border-[0.5px] flex justify-center items-center m-1 font-medium p-4 rounded-xl text-white shadow-lg">
-      <div class="text-lg font-bold leading-none max-w-full flex-initial whitespace-nowrap">{{ title }} <span
-        class="font-normal">{{ percentage }}%</span></div>
+      class="gap-2 {{ getLineColor(lineColor) }} border-purple-50 border-[0.5px] flex flex-col justify-center items-center m-1 font-medium p-4 rounded-xl text-white shadow-lg">
+      <div class="text-lg font-bold leading-none max-w-full flex-initial whitespace-nowrap">{{ title }}
+        <span class="font-normal">{{ percentage }}%</span>
+      </div>
+      @if(description) {
+        <p class="text-xs self-start">{{ description }}</p>
+      }
     </div>
   `,
 })
@@ -19,6 +23,7 @@ export default class ChipComponent {
   @Input({ required: true }) lineColor!: string;
   @Input({ required: true }) title!: string;
   @Input({ required: true }) percentage!: string;
+  @Input() description?: string;
 
   map: Map<string, string>;
 

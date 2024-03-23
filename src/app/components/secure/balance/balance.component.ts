@@ -12,6 +12,7 @@ import NoDataComponent from '../../../lib/components/no-data/no-data.component';
 import TransactionCardComponent from '../../../lib/components/transaction-card/transaction-card.component';
 import BalanceDTO from '../../../dto/balance.dto';
 import { CurrencyPipe } from '@angular/common';
+import CreditCardDTO from '../../../dto/credit-card.dto';
 
 @Component({
   selector: 'app-balance',
@@ -72,5 +73,14 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
         this.balance = balance;
       }
     )
+  }
+
+  getTotal(creditCard: CreditCardDTO) {
+    if (creditCard.invoices?.[0]) {
+      return creditCard.invoices[0].transactions.reduce(
+        (sum, current) => sum + Number(current.amount), 0);
+    }
+
+    return 0;
   }
 }
