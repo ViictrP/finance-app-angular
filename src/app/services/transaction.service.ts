@@ -16,4 +16,8 @@ export class TransactionService {
   create(transaction: TransactionDTO): Observable<TransactionDTO> {
     return this.httpClient.post<TransactionDTO>(`${this.apiUrl}/transactions`, transaction);
   }
+
+  delete(transactionId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/transactions/${transactionId}`);
+  }
 }

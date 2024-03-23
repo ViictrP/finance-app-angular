@@ -10,6 +10,9 @@
           "style": "scss"
         }
       },
+      "i18n": {
+        "sourceLocale": "pt-br"
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

@@ -6,7 +6,7 @@ import CreditCardDTO from '../../../../dto/credit-card.dto';
 import LoadingComponent from '../../../../lib/components/loading/loading.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import NoDataComponent from '../../../../lib/components/no-data/no-data.component';
-import TransactionCardComponent from '../../../../lib/components/transaction-card/transactionCardComponent';
+import TransactionCardComponent from '../../../../lib/components/transaction-card/transaction-card.component';
 import TransactionDTO from '../../../../dto/transaction.dto';
 import { IconButtonComponent } from '../../../../lib/components/buttons/icon-button.component';
 import currencyMasker from '../../../../lib/helpers/currency.masker';

@@ -9,12 +9,13 @@ import CardCarouselComponent from '../../../lib/components/card/card-carousel.co
 import TransactionDTO from '../../../dto/transaction.dto';
 import NoDataComponent from '../../../lib/components/no-data/no-data.component';
 import LoadingComponent from '../../../lib/components/loading/loading.component';
-import TransactionCardComponent from '../../../lib/components/transaction-card/transactionCardComponent';
+import TransactionCardComponent from '../../../lib/components/transaction-card/transaction-card.component';
 import { ModalComponent } from '../../../lib/components/modals/modal.component';
 import { Router } from '@angular/router';
 import CreditCardService from '../../../services/credit-card.service';
 import currencyMasker from '../../../lib/helpers/currency.masker';
 import { IconButtonComponent } from '../../../lib/components/buttons/icon-button.component';
+import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
   selector: 'app-credit-cards',
@@ -43,13 +44,17 @@ export class CreditCardsComponent extends BaseComponent {
   creditCards: CreditCardDTO[] = [];
   selectedCreditCard?: CreditCardDTO;
   today = new Date();
+  selectedTransaction?: TransactionDTO;
 
   @ViewChild('modal') modal?: ModalComponent;
   @ViewChild('deletedModal') deletedModal?: ModalComponent;
+  @ViewChild('transactionModal') transactionModal?: ModalComponent;
+  @ViewChild('deletedTransactionModal') deletedTransactionModal?: ModalComponent;
 
   constructor(changeDetectorRef: ChangeDetectorRef,
               readonly profileService: ProfileService,
               private readonly service: CreditCardService,
+              private readonly transactionService: TransactionService,
               private readonly router: Router) {
     super(changeDetectorRef);
 
@@ -89,6 +94,18 @@ export class CreditCardsComponent extends BaseComponent {
         this.creditCards.splice(this.creditCards.indexOf(this.selectedCreditCard!), 1);
         this.modal?.close();
         this.deletedModal?.show();
+      }
+    );
+  }
+
+  deleteTransaction() {
+    this.subscribeAndRender(
+      this.transactionService.delete(this.selectedTransaction!.id),
+      () => {
+        this.transactions.splice(this.transactions.indexOf(this.selectedTransaction!), 1);
+        this.selectedTransaction = undefined;
+        this.transactionModal?.close();
+        this.deletedTransactionModal?.show();
       }
     );
   }

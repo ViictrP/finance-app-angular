@@ -47,8 +47,12 @@ interface Option {
           [disabled]="disabled"
           (click)="click()"
           type="button"
-          [ngClass]="{'text-gray-50' : disabled}"
-          class="text-left bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-500 leading-tight focus:outline-none focus:ring-0">
+          [ngClass]="{
+            'text-gray-50' : disabled,
+            'text-black': !!value,
+            'text-gray-500': !value
+          }"
+          class="text-left bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 leading-tight focus:outline-none focus:ring-0">
           {{ value ? getOptionColor(value) : placeholder }}
         </button>
         <i class="text-gray-500 text-xl ph-caret-down"></i>

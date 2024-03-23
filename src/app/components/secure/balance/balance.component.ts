@@ -9,7 +9,7 @@ import { ptBR } from 'date-fns/locale/pt-BR';
 import { BalanceService } from '../../../services/balance.service';
 import ChipComponent from '../../../lib/components/chip/chip.component';
 import NoDataComponent from '../../../lib/components/no-data/no-data.component';
-import TransactionCardComponent from '../../../lib/components/transaction-card/transactionCardComponent';
+import TransactionCardComponent from '../../../lib/components/transaction-card/transaction-card.component';
 import BalanceDTO from '../../../dto/balance.dto';
 import { CurrencyPipe } from '@angular/common';
 

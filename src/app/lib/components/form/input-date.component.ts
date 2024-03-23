@@ -31,7 +31,7 @@ type OnTouchedFn = () => void;
           (ngModelChange)="valueChanged()"
           [disabled]="disabled"
           [type]="type"
-          class="bg-transparent appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
+          class="bg-transparent text-black appearance-none border-none rounded w-full py-2 pl-2 pr-4 text-gray-700 leading-tight focus:outline-none focus:ring-0"
         />
       </div>
       @if (required && touched && !value) {

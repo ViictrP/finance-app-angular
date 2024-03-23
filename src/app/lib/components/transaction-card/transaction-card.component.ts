@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import TransactionDTO from '../../../dto/transaction.dto';
 import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
@@ -11,7 +11,7 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
     NgOptimizedImage,
   ],
   template: `
-    <div class="w-full flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
+    <div (click)="click()" class="w-full flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
       <div>
         <div class="flex flex-row gap-5 items-center">
           <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
@@ -31,6 +31,7 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
 export default class TransactionCardComponent {
 
   @Input( { required: true }) transaction!: TransactionDTO | RecurringExpenseDTO;
+  @Output() clicked = new EventEmitter<TransactionDTO>();
 
   categoryIconMap = new Map<string, string>();
   categoryTranslationMap = new Map<string, string>();
@@ -63,5 +64,9 @@ export default class TransactionCardComponent {
       return `(${t.installmentNumber}/${t.installmentAmount})`;
     }
     return '';
+  }
+
+  click() {
+    this.clicked.emit(this.transaction as TransactionDTO);
   }
 }
