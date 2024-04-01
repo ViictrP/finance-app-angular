@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.react.financeapp.dev',
+  apiUrl: 'https://api.financeapp.dev',
   firebaseConfig: {
 
   }
