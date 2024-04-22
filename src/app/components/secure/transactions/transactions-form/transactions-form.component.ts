@@ -11,7 +11,6 @@ import { ProfileService } from '../../../../services/profile.service';
 import CreditCardDTO from '../../../../dto/credit-card.dto';
 import { TransactionService } from '../../../../services/transaction.service';
 import TransactionDTO from '../../../../dto/transaction.dto';
-import InvoiceDTO from '../../../../dto/invoice.dto';
 import CheckboxComponent from '../../../../lib/components/form/checkbox.component';
 import { Observable } from 'rxjs';
 import RecurringExpenseDTO from '../../../../dto/recurring-expense.dto';
