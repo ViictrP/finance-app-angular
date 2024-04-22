@@ -14,6 +14,6 @@ export class RecurringExpenseService {
   constructor(private readonly httpClient: HttpClient) { }
 
   create(recurringExpense: RecurringExpenseDTO): Observable<RecurringExpenseDTO> {
-    return this.httpClient.post<RecurringExpenseDTO>(`${this.apiUrl}/recurring-expenses`, recurringExpense);
+    return this.httpClient.post<RecurringExpenseDTO>(`${this.apiUrl}/v1/recurring-expenses`, recurringExpense);
   }
 }

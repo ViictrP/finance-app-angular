@@ -21,7 +21,7 @@ export class ProfileService {
 
   getProfile(): Observable<ProfileDTO> {
     this.loading = true;
-    return this.httpClient.get<ProfileDTO>(`${this.apiUrl}/me`)
+    return this.httpClient.get<ProfileDTO>(`${this.apiUrl}/v1/users/me`)
       .pipe(
         tap(profile => {
           this.loading = false;
@@ -59,7 +59,7 @@ export class ProfileService {
   }
 
   createProfile(profile: ProfileDTO) {
-    return this.httpClient.post<ProfileDTO>(`${this.apiUrl}/users`, profile)
+    return this.httpClient.post<ProfileDTO>(`${this.apiUrl}/v1/users`, profile)
       .pipe(tap(newProfile => {
         this.calculateCreditCardsTotalInvoiceAmount(newProfile.creditCards);
         this.profile = newProfile;

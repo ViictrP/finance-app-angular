@@ -1,7 +1,7 @@
 import InvoiceDTO from './invoice.dto';
 
 export default interface TransactionDTO {
-  id: string;
+  id: number;
   amount: number;
   description: string;
   installmentNumber?: number;
@@ -14,4 +14,5 @@ export default interface TransactionDTO {
   deleted: boolean;
   userId: string;
   invoice?: InvoiceDTO;
+  creditCardId?: number;
 }

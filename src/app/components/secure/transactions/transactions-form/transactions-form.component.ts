@@ -65,7 +65,7 @@ export class TransactionsFormComponent extends BaseComponent {
     });
   }
 
-  get options(): { id: string, value: string }[] {
+  get options(): { id: number, value: string }[] {
     return this.creditCards.map(c => ({
       id: c.id,
       value: c.title,
@@ -120,7 +120,7 @@ export class TransactionsFormComponent extends BaseComponent {
 
     if (this.formGroup.value.creditCard && !this.isRecurringExpense) {
       const creditCard = this.creditCards.find(c => c.id === this.formGroup.value.creditCard.id);
-      payload.invoice = { creditCard: creditCard } as InvoiceDTO;
+      payload.creditCardId = creditCard?.id;
     }
 
     payload.isInstallment = payload.installmentNumber! > 1;

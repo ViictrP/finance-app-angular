@@ -5,7 +5,7 @@ import ObservableDirective from './observable.directive';
 import { IconButtonComponent } from '../buttons/icon-button.component';
 
 interface CarouselItem {
-  id: string;
+  id: number;
   title: string;
   backgroundColor: string;
 }
@@ -77,9 +77,9 @@ interface CarouselItem {
 export default class CardCarouselComponent {
 
   @Input({ required: true }) items: CarouselItem[] = [];
-  @Output() itemChanged = new EventEmitter<string>();
-  @Output() editClicked = new EventEmitter<string>();
-  @Output() deleteClicked = new EventEmitter<string>();
+  @Output() itemChanged = new EventEmitter<number>();
+  @Output() editClicked = new EventEmitter<number>();
+  @Output() deleteClicked = new EventEmitter<number>();
 
   selectedItem: CarouselItem;
 
@@ -89,7 +89,7 @@ export default class CardCarouselComponent {
 
   selectItem(itemId: string) {
     if (itemId) {
-      this.itemChanged.emit(itemId);
+      this.itemChanged.emit(Number(itemId));
     }
   }
 }

@@ -8,7 +8,7 @@ type OnChangedFn = (_: unknown) => void;
 type OnTouchedFn = () => void;
 
 interface Option {
-  id: string;
+  id: string | number;
   value: string;
   icon?: string;
 }
@@ -100,7 +100,7 @@ export default class BottonNavInputComponent implements ControlValueAccessor {
   @Input() icon = 'ph-palette';
   @Input() options: Option[] = [];
   @Input() type: 'color' | 'other' = 'color';
-  @Output() changed = new EventEmitter<string>();
+  @Output() changed = new EventEmitter<string | number>();
 
   @ViewChild('bottomSheet') bottomSheet: BottomSheetComponent | undefined;
   showingBottomSheet = false;

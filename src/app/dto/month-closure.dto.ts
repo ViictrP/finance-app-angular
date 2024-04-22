@@ -1,5 +1,5 @@
 export default interface MonthClosureDTO {
-  id: string;
+  id: number;
   month: string;
   year: number;
   userId: string;

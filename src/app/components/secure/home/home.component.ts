@@ -50,7 +50,7 @@ export class HomeComponent extends BaseComponent {
   balance?: BalanceDTO;
   recurringExpenseAmount?: number;
   expensesAmount?: number;
-  creditCardsTotal: { [key: string]: number } = {};
+  creditCardsTotal: { [key: string | number]: number } = {};
   totalExpensesAmount?: number;
   selectedTransaction?: TransactionDTO;
 
@@ -88,7 +88,7 @@ export class HomeComponent extends BaseComponent {
     return this.profile?.transactions ?? [];
   }
 
-  calculatePercentage(creditCardId: string) {
+  calculatePercentage(creditCardId: number) {
     return parseFloat(String((this.creditCardsTotal[creditCardId] / this.totalExpensesAmount!) * 100)).toFixed(2);
   }
 

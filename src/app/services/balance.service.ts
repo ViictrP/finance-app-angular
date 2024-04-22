@@ -14,6 +14,6 @@ export class BalanceService {
   constructor(private readonly httpClient: HttpClient) { }
 
   getBalance(month: string, year: string | number): Observable<BalanceDTO> {
-    return this.httpClient.get<BalanceDTO>(`${this.apiUrl}/balances?month=${month}&year=${year}`);
+    return this.httpClient.get<BalanceDTO>(`${this.apiUrl}/v1/users/balance?month=${month}&year=${year}`);
   }
 }

@@ -1,7 +1,7 @@
 import InvoiceDTO from './invoice.dto';
 
 export default interface CreditCardDTO {
-  id: string;
+  id: number;
   title: string;
   description: string;
   totalInvoiceAmount: number;

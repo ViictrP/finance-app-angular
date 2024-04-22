@@ -14,10 +14,10 @@ export class TransactionService {
   constructor(private readonly httpClient: HttpClient) { }
 
   create(transaction: TransactionDTO): Observable<TransactionDTO> {
-    return this.httpClient.post<TransactionDTO>(`${this.apiUrl}/transactions`, transaction);
+    return this.httpClient.post<TransactionDTO>(`${this.apiUrl}/v1/transactions`, transaction);
   }
 
-  delete(transactionId: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/transactions/${transactionId}`);
+  delete(transactionId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/v1/transactions/${transactionId}`);
   }
 }

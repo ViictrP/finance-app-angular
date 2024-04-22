@@ -12,7 +12,6 @@ import { IconButtonComponent } from '../../../../lib/components/buttons/icon-but
 import currencyMasker from '../../../../lib/helpers/currency.masker';
 import { InputDateComponent } from '../../../../lib/components/form/input-date.component';
 import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale/pt-BR';
 import { InvoiceService } from '../../../../services/invoice.service';
 import InvoiceDTO from '../../../../dto/invoice.dto';
 
@@ -48,7 +47,7 @@ export class InvoiceComponent extends BaseComponent {
     effect(() => {
       const creditCardId = this.route.snapshot.paramMap.get('id');
       this.creditCard = profileService.profile()?.creditCards
-        .find(c => c.id === creditCardId);
+        .find(c => c.id === Number(creditCardId));
       this.invoice = this.creditCard?.invoices[0];
       this.isProfileLoading = profileService.loading;
       changeDetector.detectChanges();
@@ -65,12 +64,12 @@ export class InvoiceComponent extends BaseComponent {
   }
 
   monthChanged(monthAndYear: Date) {
-    const formattedMonth = format(monthAndYear, 'MMM', { locale: ptBR }).toUpperCase();
+    const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
 
     this.subscribeAndRender(
       this.invoiceService.getInvoices(this.creditCard!.id, formattedMonth, monthAndYear.getFullYear()),
       invoice => {
-        this.invoice = invoice;
+        this.invoice = invoice[0];
       }
     )
   }

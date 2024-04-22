@@ -53,7 +53,7 @@ export class CreditCardFormComponent extends BaseComponent {
 
       effect(() => {
         this.creditCard = profileService.profile()?.creditCards
-          .find(creditCard => creditCard.id === creditCardId);
+          .find(creditCard => creditCard.id === Number(creditCardId));
 
         if (this.creditCard) {
           this.formGroup.setValue({

@@ -16,14 +16,14 @@ export default class CreditCardService {
   }
 
   create(creditCard: CreditCardDTO): Observable<CreditCardDTO> {
-    return this.httpClient.post<CreditCardDTO>(`${this.apiUrl}/credit-cards`, creditCard);
+    return this.httpClient.post<CreditCardDTO>(`${this.apiUrl}/v1/credit-cards`, creditCard);
   }
 
   update(creditCard: CreditCardDTO): Observable<CreditCardDTO> {
-    return this.httpClient.put<CreditCardDTO>(`${this.apiUrl}/credit-cards/${creditCard.id}`, creditCard);
+    return this.httpClient.put<CreditCardDTO>(`${this.apiUrl}/v1/credit-cards/${creditCard.id}`, creditCard);
   }
 
-  deleteCreditCard(creditCardId: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/credit-cards/${creditCardId}`);
+  deleteCreditCard(creditCardId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/v1/credit-cards/${creditCardId}`);
   }
 }

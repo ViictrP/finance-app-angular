@@ -5,7 +5,6 @@ import { ProfileService } from '../../../services/profile.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputDateComponent } from '../../../lib/components/form/input-date.component';
 import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale/pt-BR';
 import { BalanceService } from '../../../services/balance.service';
 import ChipComponent from '../../../lib/components/chip/chip.component';
 import NoDataComponent from '../../../lib/components/no-data/no-data.component';
@@ -36,7 +35,6 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
   isProfileLoading = false;
   balance?: BalanceDTO;
   today = new Date();
-  creditCardsTotal: { [key: string]: number } = {};
 
   constructor(readonly changeDetector: ChangeDetectorRef,
               readonly profileService: ProfileService,
@@ -51,7 +49,7 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
   }
 
   ngOnInit() {
-    const month = format(this.today, 'MMM', { locale: ptBR }).toUpperCase();
+    const month = format(this.today, 'MMM').toUpperCase();
     this.subscribeAndRender(
       this.balanceService.getBalance(month, this.today.getFullYear()),
       (balance) => {
@@ -60,12 +58,12 @@ export class BalanceComponent extends BaseComponent implements OnInit  {
     );
   }
 
-  calculatePercentage(creditCardId: string) {
+  calculatePercentage(creditCardId: number) {
     return parseFloat(String((this.balance!.creditCardExpenses[creditCardId] / this.balance!.expenses) * 100)).toFixed(2);
   }
 
   monthChanged(monthAndYear: Date) {
-    const formattedMonth = format(monthAndYear, 'MMM', { locale: ptBR }).toUpperCase();
+    const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
 
     this.subscribeAndRender(
       this.balanceService.getBalance(formattedMonth, monthAndYear.getFullYear()),

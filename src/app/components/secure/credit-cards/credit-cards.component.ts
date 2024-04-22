@@ -74,7 +74,7 @@ export class CreditCardsComponent extends BaseComponent {
     return [];
   }
 
-  selectCreditCard(creditCardId: string) {
+  selectCreditCard(creditCardId: number) {
     this.selectedCreditCard = this.creditCards.find(card => card.id === creditCardId);
   }
 
@@ -83,7 +83,7 @@ export class CreditCardsComponent extends BaseComponent {
     return `R$${currencyMasker(reduced.toFixed(2).toString())[0]}`;
   }
 
-  async editCreditCard(creditCardId: string) {
+  async editCreditCard(creditCardId: string | number) {
     return this.router.navigate(['secure/edit-credit-cards/' + creditCardId]);
   }
 
@@ -98,7 +98,7 @@ export class CreditCardsComponent extends BaseComponent {
     );
   }
 
-  deleteTransaction() {
+  deleteTransaction(){
     this.subscribeAndRender(
       this.transactionService.delete(this.selectedTransaction!.id),
       () => {
@@ -110,7 +110,7 @@ export class CreditCardsComponent extends BaseComponent {
     );
   }
 
-  async goToInvoices(creditCardId: string) {
+  async goToInvoices(creditCardId: number) {
     return this.router.navigate([`secure/credit-cards/${creditCardId}/invoices`]);
   }
 }
