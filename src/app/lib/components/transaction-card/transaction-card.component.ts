@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgOptimizedImage } from '@angular/common';
 import TransactionDTO from '../../../dto/transaction.dto';
 import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
 
@@ -9,22 +9,24 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
   imports: [
     CurrencyPipe,
     NgOptimizedImage,
+    DatePipe,
   ],
   template: `
-    <div (click)="click()" class="w-full flex flex-row justify-between items-center bg-white p-4 rounded-md border-zinc-200 mb-2">
-      <div>
-        <div class="flex flex-row gap-5 items-center">
-          <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
-          <div>
-            <p class="text-sm text-zinc-500">{{ getCategoryTranslation(transaction.category) }}</p>
-            <p class="text-md">
-              {{ transaction.description }}&nbsp;
-              <small class="text-gray-500">{{ getInstallmentLabel(transaction) }}</small>
-            </p>
-          </div>
+    <div (click)="click()" class="w-full flex flex-row justify-between gap-5 items-center align-middle bg-white px-4 py-4 rounded-md border-zinc-200 mb-2">
+      <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
+      <div class="flex-1 flex-row">
+        <div class="flex flex-row justify-between">
+          <p class="text-sm text-zinc-500">{{ getCategoryTranslation(transaction.category) }}</p>
+          <p class="text-sm text-zinc-500 font-normal">{{transaction.date ?? transaction.createdAt | date: 'dd/MM/yy HH:mm'}}</p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p class="text-lg">
+            {{ transaction.description }}&nbsp;
+            <small class="text-gray-500">{{ getInstallmentLabel(transaction) }}</small>
+          </p>
+          <p class="text-lg font-bold">{{ transaction.amount | currency: 'BRL' }}</p>
         </div>
       </div>
-      <p class="text-lg font-bold">{{ transaction.amount | currency: 'BRL' }}</p>
     </div>
   `,
 })

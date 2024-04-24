@@ -4,4 +4,5 @@ export default interface RecurringExpenseDTO {
   amount: number;
   category: string;
   date: Date;
+  createdAt: Date;
 }
