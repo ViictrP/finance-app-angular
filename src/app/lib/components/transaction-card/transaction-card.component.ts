@@ -17,7 +17,7 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
       <div class="flex-1 flex-row">
         <div class="flex flex-row justify-between">
           <p class="text-sm text-zinc-500">{{ getCategoryTranslation(transaction.category) }}</p>
-          <p class="text-sm text-zinc-500 font-normal">{{transaction.date ?? transaction.createdAt | date: 'dd/MM/yy HH:mm'}}</p>
+          <p class="text-sm text-zinc-500 font-normal">{{transaction.date ?? transaction.createdAt | date: 'dd/MM/yy'}}</p>
         </div>
         <div class="flex flex-row justify-between">
           <p class="text-lg">
