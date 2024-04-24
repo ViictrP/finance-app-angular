@@ -65,6 +65,7 @@ export class InvoiceComponent extends BaseComponent {
 
   monthChanged(monthAndYear: Date) {
     const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
+    this.today = monthAndYear;
 
     this.subscribeAndRender(
       this.invoiceService.getInvoices(this.creditCard!.id, formattedMonth, monthAndYear.getFullYear()),
