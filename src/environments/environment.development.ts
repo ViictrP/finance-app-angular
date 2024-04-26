@@ -1,13 +1,13 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://api.react.financeapp.dev',
+  API_URL: 'https://api.react.financeapp.dev',
   firebaseConfig: {
-    apiKey: 'apiKey',
-    authDomain: 'authDomain',
-    projectId: 'projectId',
-    storageBucket: 'storageBucket',
-    messagingSenderId: 'messagingSenderId',
-    appId: 'appId',
+    apiKey: 'API_KEY',
+    authDomain: 'AUTH_DOMAIN',
+    projectId: 'PROJECT_ID',
+    storageBucket: 'STORAGE_BUCKET',
+    messagingSenderId: 'MESSAGING_SENDER_ID',
+    appId: 'APP_ID',
     measurementId: 'measurementId'
   }
 };

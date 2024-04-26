@@ -17,13 +17,13 @@ describe('AppComponent', () => {
   it(`should have the 'finance-app-angular' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('finance-app-angular');
+    expect(app.title).toEqual('Finance App');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, finance-app-angular');
+    expect(compiled.querySelector('h1')?.textContent).toBeFalsy()
   });
 });

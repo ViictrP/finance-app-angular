@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export default class CreditCardService {
 
   loading = false;
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.API_URL;
 
   constructor(private readonly httpClient: HttpClient) {
   }

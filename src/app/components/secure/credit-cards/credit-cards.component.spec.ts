@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreditCardsComponent } from './credit-cards.component';
+import { ProfileService } from '../../../services/profile.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -8,10 +10,14 @@ describe('CreditCardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreditCardsComponent]
+      providers: [ProfileService],
+      imports: [
+        CreditCardsComponent,
+        HttpClientModule
+      ]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(CreditCardsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

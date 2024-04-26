@@ -12,6 +12,16 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    environment:
+      name: Production
+    env:
+      API_KEY: ${{ vars.API_KEY }}
+      AUTH_DOMAIN: ${{ vars.AUTH_DOMAIN }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      STORAGE_BUCKET: ${{ vars.STORAGE_BUCKET }}
+      MESSAGING_SENDER_ID: ${{ vars.MESSAGING_SENDER_ID }}
+      APP_ID: ${{ vars.APP_ID }}
+      MEASUREMENT_ID: ${{ vars.MEASUREMENT_ID }}
 
     steps:
     - uses: actions/checkout@v4
