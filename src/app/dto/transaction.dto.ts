@@ -1,17 +1,18 @@
-import InvoiceDto from './invoice.dto';
-import UserDto from './user.dto';
+import InvoiceDTO from './invoice.dto';
 
-export default interface TransactionDto {
-  id?: string;
+export default interface TransactionDTO {
+  id: number;
   amount: number;
   description: string;
-  isInstallment: boolean;
-  installmentAmount: number;
   installmentNumber?: number;
-  createdAt?: Date;
-  date: Date;
-  invoice?: InvoiceDto;
-  user?: UserDto;
-  category: 'food' | 'home' | 'credit-card' | 'shop' | 'other';
-  recurring?: boolean;
+  installmentAmount: number;
+  isInstallment: boolean;
+  category: string;
+  date: string;
+  createdAt: Date;
+  deleteDate: Date;
+  deleted: boolean;
+  userId: string;
+  invoice?: InvoiceDTO;
+  creditCardId?: number;
 }
