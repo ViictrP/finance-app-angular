@@ -14,6 +14,11 @@ jobs:
         node-version: [18.x]
     environment:
       name: Production
+    env:
+      REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+      ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
+      OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
+
 
     steps:
     - uses: actions/checkout@v4
