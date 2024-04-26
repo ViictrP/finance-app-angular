@@ -6,13 +6,13 @@ Application built with Angular 17 to control expenses (based on my necessities)
 ## Run Docker build to create the docker image
 ```
 docker build \
---build-arg apiKey="<apiKey>" \
---build-arg authDomain="<authDomain>" \
---build-arg projectId="<projectId>" \
---build-arg storageBucket="<storageBucket>" \
---build-arg messagingSenderId="<messagingSenderId>" \
---build-arg appId="<appId>" \
---build-arg measurementId="<measurementId>" \
+--build-arg API_KEY="<apiKey>" \
+--build-arg AUTH_DOMAIN="<authDomain>" \
+--build-arg PROJECT_ID="<projectId>" \
+--build-arg STORAGE_BUCKET="<storageBucket>" \
+--build-arg MESSAGING_SENDER_ID="<messagingSenderId>" \
+--build-arg APP_ID="<appId>" \
+--build-arg MEASUREMENT_ID="<measurementId>" \
 --tag finance-app-angular:v1.0.0 -f ./Dockerfile .
 ```
 

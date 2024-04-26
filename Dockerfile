@@ -1,13 +1,13 @@
 FROM node:18
 WORKDIR /angular
 
-ARG apiKey
-ARG authDomain
-ARG projectId
-ARG storageBucket
-ARG messagingSenderId
-ARG appId
-ARG measurementId
+ARG API_KEY
+ARG AUTH_DOMAIN
+ARG PROJECT_ID
+ARG STORAGE_BUCKET
+ARG MESSAGING_SENDER_ID
+ARG APP_ID
+ARG MEASUREMENT_ID
 
 ENV PORT=$PORT
 
