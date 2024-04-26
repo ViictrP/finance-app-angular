@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ProfileService {
 
   loading = false;
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.API_URL;
   _profile = signal<ProfileDTO | null>(null);
   router = inject(Router);
 

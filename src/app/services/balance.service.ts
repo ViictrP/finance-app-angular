@@ -9,7 +9,7 @@ import BalanceDTO from '../dto/balance.dto';
 })
 export class BalanceService {
 
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.API_URL;
 
   constructor(private readonly httpClient: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class InvoiceService {
 
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.API_URL;
 
   constructor(private readonly httpClient: HttpClient) { }
 
