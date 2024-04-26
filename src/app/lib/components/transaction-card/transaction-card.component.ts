@@ -12,7 +12,7 @@ import RecurringExpenseDTO from '../../../dto/recurring-expense.dto';
     DatePipe,
   ],
   template: `
-    <div (click)="click()" class="w-full flex flex-row justify-between gap-5 items-center align-middle bg-white px-4 py-4 rounded-md border-zinc-200 mb-2">
+    <div role="button" tabindex="0" (keydown)="click()" (click)="click()" class="w-full flex flex-row justify-between gap-5 items-center align-middle bg-white px-4 py-4 rounded-md border-zinc-200 mb-2">
       <i class="{{getCategoryIcon(transaction.category)}} text-2xl text-zinc-900"></i>
       <div class="flex-1 flex-row">
         <div class="flex flex-row justify-between">

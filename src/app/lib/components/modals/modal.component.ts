@@ -37,7 +37,7 @@ export class ModalComponent {
 
   isShowing = false;
   @Input() showCloseButton = true;
-  @Output() closed = new EventEmitter<any>();
+  @Output() closed = new EventEmitter<void>();
 
   show(): void {
     const body = document.body;
