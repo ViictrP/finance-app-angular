@@ -39,7 +39,7 @@ export default class TransactionCardComponent {
   categoryTranslationMap = new Map<string, string>();
 
   constructor() {
-    this.categoryIconMap.set('home', 'ph-house-simple');
+    this.categoryIconMap.set('home', 'ph-shopping-cart-simple');
     this.categoryIconMap.set('food', 'ph-hamburger');
     this.categoryIconMap.set('credit-card', 'ph-cards');
     this.categoryIconMap.set('shop', 'ph-shopping-bag-open');
