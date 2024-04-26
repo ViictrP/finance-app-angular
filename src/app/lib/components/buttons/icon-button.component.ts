@@ -1,18 +1,22 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-icon-button',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="flex justify-end">
       <button
+        type="button"
         [ngClass]="{'gap-2': !!title}"
         (click)="clicked.emit()"
         class="inline-flex">
         <i class="m-auto {{sizeMap[size]}} {{icon}}"></i>
-        <span class="m-auto {{sizeMap[size]}}">{{title}}</span>
+        <span class="m-auto {{sizeMap[size]}}">{{ title }}</span>
       </button>
     </div>
-  `
+  `,
 })
 export class IconButtonComponent {
   @Input() icon = '';

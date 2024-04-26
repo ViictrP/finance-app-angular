@@ -1,13 +1,13 @@
-export default interface MonthClosureDto {
-  id: string;
-  index: number;
+export default interface MonthClosureDTO {
+  id: number;
   month: string;
-  total: number;
-  userId: string;
   year: number;
+  userId: string;
+  total: number;
   available: number;
-  createdAt: Date;
-  deleteDate?: Date;
-  deleted: boolean;
   expenses: number;
+  deleted: boolean;
+  deleteDate: Date;
+  createdAt: Date;
+  index?: number;
 }

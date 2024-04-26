@@ -1,12 +1,8 @@
-import CreditCardDto from './credit-card.dto';
-import TransactionDto from './transaction.dto';
+import TransactionDTO from './transaction.dto';
+import CreditCardDTO from './credit-card.dto';
 
-export default interface InvoiceDto {
-  id: string;
-  month: string;
-  year: number;
-  isClosed: boolean;
-  creditCard: CreditCardDto;
-  transactions: TransactionDto[];
-  createdAt: Date;
+export default interface InvoiceDTO {
+  id: number;
+  transactions: TransactionDTO[];
+  creditCard: CreditCardDTO;
 }

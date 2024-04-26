@@ -1,0 +1,82 @@
+{
+  "hash": "6b9abcd8",
+  "configHash": "8099fbd8",
+  "lockfileHash": "8aad65be",
+  "browserHash": "0b4ffc4d",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "e32f4b59",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "7db70b3e",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "7230ce99",
+      "needsInterop": false
+    },
+    "@angular/fire/app": {
+      "src": "../../../../../node_modules/@angular/fire/fesm2022/angular-fire-app.mjs",
+      "file": "@angular_fire_app.js",
+      "fileHash": "de9c692c",
+      "needsInterop": false
+    },
+    "@angular/fire/auth": {
+      "src": "../../../../../node_modules/@angular/fire/fesm2022/angular-fire-auth.mjs",
+      "file": "@angular_fire_auth.js",
+      "fileHash": "3a2acee7",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "7707e8d8",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "f2279200",
+      "needsInterop": false
+    },
+    "ngx-cookie-service": {
+      "src": "../../../../../node_modules/ngx-cookie-service/fesm2022/ngx-cookie-service.mjs",
+      "file": "ngx-cookie-service.js",
+      "fileHash": "6f5b570f",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "868e32e3",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-N5SX52LV": {
+      "file": "chunk-N5SX52LV.js"
+    },
+    "chunk-Q6U3XZST": {
+      "file": "chunk-Q6U3XZST.js"
+    },
+    "chunk-6NECIVL7": {
+      "file": "chunk-6NECIVL7.js"
+    },
+    "chunk-MB62N2CA": {
+      "file": "chunk-MB62N2CA.js"
+    },
+    "chunk-JWIIOEYL": {
+      "file": "chunk-JWIIOEYL.js"
+    },
+    "chunk-MD2JTI2T": {
+      "file": "chunk-MD2JTI2T.js"
+    }
+  }
+}

@@ -1,14 +1,15 @@
-import TransactionDto from './transaction.dto';
-import CreditCardDto from './credit-card.dto';
+import CreditCardDTO from './credit-card.dto';
+import RecurringExpenseDTO from './recurring-expense.dto';
+import TransactionDTO from './transaction.dto';
 
 type CreditCardsTotal = { [key: string]: number };
 
-export interface BalanceDto {
-  salary: number;
-  expenses: number;
+export default interface BalanceDTO {
   available: number;
   creditCardExpenses: CreditCardsTotal;
-  transactions: TransactionDto[];
-  creditCards: CreditCardDto[];
-  recurringExpenses: TransactionDto[];
+  creditCards: CreditCardDTO[];
+  expenses: number;
+  recurringExpenses: RecurringExpenseDTO[];
+  salary: number;
+  transactions: TransactionDTO[];
 }

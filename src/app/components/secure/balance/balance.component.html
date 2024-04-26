@@ -1,0 +1,98 @@
+<div class="pb-20 flex flex-col gap-8">
+  <div class="flex flex-col gap-8 p-4">
+    <h1 class="text-2xl font-bold">Extrato do mês.</h1>
+    <p class="text-sm">
+      Acumulado de todas as transações e faturas para gerar
+      uma estimativa de gastos no mês selecionado.
+    </p>
+    <div class="flex flex-col gap-2">
+      <app-input-date
+        id="date"
+        name="date"
+        icon="ph-calendar"
+        type="month"
+        placeholder="Mês ..."
+        [value]="today"
+        (changed)="monthChanged($event)">
+      </app-input-date>
+      @if(balance && !loading) {
+        <div class="bg-white rounded-lg shadow-sm py-2 px-5 mt-4 flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-row items-center gap-2">
+              <div class="w-4 h-4 bg-sky-500 rounded-full"></div>
+              <p class="text-sm text-gray-500">Salário</p>
+            </div>
+            <p class="font-bold">{{balance.salary | currency: 'BRL'}}</p>
+          </div>
+          <div class="w-[0.5px] h-16 bg-zinc-100"></div>
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-row items-center gap-2">
+              <div class="w-4 h-4 bg-amber-500 rounded-full"></div>
+              <p class="text-sm text-gray-500">Gastos</p>
+            </div>
+            <p class="font-bold">{{balance.expenses | currency: 'BRL'}}</p>
+          </div>
+          <div class="w-[0.5px] h-16 bg-zinc-100"></div>
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-row items-center gap-2">
+              <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+              <p class="text-sm text-gray-500">Disponível</p>
+            </div>
+            <p class="font-bold">{{balance.available | currency: 'BRL'}}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="flex flex-col gap-8">
+    @if(loading) {
+      <app-loading />
+    } @else {
+      @if(balance?.creditCards?.length) {
+        <div #cardChips class="flex flex-col gap-4">
+          <div class="p-4">
+            <p class="text-xl align-baseline font-bold">Impacto nos gastos</p>
+          </div>
+          <div class="flex flex-row overflow-auto overflow-y-hidden scrollbar-none pl-2 pr-3 pb-8">
+            @for (card of balance?.creditCards; track card.id) {
+              <app-chip
+                [title]="card.title"
+                [percentage]="calculatePercentage(card.id)"
+                [lineColor]="card.backgroundColor"
+                description="{{ getTotal(card) | currency: 'BRL' }}"
+              />
+            }
+          </div>
+        </div>
+      }
+
+      @if(balance?.transactions?.length || balance?.recurringExpenses?.length) {
+        <div class="flex flex-col gap-4 px-4">
+          <div>
+            <p class="text-xl align-baseline font-bold">Compras</p>
+          </div>
+          @if (balance?.recurringExpenses?.length) {
+            <div>
+              <p class="text-sm align-baseline text-gray-500">Contas fixas</p>
+            </div>
+            <div class="flex flex-col scrollbar-none gap-2">
+              @for(recurringExpense of balance?.recurringExpenses; track recurringExpense.id) {
+                <app-transaction-card [transaction]="recurringExpense" />
+              }
+            </div>
+          }
+          <div>
+            <p class="text-sm align-baseline text-gray-500">Demais compras</p>
+          </div>
+          <div class="flex flex-col overflow-auto overflow-y-hidden scrollbar-none">
+            @for(transaction of balance?.transactions; track transaction.id) {
+              <app-transaction-card [transaction]="transaction" />
+            }
+          </div>
+        </div>
+      } @else {
+        <app-no-data />
+      }
+    }
+  </div>
+</div>

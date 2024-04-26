@@ -1,30 +1,19 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-card',
+  standalone: true,
+  imports: [
+    NgClass,
+  ],
   template: `
-    <div
-      (click)="clicked.emit()"
-      [ngClass]="color"
-      class="{{noPadding ? '' : 'py-2 px-4'}} w-full border-[0.5px] border-zinc-300 dark:border-zinc-800 {{borderMap[color]}} rounded-lg shadow-sm">
+    <div class="w-full h-auto {{backgroundColor ?? 'bg-white'}} rounded-xl shadow-xl border-[0.5px] border-white">
       <ng-content></ng-content>
     </div>
-  `
+  `,
 })
-export class CardComponent {
+export default  class CardComponent {
 
-  @Input() color = '';
-  @Input() noPadding = false;
-  @Output() clicked = new EventEmitter<any>();
-
-  constructor() {
-  }
-
-  borderMap: {[key: string]: string} = {
-    'bg-purple-900': 'border-purple-600',
-    'bg-orange-500': 'border-orange-400',
-    'bg-zinc-900': 'border-zinc-200 dark:border-zinc-800',
-    'bg-blue-500': 'border-blue-400',
-    'bg-red-500': 'border-red-400'
-  };
+  @Input() backgroundColor? = 'bg-white';
 }
