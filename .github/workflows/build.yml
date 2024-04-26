@@ -15,10 +15,13 @@ jobs:
     environment:
       name: Production
     env:
-      REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
-      ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
-      OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
-
+      API_KEY: ${{ vars.API_KEY }}
+      AUTH_DOMAIN: ${{ vars.AUTH_DOMAIN }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      STORAGE_BUCKET: ${{ vars.STORAGE_BUCKET }}
+      MESSAGING_SENDER_ID: ${{ vars.MESSAGING_SENDER_ID }}
+      APP_ID: ${{ vars.APP_ID }}
+      measurementI: ${{ vars.measurementI }}
 
     steps:
     - uses: actions/checkout@v4
