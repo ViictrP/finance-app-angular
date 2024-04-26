@@ -8,6 +8,6 @@ export const environment = {
     storageBucket: 'STORAGE_BUCKET',
     messagingSenderId: 'MESSAGING_SENDER_ID',
     appId: 'APP_ID',
-    measurementId: 'measurementId'
+    measurementId: 'MEASUREMENT_ID'
   }
 };

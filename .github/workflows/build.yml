@@ -21,7 +21,7 @@ jobs:
       STORAGE_BUCKET: ${{ vars.STORAGE_BUCKET }}
       MESSAGING_SENDER_ID: ${{ vars.MESSAGING_SENDER_ID }}
       APP_ID: ${{ vars.APP_ID }}
-      measurementI: ${{ vars.measurementI }}
+      MEASUREMENT_ID: ${{ vars.MEASUREMENT_ID }}
 
     steps:
     - uses: actions/checkout@v4
