@@ -11,3 +11,4 @@ coverage
 .runtimeconfig.json
 .env
 .env.*
+src/environments/environment.development.ts
