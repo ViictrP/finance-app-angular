@@ -12,4 +12,5 @@ export default interface ProfileDTO {
   transactions: TransactionDTO[];
   recurringExpenses: TransactionDTO[];
   monthClosures: MonthClosureDTO[];
+  properties: { [key: string]: string };
 }

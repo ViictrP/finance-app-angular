@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import ProfileDTO from '../dto/profile.dto';
 import { environment } from '../../environments/environment';
 import CreditCardDTO from '../dto/credit-card.dto';
@@ -33,16 +33,12 @@ export class ProfileService {
   }
 
   private handleError() {
-    return (err: unknown) => {
+    return (err: HttpErrorResponse) => {
       this.loading = false;
-      if (err instanceof HttpErrorResponse) {
-        if(err.status === 404) {
-          this.router.navigate(['secure/create-profile']);
-        } else if (err.status === 401) {
-          this.router.navigate(['login']);
-        }
+      if (err.status === 404) {
+        this.router.navigate(['secure/create-profile']);
       }
-      return of();
+      return throwError(() => err);
     }
   }
 

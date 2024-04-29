@@ -8,6 +8,9 @@ import { ProfileService } from '../../../services/profile.service';
 import ProfileDTO from '../../../dto/profile.dto';
 import BaseComponent from '../base.component';
 import { Router } from '@angular/router';
+import ToggleComponent from '../../../lib/components/form/toggle.component';
+import BottonNavInputComponent from '../../../lib/components/form/botton-nav.input.component';
+import { InputDateComponent } from '../../../lib/components/form/input-date.component';
 
 @Component({
   selector: 'app-create-profile',
@@ -16,6 +19,9 @@ import { Router } from '@angular/router';
     InputComponent,
     ReactiveFormsModule,
     NgClass,
+    ToggleComponent,
+    BottonNavInputComponent,
+    InputDateComponent,
   ],
   templateUrl: './create-profile.component.html',
   styleUrl: './create-profile.component.scss',
@@ -34,7 +40,12 @@ export class CreateProfileComponent extends BaseComponent {
     super(changeDetector);
     this.user = authService.user;
     this.form = formBuilder.group({
-      salary: [null, [Validators.required]]
+      salary: [null, [Validators.required]],
+      conversion: [false, []],
+      currencyConversionType: [null, []],
+      monthClosureDay: [new Date(), [Validators.required]],
+      currencyConversionTax: [null, []],
+      salaryConverionTax: [null, []],
     });
 
     effect(() => {
@@ -44,16 +55,24 @@ export class CreateProfileComponent extends BaseComponent {
     });
   }
 
+  get shouldDoConverion() {
+    return this.form.get('conversion')?.value;
+  }
+
   get salaryFormControlStatus() {
-    return this.form.get('salary')?.status;
+    return this.form.status;
   }
 
   get salaryFormControlValue() {
-    return this.form.get('salary')?.value;
+    return this.form.value;
+  }
+
+  get currencyConversion() {
+    return this.form.get('currencyConversion')?.value;
   }
 
   validateSalaryField(): boolean {
-    return this.salaryFormControlStatus === 'INVALID' || (this.salaryFormControlStatus === 'VALID' && this.salaryFormControlValue === "0");
+    return this.salaryFormControlStatus === 'INVALID' || (this.salaryFormControlStatus === 'VALID' && this.salaryFormControlValue === "0") && this.currencyConversion;
   }
 
   async finishProfile() {
@@ -63,7 +82,15 @@ export class CreateProfileComponent extends BaseComponent {
       lastname: lastname,
       email: this.user.email,
       password: this.user.profilePictureUrl,
-      salary: this.salaryFormControlValue
+      salary: this.salaryFormControlValue.salary,
+      properties: {
+        MONTH_CLOSURE_DAY: this.salaryFormControlValue.monthClosureDay,
+        CURRENCY_CONVERSION: this.salaryFormControlValue.conversion,
+        CURRENCY_CONVERSION_TYPE: this.salaryFormControlValue.currencyConversionType.id,
+        CURRENCY: this.salaryFormControlValue.CURRENCY.id.split('-')[0],
+        CURRENCY_CONVERSION_TAX: this.salaryFormControlValue.currencyConversionTax,
+        SALARY_TAX: this.salaryFormControlValue.salaryConverionTax
+      }
     };
 
     this.subscribeAndRender(this.profileService.createProfile(profile as ProfileDTO),
