@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import ToggleComponent from '../../../lib/components/form/toggle.component';
 import BottonNavInputComponent from '../../../lib/components/form/botton-nav.input.component';
 import { InputDateComponent } from '../../../lib/components/form/input-date.component';
+import currencyMasker from '../../../lib/helpers/currency.masker';
 
 @Component({
   selector: 'app-create-profile',
@@ -49,10 +50,27 @@ export class CreateProfileComponent extends BaseComponent {
     });
 
     effect(() => {
-      if (this.profileService.profile()) {
+      const profile = this.profileService.profile();
+      if (profile && this.isNotProfileUpdate) {
         this.router.navigate(['secure/home']);
+      } else if(profile) {
+        const date = new Date();
+        date.setDate(Number(profile.properties['MONTH_CLOSURE_DAY']));
+        this.form.setValue({
+          salary: currencyMasker(profile.nonConvertedSalary.toFixed(2))[0],
+          monthClosureDay: date,
+          conversion: profile.properties['CURRENCY_CONVERSION'],
+          currencyConversionType: { id: profile.properties['CURRENCY_CONVERSION_TYPE'], value: 'Dólar', icon: 'ph-house-simple' },
+          currencyConversionTax: currencyMasker((Number(profile.properties['CURRENCY_CONVERSION_TAX']) * 100).toFixed(2))[1],
+          salaryConverionTax: currencyMasker((Number(profile.properties['SALARY_TAX']) * 100).toFixed(2))[1]
+        });
+        this.changeDetector.detectChanges();
       }
     });
+  }
+
+  get isNotProfileUpdate(): boolean {
+    return this.router.url !== '/secure/profile';
   }
 
   get shouldDoConverion() {
@@ -84,16 +102,23 @@ export class CreateProfileComponent extends BaseComponent {
       password: this.user.profilePictureUrl,
       salary: this.salaryFormControlValue.salary,
       properties: {
-        MONTH_CLOSURE_DAY: this.salaryFormControlValue.monthClosureDay,
+        MONTH_CLOSURE_DAY: this.salaryFormControlValue.monthClosureDay.getDate(),
         CURRENCY_CONVERSION: this.salaryFormControlValue.conversion,
         CURRENCY_CONVERSION_TYPE: this.salaryFormControlValue.currencyConversionType.id,
-        CURRENCY: this.salaryFormControlValue.CURRENCY.id.split('-')[0],
-        CURRENCY_CONVERSION_TAX: this.salaryFormControlValue.currencyConversionTax,
-        SALARY_TAX: this.salaryFormControlValue.salaryConverionTax
+        CURRENCY: this.salaryFormControlValue.currencyConversionType.id.split('-')[0],
+        CURRENCY_CONVERSION_TAX: (this.salaryFormControlValue.currencyConversionTax / 100).toFixed(4).toString(),
+        SALARY_TAX: (this.salaryFormControlValue.salaryConverionTax / 100).toFixed(4).toString()
       }
     };
 
-    this.subscribeAndRender(this.profileService.createProfile(profile as ProfileDTO),
+    let $stream;
+    if (this.isNotProfileUpdate) {
+      $stream = this.profileService.createProfile(profile as ProfileDTO);
+    } else {
+      $stream = this.profileService.update(profile as ProfileDTO);
+    }
+
+    this.subscribeAndRender($stream,
       profile => {
         console.log(profile);
         this.router.navigate(['secure/home']);

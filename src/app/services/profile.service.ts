@@ -62,6 +62,14 @@ export class ProfileService {
       }));
   }
 
+  update(profile: ProfileDTO) {
+    return this.httpClient.put<ProfileDTO>(`${this.apiUrl}/v1/users`, profile)
+      .pipe(tap(newProfile => {
+        this.calculateCreditCardsTotalInvoiceAmount(newProfile.creditCards);
+        this.profile = newProfile;
+      }));
+  }
+
   private set profile(profile: ProfileDTO) {
     this._profile.set(profile)
   }
