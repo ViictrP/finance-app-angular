@@ -11,7 +11,6 @@ import ChipComponent from '../../../lib/components/chip/chip.component';
 import NoDataComponent from '../../../lib/components/no-data/no-data.component';
 import LoadingComponent from '../../../lib/components/loading/loading.component';
 import BaseComponent from '../base.component';
-import { BalanceService } from '../../../services/balance.service';
 import BalanceDTO from '../../../dto/balance.dto';
 import { calculateExpensesHelper } from '../../../helper/calculate-expenses.helper';
 import { AbsPipe } from '../../../lib/pipes/abs.pipe';
@@ -60,7 +59,6 @@ export class HomeComponent extends BaseComponent {
 
   constructor(readonly authService: AuthService,
               private readonly router: Router,
-              private readonly balanceService: BalanceService,
               readonly profileService: ProfileService,
               private readonly transactionService: TransactionService,
               changeDetection: ChangeDetectorRef) {

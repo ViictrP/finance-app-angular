@@ -8,11 +8,11 @@ import {environment} from "../environments/environment";
 import {getAuth, provideAuth} from "@angular/fire/auth";
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authorizationInterceptor } from './services/interceptors/authorization.interceptor';
-import { profileInterceptor } from './services/interceptors/profile.interceptor';
+import { httpInterceptor } from './services/interceptors/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withFetch(), withInterceptors([authorizationInterceptor, profileInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authorizationInterceptor, httpInterceptor])),
     provideRouter(routes),
     provideClientHydration(),
     importProvidersFrom([

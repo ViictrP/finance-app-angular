@@ -9,7 +9,9 @@ export default interface ProfileDTO {
   password: string;
   creditCards: CreditCardDTO[];
   salary: number;
+  nonConvertedSalary: number;
   transactions: TransactionDTO[];
   recurringExpenses: TransactionDTO[];
   monthClosures: MonthClosureDTO[];
+  properties: { [key: string]: string };
 }
