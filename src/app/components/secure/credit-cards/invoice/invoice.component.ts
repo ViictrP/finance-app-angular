@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, effect } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
 import BaseComponent from '../../base.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../../../services/profile.service';
 import CreditCardDTO from '../../../../dto/credit-card.dto';
 import LoadingComponent from '../../../../lib/components/loading/loading.component';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import NoDataComponent from '../../../../lib/components/no-data/no-data.component';
 import TransactionCardComponent from '../../../../lib/components/transaction-card/transaction-card.component';
 import TransactionDTO from '../../../../dto/transaction.dto';
@@ -14,6 +14,8 @@ import { InputDateComponent } from '../../../../lib/components/form/input-date.c
 import { format } from 'date-fns';
 import { InvoiceService } from '../../../../services/invoice.service';
 import InvoiceDTO from '../../../../dto/invoice.dto';
+import { ModalComponent } from '../../../../lib/components/modals/modal.component';
+import { TransactionService } from '../../../../services/transaction.service';
 
 @Component({
   selector: 'app-invoice',
@@ -26,6 +28,8 @@ import InvoiceDTO from '../../../../dto/invoice.dto';
     IconButtonComponent,
     CurrencyPipe,
     InputDateComponent,
+    ModalComponent,
+    NgClass,
   ],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.scss',
@@ -36,11 +40,16 @@ export class InvoiceComponent extends BaseComponent {
   isProfileLoading = false;
   creditCard?: CreditCardDTO;
   invoice?: InvoiceDTO;
+  selectedTransaction?: TransactionDTO;
+
+  @ViewChild('transactionModal') transactionModal?: ModalComponent;
+  @ViewChild('deletedTransactionModal') deletedTransactionModal?: ModalComponent;
 
   constructor(readonly changeDetector: ChangeDetectorRef,
               private readonly route: ActivatedRoute,
               readonly profileService: ProfileService,
-              private readonly invoiceService: InvoiceService) {
+              private readonly invoiceService: InvoiceService,
+              private readonly transactionService: TransactionService) {
     super(changeDetector);
 
     this.isProfileLoading = profileService.loading;
@@ -73,5 +82,17 @@ export class InvoiceComponent extends BaseComponent {
         this.invoice = invoice[0];
       }
     )
+  }
+
+  deleteTransaction(deleteAll: boolean){
+    this.subscribeAndRender(
+      this.transactionService.delete(this.selectedTransaction!.id, deleteAll),
+      () => {
+        this.transactions.splice(this.transactions.indexOf(this.selectedTransaction!), 1);
+        this.selectedTransaction = undefined;
+        this.transactionModal?.close();
+        this.deletedTransactionModal?.show();
+      }
+    );
   }
 }

@@ -17,7 +17,7 @@ export class TransactionService {
     return this.httpClient.post<TransactionDTO>(`${this.apiUrl}/v1/transactions`, transaction);
   }
 
-  delete(transactionId: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/v1/transactions/${transactionId}`);
+  delete(transactionId: number, deleteAll: boolean): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/v1/transactions/${transactionId}?all=${deleteAll}`);
   }
 }

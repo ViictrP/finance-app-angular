@@ -104,7 +104,7 @@ export class HomeComponent extends BaseComponent {
 
   deleteTransaction() {
     this.subscribeAndRender(
-      this.transactionService.delete(this.selectedTransaction!.id),
+      this.transactionService.delete(this.selectedTransaction!.id, false),
       () => {
         this.transactions.splice(this.transactions.indexOf(this.selectedTransaction!), 1);
         this.selectedTransaction = undefined;
