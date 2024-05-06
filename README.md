@@ -1,4 +1,4 @@
-# FinanceAppAngular
+# Finance App Angular
 Application built with Angular 17 to control expenses (based on my necessities)
 
 [![Node.js CI](https://github.com/ViictrP/finance-app-angular/actions/workflows/build.yml/badge.svg)](https://github.com/ViictrP/finance-app-angular/actions/workflows/build.yml)

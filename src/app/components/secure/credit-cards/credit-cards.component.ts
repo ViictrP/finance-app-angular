@@ -98,9 +98,9 @@ export class CreditCardsComponent extends BaseComponent {
     );
   }
 
-  deleteTransaction(){
+  deleteTransaction(deleteAll: boolean){
     this.subscribeAndRender(
-      this.transactionService.delete(this.selectedTransaction!.id),
+      this.transactionService.delete(this.selectedTransaction!.id, deleteAll),
       () => {
         this.transactions.splice(this.transactions.indexOf(this.selectedTransaction!), 1);
         this.selectedTransaction = undefined;
