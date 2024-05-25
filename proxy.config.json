@@ -1,0 +1,11 @@
+[
+  {
+    "context": ["/v1"],
+    "target": "http://localhost:8081/v1",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/v1": ""
+    }
+  }
+]
