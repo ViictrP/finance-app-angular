@@ -17,6 +17,7 @@ import { AbsPipe } from '../../../lib/pipes/abs.pipe';
 import { ModalComponent } from '../../../lib/components/modals/modal.component';
 import TransactionDTO from '../../../dto/transaction.dto';
 import { TransactionService } from '../../../services/transaction.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-home',
@@ -47,8 +48,6 @@ export class HomeComponent extends BaseComponent {
   profile: ProfileDTO | null = null;
   today = new Date();
   balance?: BalanceDTO;
-  recurringExpenseAmount?: number;
-  expensesAmount?: number;
   creditCardsTotal: { [key: string | number]: number } = {};
   totalExpensesAmount?: number;
   selectedTransaction?: TransactionDTO;
@@ -75,11 +74,10 @@ export class HomeComponent extends BaseComponent {
   }
 
   private calculateExpensesAmout() {
-    const [total, creditCardsTotal] = calculateExpensesHelper((this.profile?.transactions ?? []), this.profile?.creditCards ?? []);
-    this.recurringExpenseAmount = this.profile?.recurringExpenses?.reduce((sum, current) => sum + Number(current.amount), 0);
-    this.expensesAmount = this.profile?.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
+    const lastMonthClosure = this.profile?.monthClosures.find(m => m.month === format(this.today, 'MMM').toUpperCase() && m.year === this.today.getFullYear());
+    const [,, creditCardsTotal, total] = calculateExpensesHelper(this.profile!);
     this.creditCardsTotal = creditCardsTotal;
-    this.totalExpensesAmount = total + this.recurringExpenseAmount! + this.expensesAmount!;
+    this.totalExpensesAmount = lastMonthClosure?.expenses ?? total;
   }
 
   get transactions(): TransactionDTO[] {
