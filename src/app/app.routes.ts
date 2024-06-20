@@ -13,9 +13,10 @@ import {
 } from './components/secure/transactions/transactions-form/transactions-form.component';
 import { BalanceComponent } from './components/secure/balance/balance.component';
 import { InvoiceComponent } from './components/secure/credit-cards/invoice/invoice.component';
+import { PublicComponent } from './components/public/public/public.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/secure', pathMatch: 'full'},
+  { path: '', redirectTo: '/secure/home', pathMatch: 'full'},
   {
     path: 'secure',
     redirectTo: 'secure/home',
@@ -24,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'secure',
     component: SecureComponent,
-    canActivate: [secureGuard],
+    canActivateChild: [secureGuard],
     children: [
       {
         path: `home`,
@@ -74,10 +75,17 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'login',
-    title: 'Finance App',
-    canActivate: [publicGuard],
-    component: LoginComponent
+    path:  'public',
+    component: PublicComponent,
+    canActivateChild: [publicGuard],
+    children: [
+      {
+        path: 'login',
+        title: 'Finance App',
+        canActivate: [publicGuard],
+        component: LoginComponent
+      }
+    ]
   },
   {path: '**', component: NotFoundComponent},
 ];
