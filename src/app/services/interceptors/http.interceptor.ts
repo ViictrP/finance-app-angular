@@ -15,7 +15,7 @@ export const httpInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           authService.logout()
-            .then(() => router.navigate(['login']));
+            .then(() => router.navigate(['public/login']));
         }
         return throwError(() => error);
       }),

@@ -87,6 +87,6 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   async logOut() {
     await this.authService.logout();
-    await this.router.navigate(['/login']);
+    await this.router.navigate(['public/login']);
   }
 }
