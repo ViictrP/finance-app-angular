@@ -31,6 +31,28 @@ export class AuthService {
     return this.cookieService.check(ACCESS_TOKEN);
   }
 
+  isTokenNotExpired(): boolean {
+    const accessToken = this.cookieService.get(ACCESS_TOKEN);
+    if (!accessToken) {
+      return false;
+    }
+
+    const decoded = this.decodeToken(accessToken);
+
+    if (!decoded.exp) {
+      return false;
+    }
+
+    const expiryTime = decoded.exp * 1000;
+    return Date.now() <= expiryTime;
+  }
+
+  private decodeToken(accessToken: string): any {
+    const payload = accessToken.split('.')[1];
+    const decodedPayload = atob(payload);
+    return JSON.parse(decodedPayload);
+  }
+
   async signIn(): Promise<boolean> {
     try {
       const credentials = await signInWithPopup(this.auth, new GoogleAuthProvider());

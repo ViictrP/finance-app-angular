@@ -3,12 +3,12 @@ import {inject} from "@angular/core";
 import {AuthService} from "../services/auth.service";
 
 export const secureGuard: CanActivateFn = () => {
-  const isAuthenticated = inject(AuthService).isAuthenticated();
+  const authService = inject(AuthService);
   const router = inject(Router);
-  if (!isAuthenticated) {
-    router.navigate(['login']);
-    return false;
-  } else {
+  if (authService.isAuthenticated() && authService.isTokenNotExpired()) {
     return true;
+  } else {
+    router.navigate(['public/login']);
+    return false;
   }
 };
