@@ -47,7 +47,7 @@ export class AuthService {
     return Date.now() <= expiryTime;
   }
 
-  private decodeToken(accessToken: string): any {
+  private decodeToken(accessToken: string): { exp: number } {
     const payload = accessToken.split('.')[1];
     const decodedPayload = atob(payload);
     return JSON.parse(decodedPayload);
