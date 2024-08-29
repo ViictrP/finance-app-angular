@@ -9,15 +9,15 @@ import {getAuth, provideAuth} from "@angular/fire/auth";
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authorizationInterceptor } from './services/interceptors/authorization.interceptor';
 import { httpInterceptor } from './services/interceptors/http.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideHttpClient(withFetch(), withInterceptors([authorizationInterceptor, httpInterceptor])),
-    provideRouter(routes),
-    provideClientHydration(),
-    importProvidersFrom([
-      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-      provideAuth(() => getAuth())
-    ]), importProvidersFrom(provideAuth(() => getAuth()))
-  ]
+    providers: [
+        provideHttpClient(withFetch(), withInterceptors([authorizationInterceptor, httpInterceptor])),
+        provideRouter(routes),
+        provideClientHydration(),
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideAuth(() => getAuth()),
+        provideAnimationsAsync()
+    ]
 };
