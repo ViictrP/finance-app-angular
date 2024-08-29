@@ -5,15 +5,19 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class RecurringExpenseService {
+    private readonly apiUrl = environment.API_URL;
 
-  private readonly apiUrl = environment.API_URL;
+    constructor(private readonly httpClient: HttpClient) {}
 
-  constructor(private readonly httpClient: HttpClient) { }
-
-  create(recurringExpense: RecurringExpenseDTO): Observable<RecurringExpenseDTO> {
-    return this.httpClient.post<RecurringExpenseDTO>(`${this.apiUrl}/v1/recurring-expenses`, recurringExpense);
-  }
+    create(
+        recurringExpense: RecurringExpenseDTO
+    ): Observable<RecurringExpenseDTO> {
+        return this.httpClient.post<RecurringExpenseDTO>(
+            `${this.apiUrl}/v1/recurring-expenses`,
+            recurringExpense
+        );
+    }
 }

@@ -18,81 +18,97 @@ import { ModalComponent } from '../../../../lib/components/modals/modal.componen
 import { TransactionService } from '../../../../services/transaction.service';
 
 @Component({
-  selector: 'app-invoice',
-  standalone: true,
-  imports: [
-    LoadingComponent,
-    DatePipe,
-    NoDataComponent,
-    TransactionCardComponent,
-    IconButtonComponent,
-    CurrencyPipe,
-    InputDateComponent,
-    ModalComponent,
-    NgClass,
-  ],
-  templateUrl: './invoice.component.html',
-  styleUrl: './invoice.component.scss',
+    selector: 'app-invoice',
+    standalone: true,
+    imports: [
+        LoadingComponent,
+        DatePipe,
+        NoDataComponent,
+        TransactionCardComponent,
+        IconButtonComponent,
+        CurrencyPipe,
+        InputDateComponent,
+        ModalComponent,
+        NgClass,
+    ],
+    templateUrl: './invoice.component.html',
+    styleUrl: './invoice.component.scss',
 })
 export class InvoiceComponent extends BaseComponent {
+    today = new Date();
+    isProfileLoading = false;
+    creditCard?: CreditCardDTO;
+    invoice?: InvoiceDTO;
+    selectedTransaction?: TransactionDTO;
 
-  today = new Date();
-  isProfileLoading = false;
-  creditCard?: CreditCardDTO;
-  invoice?: InvoiceDTO;
-  selectedTransaction?: TransactionDTO;
+    @ViewChild('transactionModal') transactionModal?: ModalComponent;
+    @ViewChild('deletedTransactionModal')
+    deletedTransactionModal?: ModalComponent;
 
-  @ViewChild('transactionModal') transactionModal?: ModalComponent;
-  @ViewChild('deletedTransactionModal') deletedTransactionModal?: ModalComponent;
+    constructor(
+        readonly changeDetector: ChangeDetectorRef,
+        private readonly route: ActivatedRoute,
+        readonly profileService: ProfileService,
+        private readonly invoiceService: InvoiceService,
+        private readonly transactionService: TransactionService
+    ) {
+        super(changeDetector);
 
-  constructor(readonly changeDetector: ChangeDetectorRef,
-              private readonly route: ActivatedRoute,
-              readonly profileService: ProfileService,
-              private readonly invoiceService: InvoiceService,
-              private readonly transactionService: TransactionService) {
-    super(changeDetector);
+        this.isProfileLoading = profileService.loading;
+        effect(() => {
+            const creditCardId = this.route.snapshot.paramMap.get('id');
+            this.creditCard = profileService
+                .profile()
+                ?.creditCards.find((c) => c.id === Number(creditCardId));
+            this.invoice = this.creditCard?.invoices[0];
+            this.isProfileLoading = profileService.loading;
+            changeDetector.detectChanges();
+        });
+    }
 
-    this.isProfileLoading = profileService.loading;
-    effect(() => {
-      const creditCardId = this.route.snapshot.paramMap.get('id');
-      this.creditCard = profileService.profile()?.creditCards
-        .find(c => c.id === Number(creditCardId));
-      this.invoice = this.creditCard?.invoices[0];
-      this.isProfileLoading = profileService.loading;
-      changeDetector.detectChanges();
-    });
-  }
+    get transactions(): TransactionDTO[] {
+        return this.invoice?.transactions ?? [];
+    }
 
-  get transactions(): TransactionDTO[] {
-    return this.invoice?.transactions ?? [];
-  }
+    calculateInvoiceTotal() {
+        const reduced = this.transactions.reduce(
+            (sum, transaction) => sum + Number(transaction.amount),
+            0
+        );
+        return `R$${currencyMasker(reduced.toFixed(2).toString())[0]}`;
+    }
 
-  calculateInvoiceTotal() {
-    const reduced = this.transactions.reduce((sum, transaction) => sum + Number(transaction.amount), 0);
-    return `R$${currencyMasker(reduced.toFixed(2).toString())[0]}`;
-  }
+    monthChanged(monthAndYear: Date) {
+        const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
+        this.today = monthAndYear;
 
-  monthChanged(monthAndYear: Date) {
-    const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
-    this.today = monthAndYear;
+        this.subscribeAndRender(
+            this.invoiceService.getInvoices(
+                this.creditCard!.id,
+                formattedMonth,
+                monthAndYear.getFullYear()
+            ),
+            (invoice) => {
+                this.invoice = invoice[0];
+            }
+        );
+    }
 
-    this.subscribeAndRender(
-      this.invoiceService.getInvoices(this.creditCard!.id, formattedMonth, monthAndYear.getFullYear()),
-      invoice => {
-        this.invoice = invoice[0];
-      }
-    )
-  }
-
-  deleteTransaction(deleteAll: boolean){
-    this.subscribeAndRender(
-      this.transactionService.delete(this.selectedTransaction!.id, deleteAll),
-      () => {
-        this.transactions.splice(this.transactions.indexOf(this.selectedTransaction!), 1);
-        this.selectedTransaction = undefined;
-        this.transactionModal?.close();
-        this.deletedTransactionModal?.show();
-      }
-    );
-  }
+    deleteTransaction(deleteAll: boolean) {
+        this.subscribeAndRender(
+            this.transactionService.delete(
+                this.selectedTransaction!.id,
+                deleteAll
+            ),
+            () => {
+                this.transactions.splice(
+                    this.transactions.indexOf(this.selectedTransaction!),
+                    1
+                );
+                this.selectedTransaction = undefined;
+                this.transactionModal?.close();
+                this.deletedTransactionModal?.show();
+            }
+        );
+    }
 }

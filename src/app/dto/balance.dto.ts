@@ -5,11 +5,11 @@ import TransactionDTO from './transaction.dto';
 type CreditCardsTotal = { [key: string]: number };
 
 export default interface BalanceDTO {
-  available: number;
-  creditCardExpenses: CreditCardsTotal;
-  creditCards: CreditCardDTO[];
-  expenses: number;
-  recurringExpenses: RecurringExpenseDTO[];
-  salary: number;
-  transactions: TransactionDTO[];
+    available: number;
+    creditCardExpenses: CreditCardsTotal;
+    creditCards: CreditCardDTO[];
+    expenses: number;
+    recurringExpenses: RecurringExpenseDTO[];
+    salary: number;
+    transactions: TransactionDTO[];
 }

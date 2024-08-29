@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    effect,
+    OnInit,
+} from '@angular/core';
 import LoadingComponent from '../../../lib/components/loading/loading.component';
 import BaseComponent from '../base.component';
 import { ProfileService } from '../../../services/profile.service';
@@ -14,71 +20,83 @@ import { CurrencyPipe } from '@angular/common';
 import CreditCardDTO from '../../../dto/credit-card.dto';
 
 @Component({
-  selector: 'app-balance',
-  standalone: true,
-  imports: [
-    LoadingComponent,
-    FormsModule,
-    InputDateComponent,
-    ReactiveFormsModule,
-    ChipComponent,
-    NoDataComponent,
-    TransactionCardComponent,
-    CurrencyPipe,
-  ],
-  templateUrl: './balance.component.html',
-  styleUrl: './balance.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-balance',
+    standalone: true,
+    imports: [
+        LoadingComponent,
+        FormsModule,
+        InputDateComponent,
+        ReactiveFormsModule,
+        ChipComponent,
+        NoDataComponent,
+        TransactionCardComponent,
+        CurrencyPipe,
+    ],
+    templateUrl: './balance.component.html',
+    styleUrl: './balance.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BalanceComponent extends BaseComponent implements OnInit  {
+export class BalanceComponent extends BaseComponent implements OnInit {
+    isProfileLoading = false;
+    balance?: BalanceDTO;
+    today = new Date();
 
-  isProfileLoading = false;
-  balance?: BalanceDTO;
-  today = new Date();
+    constructor(
+        readonly changeDetector: ChangeDetectorRef,
+        readonly profileService: ProfileService,
+        private readonly balanceService: BalanceService
+    ) {
+        super(changeDetector);
 
-  constructor(readonly changeDetector: ChangeDetectorRef,
-              readonly profileService: ProfileService,
-              private readonly balanceService: BalanceService) {
-    super(changeDetector);
-
-    this.isProfileLoading = profileService.loading;
-    effect(() => {
-      this.isProfileLoading = profileService.loading;
-      this.changeDetector.detectChanges();
-    });
-  }
-
-  ngOnInit() {
-    const month = format(this.today, 'MMM').toUpperCase();
-    this.subscribeAndRender(
-      this.balanceService.getBalance(month, this.today.getFullYear()),
-      (balance) => {
-        this.balance = balance;
-      }
-    );
-  }
-
-  calculatePercentage(creditCardId: number) {
-    return parseFloat(String((this.balance!.creditCardExpenses[creditCardId] / this.balance!.expenses) * 100)).toFixed(2);
-  }
-
-  monthChanged(monthAndYear: Date) {
-    const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
-
-    this.subscribeAndRender(
-      this.balanceService.getBalance(formattedMonth, monthAndYear.getFullYear()),
-      (balance) => {
-        this.balance = balance;
-      }
-    )
-  }
-
-  getTotal(creditCard: CreditCardDTO) {
-    if (creditCard.invoices?.[0]) {
-      return creditCard.invoices[0].transactions.reduce(
-        (sum, current) => sum + Number(current.amount), 0);
+        this.isProfileLoading = profileService.loading;
+        effect(() => {
+            this.isProfileLoading = profileService.loading;
+            this.changeDetector.detectChanges();
+        });
     }
 
-    return 0;
-  }
+    ngOnInit() {
+        const month = format(this.today, 'MMM').toUpperCase();
+        this.subscribeAndRender(
+            this.balanceService.getBalance(month, this.today.getFullYear()),
+            (balance) => {
+                this.balance = balance;
+            }
+        );
+    }
+
+    calculatePercentage(creditCardId: number) {
+        return parseFloat(
+            String(
+                (this.balance!.creditCardExpenses[creditCardId] /
+                    this.balance!.expenses) *
+                    100
+            )
+        ).toFixed(2);
+    }
+
+    monthChanged(monthAndYear: Date) {
+        const formattedMonth = format(monthAndYear, 'MMM').toUpperCase();
+
+        this.subscribeAndRender(
+            this.balanceService.getBalance(
+                formattedMonth,
+                monthAndYear.getFullYear()
+            ),
+            (balance) => {
+                this.balance = balance;
+            }
+        );
+    }
+
+    getTotal(creditCard: CreditCardDTO) {
+        if (creditCard.invoices?.[0]) {
+            return creditCard.invoices[0].transactions.reduce(
+                (sum, current) => sum + Number(current.amount),
+                0
+            );
+        }
+
+        return 0;
+    }
 }

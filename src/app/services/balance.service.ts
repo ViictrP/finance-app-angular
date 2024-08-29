@@ -5,15 +5,16 @@ import { Observable } from 'rxjs';
 import BalanceDTO from '../dto/balance.dto';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class BalanceService {
+    private readonly apiUrl = environment.API_URL;
 
-  private readonly apiUrl = environment.API_URL;
+    constructor(private readonly httpClient: HttpClient) {}
 
-  constructor(private readonly httpClient: HttpClient) { }
-
-  getBalance(month: string, year: string | number): Observable<BalanceDTO> {
-    return this.httpClient.get<BalanceDTO>(`${this.apiUrl}/v1/users/balance?month=${month}&year=${year}`);
-  }
+    getBalance(month: string, year: string | number): Observable<BalanceDTO> {
+        return this.httpClient.get<BalanceDTO>(
+            `${this.apiUrl}/v1/users/balance?month=${month}&year=${year}`
+        );
+    }
 }
