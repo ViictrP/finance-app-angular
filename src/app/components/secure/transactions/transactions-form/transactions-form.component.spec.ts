@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TransactionsFormComponent } from './transactions-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('TransactionsFormComponent', () => {
   let component: TransactionsFormComponent;
@@ -9,11 +9,9 @@ describe('TransactionsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        TransactionsFormComponent
-      ]
-    })
+    imports: [TransactionsFormComponent],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TransactionsFormComponent);

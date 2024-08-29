@@ -1,20 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { firebaseAppConfig, firebaseAppModules } from '../helper/testing/firebase-mock.helper';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        firebaseAppModules
-      ],
-      providers: [firebaseAppConfig]
-    });
+    imports: [firebaseAppModules],
+    providers: [firebaseAppConfig, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(AuthService);
   });
 
