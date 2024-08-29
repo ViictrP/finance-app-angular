@@ -1,4 +1,4 @@
-import { importProvidersFrom } from '@angular/core';
+import { ImportProvidersSource } from '@angular/core';
 import { FirebaseAppModule, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AuthModule } from '@angular/fire/auth';
 
@@ -7,8 +7,8 @@ export const firebaseAppModules = [
   FirebaseAppModule
 ];
 
-export const firebaseAppConfig =  importProvidersFrom([
-  provideFirebaseApp(() => initializeApp({
-    projectId: "my-test-project"
-  })),
-]);
+export const firebaseAppConfig = (provideFirebaseApp(() =>
+    initializeApp({
+        projectId: 'my-test-project'
+    })
+) as unknown) as ImportProvidersSource;
