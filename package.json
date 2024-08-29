@@ -11,7 +11,7 @@
         "test:watch": "ng test --watch",
         "serve:ssr": "node dist/finance-app-angular/server/server.mjs",
         "prepare": "husky install",
-        "lint": "ng lint && npx prettier --check .",
+        "lint": "ng lint && npx prettier --write \"**/*.{js,ts,html,css}\"",
         "postinstall": "chmod +x ./scripts/*.js"
     },
     "private": true,
