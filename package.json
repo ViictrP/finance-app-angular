@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:watch": "ng test --watch",
-    "serve:ssr:finance-app-angular": "node dist/finance-app-angular/server/server.mjs",
+    "serve:ssr": "node dist/finance-app-angular/server/server.mjs",
     "prepare": "husky install",
     "lint": "ng lint",
     "postinstall": "chmod +x ./scripts/*.js"
