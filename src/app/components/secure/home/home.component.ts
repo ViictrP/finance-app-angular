@@ -89,9 +89,9 @@ export class HomeComponent extends BaseComponent {
   }
 
   getUpOrdown(): number {
-    const lastMonthExpensesAmount = this.profile?.monthClosures[this.profile?.monthClosures.length - 1];
+    const lastMonthExpensesAmount = this.profile?.monthClosures[0];
     if (lastMonthExpensesAmount && this.totalExpensesAmount) {
-      return lastMonthExpensesAmount!.expenses - this.totalExpensesAmount
+      return lastMonthExpensesAmount.expenses - this.totalExpensesAmount
     }
     return 0;
   }
