@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreditCardFormComponent } from './credit-card-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreditCardFormComponent', () => {
@@ -10,12 +10,10 @@ describe('CreditCardFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientModule,
-        CreditCardFormComponent
-      ]
-    })
+    imports: [RouterTestingModule,
+        CreditCardFormComponent],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CreditCardFormComponent);

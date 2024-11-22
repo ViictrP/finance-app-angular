@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreditCardsComponent } from './credit-cards.component';
 import { ProfileService } from '../../../services/profile.service';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('CreditCardsComponent', () => {
   let component: CreditCardsComponent;
@@ -10,12 +10,9 @@ describe('CreditCardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [ProfileService],
-      imports: [
-        CreditCardsComponent,
-        HttpClientModule
-      ]
-    })
+    imports: [CreditCardsComponent],
+    providers: [ProfileService, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CreditCardsComponent);

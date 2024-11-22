@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { firebaseAppConfig, firebaseAppModules } from '../../../helper/testing/firebase-mock.helper';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -32,15 +32,13 @@ describe('HomeComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [
-        firebaseAppModules,
-        HttpClientModule,
-        HomeComponent
-      ],
-      providers: [
-        firebaseAppConfig
-      ]
-    })
+    imports: [firebaseAppModules,
+        HomeComponent],
+    providers: [
+        firebaseAppConfig,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);

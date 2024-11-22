@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { firebaseAppModules, firebaseAppConfig } from '../../../helper/testing/firebase-mock.helper';
@@ -12,17 +12,15 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        LoginComponent,
-        ...firebaseAppModules
-      ],
-      providers: [
+    imports: [LoginComponent,
+        ...firebaseAppModules],
+    providers: [
         AuthService,
         AngularFireAuth,
-        firebaseAppConfig
-      ],
-    })
+        firebaseAppConfig,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
